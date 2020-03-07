@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand navbar-light mb-3">
+  <div class="container">
+
+    <% if user_signed_in? %>
+    <%= link_to user_path(current_user), class: "avatar-user-name nav-link mr-3 p-0" do %>
+    <div class="nav-username d-none d-sm-flex">
+      <div style="font-size: 1.05rem;">@</div>
+      <div class="nav-username-text"><%= current_user.username %></div>
+    </div>
+    <% end %>
+    <%= link_to 'プロフィール変更', edit_user_registration_path %>
+    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+    <% else %>
+    <%= link_to 'ログイン', new_user_session_path %>
+    <%= link_to '会員登録', new_user_registration_path %>
+    <% end %>
+  </div>
+</nav>

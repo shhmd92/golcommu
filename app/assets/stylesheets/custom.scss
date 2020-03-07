@@ -1,0 +1,17 @@
+/* mixins, variables, etc. */
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* universal */
+
+
+
+/* header */
+
+.navbar {
+  height: 65px;
+}
