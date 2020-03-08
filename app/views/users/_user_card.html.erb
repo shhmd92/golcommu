@@ -1,0 +1,24 @@
+<div class="user-card d-flex align-items-center">
+  <div style="width: 100%">
+
+    <!-- アイコン -->
+    <div class="d-flex align-items-end justify-content-center mb-3">
+
+    </div>
+    <!-- ユーザーネーム -->
+    <div class="user-card-names-container d-flex justify-content-center mb-2">
+      <div class="user-card-names text-center">
+        <div class="user-username"><%= link_to user_card.username, user_path(user_card) %></div>
+      </div>
+    </div>
+    <!-- ボタン -->
+    <% if user_signed_in? %>
+    <%# <%= render 'users/card_follow_form', object: user %> %>
+    <% if current_user.admin? && user_card != current_user %>
+    <%= render 'delete_user_modal', user: user_card %>
+    <a class="btn delete rounded-pill" data-toggle="modal" data-target="#delete_user_modal">削除</a>
+    <% end %>
+    <% end %>
+
+  </div>
+</div>

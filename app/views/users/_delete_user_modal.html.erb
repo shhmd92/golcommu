@@ -1,0 +1,13 @@
+<div class="modal" id="delete_user_modal" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        このユーザーを削除しますか？
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">キャンセル</button>
+        <%= link_to "削除", user, class: "btn", style: "color: #f90e43;", method: :delete %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand navbar-light mb-3">
   <div class="container">
-
+    <%= link_to website_name, root_path, class: "navbar-brand font-weight-bold" %>
+    <%= link_to "メンター一覧", users_path, class: "navbar-users nav-item nav-link active px-0 mr-1" %>
     <% if user_signed_in? %>
     <%= link_to user_path(current_user), class: "avatar-user-name nav-link mr-3 p-0" do %>
     <div class="nav-username d-none d-sm-flex">
@@ -13,7 +14,7 @@
     <% else %>
     <%= link_to 'ログイン', new_user_session_path %>
     <%= render 'layouts/modal' %>
-    <button type="button" class="btn btn-primary mt-5" data-toggle="modal" data-target="#modal">お試しログイン</button>
+    <button type="button" class="btn btn-primary mt-1" data-toggle="modal" data-target="#modal">お試しログイン</button>
     <%= link_to '会員登録', new_user_registration_path %>
     <% end %>
   </div>

@@ -15,3 +15,15 @@
 .navbar {
   height: 65px;
 }
+
+/* footer */
+
+
+/* user-index */
+.user-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  padding: 0 15px;
+  margin-bottom: 15px;
+}
