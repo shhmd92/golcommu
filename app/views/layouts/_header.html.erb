@@ -4,10 +4,42 @@
     <%= link_to "メンター一覧", users_path, class: "navbar-users nav-item nav-link active px-0 mr-1" %>
     <% if user_signed_in? %>
     <%= link_to user_path(current_user), class: "avatar-user-name nav-link mr-3 p-0" do %>
-    <div class="nav-username d-none d-sm-flex">
-      <div style="font-size: 1.05rem;">@</div>
-      <div class="nav-username-text"><%= current_user.username %></div>
+    <% end %>
+    <% if current_user.avatar?%>
+    <%= link_to image_tag(current_user.avatar.thum.url, class: "avatar-img rounded-circle z-depth-0",
+                                    alt: "nav avatar image"), user_path(current_user), class: "nav-link p-0" %>
+    <% else %>
+    <%= link_to image_tag("fallback/default_user_avatar.png", class: "avatar-img rounded-circle z-depth-0",
+                                    alt: "nav avatar image"), user_path(current_user), class: "nav-link p-0" %>
+    <div class="dropdown">
+      <%= image_tag 'fallback/default_user_avatar.png' %>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a href="https://menta.work/user/13874"><i class="fas fa-id-card"></i>　プロフィール</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+      </div>
     </div>
+
+    <div class="dropdown">
+      <!-- 切替ボタンの設定 -->
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        ドロップダウンリンク
+      </a>
+      <!-- ドロップメニューの設定 -->
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="#">メニュー1</a>
+        <a class="dropdown-item" href="#">メニュー2</a>
+        <a class="dropdown-item" href="#">メニュー3</a>
+      </div><!-- /.dropdown-menu -->
+    </div>
+
+    <!-- hover で開くようにする -->
+    <style>
+      .dropdown:hover>.dropdown-menu {
+        display: block;
+      }
+    </style>
     <% end %>
     <%= link_to 'プロフィール変更', edit_user_registration_path %>
     <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
