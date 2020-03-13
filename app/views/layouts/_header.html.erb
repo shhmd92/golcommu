@@ -12,11 +12,20 @@
     <%= link_to image_tag("fallback/default_user_avatar.png", class: "avatar-img rounded-circle z-depth-0",
                                     alt: "nav avatar image"), user_path(current_user), class: "nav-link p-0" %>
     <div class="dropdown">
-      <%= image_tag 'fallback/default_user_avatar.png' %>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a href="https://menta.work/user/13874"><i class="fas fa-id-card"></i>　プロフィール</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
+      <%= image_tag 'fallback/default_user_avatar.png', :size =>'30x30' %>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a href="https://menta.work/user/13874">　プロフィール<i class="fas fa-id-card"></i></a>
+      </div>
+    </div>
+    <div class="dropdown mr-1">
+      <button type="button" class="btn dropdown-toggle setting-btn py-0 px-1" , data-toggle="dropdown" ,
+        data-offset="0,10" , aria-haspopup="true" , aria-expanded="false" , style="box-shadow: none">
+        <i　class="fas fa-ellipsis-h"></i></button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item d-flex align-items-center" style="color: #f90e43; cursor: pointer;" data-toggle="modal"
+          data-target="#post_modal">
+          <div style="width: 100%">投稿を削除</div><i class="fas fa-trash-alt"></i>
+        </a>
       </div>
     </div>
 
@@ -34,12 +43,6 @@
       </div><!-- /.dropdown-menu -->
     </div>
 
-    <!-- hover で開くようにする -->
-    <style>
-      .dropdown:hover>.dropdown-menu {
-        display: block;
-      }
-    </style>
     <% end %>
     <%= link_to 'プロフィール変更', edit_user_registration_path %>
     <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
