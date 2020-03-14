@@ -8,7 +8,13 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
-  resources :users
+  resources :users do
+    collection do
+      get :following, :followers
+    end
+  end
+
+  resources :relationships,       only: [:create, :destroy]
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

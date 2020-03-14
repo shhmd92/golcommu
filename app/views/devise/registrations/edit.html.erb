@@ -1,6 +1,6 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_with model: @user, url: user_registration_path, id: 'edit_user', class: 'edit_user', local: true do |f| %>
+<%= form_with(model: @user, url: user_registration_path, id: 'edit_user', class: 'edit_user', html: { method: :put }, local: true) do |f| %>
 <%= render "devise/shared/error_messages", resource: resource %>
 
 <div class="field">
@@ -31,7 +31,7 @@
 <!-- ラジオボタンにしたい -->
 <div class="field">
   <%= f.label :アベレージスコア %><br>
-  <%= f.select :score_average, User.score_averages.keys,{prompt: '選択してください'}, class: 'form-control btn btn-info' %>
+  <%= f.select :average_score, User.average_scores.keys,{prompt: '選択してください'}, class: 'form-control btn btn-info' %>
 </div>
 
 <!-- ラジオボタンにしたい -->

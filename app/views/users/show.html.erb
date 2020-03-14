@@ -1,2 +1,4 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+フォロー
+<div class="status-value" id="following_<%= @user.id %>"><%= @user.following.count.to_s(:delimited) %></div>
+フォロワー
+<div class="status-value" id="followed_<%= @user.id %>"><%= @user.followers.count.to_s(:delimited) %></div>

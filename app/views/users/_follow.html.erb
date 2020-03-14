@@ -1,0 +1,4 @@
+<%= form_with(model: current_user.active_relationships.build) do |f| %>
+<div><%= hidden_field_tag :followed_id, object.id %></div>
+<%= f.submit "フォロー", class: "btn follow rounded-pill d-flex align-items-center justify-content-center" %>
+<% end %>

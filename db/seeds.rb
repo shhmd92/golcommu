@@ -1,4 +1,4 @@
-Faker::Config.locale = :ja
+Faker::Config.locale = :en
 
 # 管理ユーザー作成
 admin = User.create!(username: "管理者",
@@ -30,3 +30,11 @@ User.create!(username: "ゲスト",
                confirmation_sent_at: Time.zone.now,
                )
 end
+
+# リレーションシップ
+users = User.all
+user  = users.first
+following = users[2..50]
+followers = users[3..40]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }
