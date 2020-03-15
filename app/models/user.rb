@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
+  has_many :posts, dependent: :destroy
 
   has_many :active_relationships,  class_name: 'Relationship',
                                    foreign_key: 'follower_id',
@@ -39,6 +40,10 @@ class User < ApplicationRecord
     シングル（70台）: 1, けっこう上手い（80台）: 2, わりと上手い（90台）: 3,
     まあまま（100台）: 4, まだまだ（110〜120台）: 5, ぜんぜん（130台〜）: 6
   }
+
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
 
   # ユーザーをフォローする
   def follow(other_user)

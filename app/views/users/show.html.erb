@@ -1,4 +1,23 @@
-フォロー
-<div class="status-value" id="following_<%= @user.id %>"><%= @user.following.count.to_s(:delimited) %></div>
-フォロワー
-<div class="status-value" id="followed_<%= @user.id %>"><%= @user.followers.count.to_s(:delimited) %></div>
+<% provide(:title, @user.username) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= @user.username %>
+      </h1>
+      フォロー
+      <div class="status-value" id="following_<%= @user.id %>"><%= @user.following.count.to_s(:delimited) %></div>
+      フォロワー
+      <div class="status-value" id="followed_<%= @user.id %>"><%= @user.followers.count.to_s(:delimited) %></div>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <% if @user.posts.any? %>
+    <h3>Microposts (<%= @user.posts.count %>)</h3>
+    <ol class="posts">
+      <%= render partial: 'posts/post_card', collection: @posts %>
+    </ol>
+    <%= paginate(@posts) %>
+    <% end %>
+  </div>
+</div>

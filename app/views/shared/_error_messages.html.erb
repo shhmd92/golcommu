@@ -1,0 +1,8 @@
+<% if object.errors.any? %>
+<div class="error_explanation text-center font-weight-bold mb-4" style="max-width: 1000px">
+  <span class="fas fa-exclamation-circle mr-1"></span>
+  <% object.errors.full_messages.each do |message| %>
+  <%= message %>。
+  <% end %>
+</div>
+<% end %>

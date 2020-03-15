@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-8">
+    <%= render 'posts/new_post_card' %>
+  </div>
+  <div class="col-md-8">
+    <% if @posts.any? %>
+    <h3>Microposts (<%= @posts.count %>)</h3>
+    <ol class="posts">
+      <%= render partial: 'posts/post_card', collection: @posts %>
+    </ol>
+    <%= paginate(@posts) %>
+    <% end %>
+  </div>
+</div>
