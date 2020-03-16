@@ -14,8 +14,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts,               only: [:new, :create, :destroy]
+  resources :posts, except: [:index], param: :url_token do
+    resources :comments, only: [:create, :destroy]
+  end
+
   resources :relationships,       only: [:create, :destroy]
+
+  resources :users, path: '/', only: [:show, :edit, :update, :destroy], constraints: { id: /[^\/]+/ }
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

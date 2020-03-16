@@ -6,6 +6,12 @@ class PostsController < ApplicationController
     @post = current_user.posts.build if user_signed_in?
   end
 
+  def show
+    @post = Post.find_by(url_token: params[:url_token])
+    @comments = @post.comments
+    @comment = Comment.new
+  end
+
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
@@ -29,7 +35,7 @@ class PostsController < ApplicationController
   end
 
   def correct_user
-    @post = current_user.posts.find_by(id: params[:id])
+    @post = current_user.posts.find_by(url_token: params[:url_token])
     redirect_to root_url if @post.nil?
     end
 end

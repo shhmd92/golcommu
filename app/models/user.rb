@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
   has_many :posts, dependent: :destroy
-
+  has_many :comments
   has_many :active_relationships,  class_name: 'Relationship',
                                    foreign_key: 'follower_id',
                                    dependent: :destroy
@@ -12,6 +12,9 @@ class User < ApplicationRecord
                                    dependent: :destroy
   has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+
+  validates :username, presence: true
+  validates :username, uniqueness: { case_sensitive: false }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -41,8 +44,12 @@ class User < ApplicationRecord
     まあまま（100台）: 4, まだまだ（110〜120台）: 5, ぜんぜん（130台〜）: 6
   }
 
+  def to_param
+    username
+  end
+
   def feed
-    Micropost.where("user_id = ?", id)
+    Micropost.where('user_id = ?', id)
   end
 
   # ユーザーをフォローする

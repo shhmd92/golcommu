@@ -1,13 +1,13 @@
 <li id="post-<%= post_card.id %>">
   <!-- gravatar_for使いたい -->
-  <span class="user"><%= link_to post_card.user.username, post_card.user %></span>
-  <span class="title"><%= post_card.title %></span>
+  <span class="user"><%= link_to post_card.user.username, user_path(post_card.user) %></span>
+  <span class="title"><%= link_to post_card.title, post_path(post_card) %></span>
   <span><%= image_tag post_card.image.url if post_card.image? %></span>
   <span class="timestamp">
     <%= time_ago_in_words(post_card.created_at) %>前に作成
   </span>
   <% if current_user?(post_card.user) %>
-  <%= link_to "ゴミ箱", post_card, method: :delete,
-                                       data: { confirm: "投稿を削除しますか？" } %>
+  <%= link_to "ゴミ箱", post_card, method: :delete, 
+      data: { confirm: "投稿を削除しますか？" } %>
   <% end %>
 </li>
