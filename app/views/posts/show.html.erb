@@ -6,13 +6,13 @@
 <h2>コメント一覧</h2>
 <% @comments.each do |c| %>
 <div>
-  <a href="/users/<%= @post.user.id %>"><%= c.user.email %></a>
+  <div class="user-username"><%= link_to @post.user.username, user_path(@post.user) %></div>
   <%= c.content %>
-  <hr>
 </div>
 <% end %>
 
-<%= form_for [@post, @comment] do |f| %>
+<%= form_with(model: [@post, @comment] ) do |f| %>
+<%= hidden_field_tag :post_id, @post.id %>
 <%= f.text_field :content %>
 <br>
 <%= f.submit 'コメントする' %>

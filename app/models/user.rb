@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
   has_many :posts, dependent: :destroy
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_many :active_relationships,  class_name: 'Relationship',
                                    foreign_key: 'follower_id',
                                    dependent: :destroy
@@ -13,8 +13,7 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
-  validates :username, presence: true
-  validates :username, uniqueness: { case_sensitive: false }
+  validates :username, presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z0-9_]+\z/ }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
