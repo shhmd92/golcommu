@@ -1,9 +1,15 @@
 class Post < ApplicationRecord
+  mount_uploader :image, ImageUploader
+
   belongs_to :user
   default_scope -> { order(created_at: :desc) }
-  before_validation :generate_url_token, on: :create
-  mount_uploader :image, ImageUploader
+
+  has_many :likes
+  has_many :liked_users, through: :likes, source: :user
   has_many :comments, dependent: :destroy
+
+  before_validation :generate_url_token, on: :create
+
   validates :title, presence: true
   validates :content, length: { maximum: 240 }
   validates :user_id, presence: true
