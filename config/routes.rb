@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   end
 
   resources :relationships, only: [:create, :destroy]
-  resources :likes,         only: [:create, :destroy]
+  resources :likes, only: [:create, :destroy]
 
   resources :users, path: '/', only: [:show, :edit, :update, :destroy], constraints: { id: /[^\/]+/ }
 
