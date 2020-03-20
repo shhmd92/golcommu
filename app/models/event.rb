@@ -1,4 +1,4 @@
-class Post < ApplicationRecord
+class Event < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   belongs_to :user
@@ -6,6 +6,8 @@ class Post < ApplicationRecord
 
   has_many :likes
   has_many :liked_users, through: :likes, source: :user
+  has_many :participants
+  has_many :participant_users, through: :participants, source: :user
   has_many :comments, dependent: :destroy
 
   before_validation :generate_url_token, on: :create

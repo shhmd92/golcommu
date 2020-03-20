@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by!(username: params[:id])
 
-    @posts = @user.posts.page(params[:page]).per(20)
+    @events = @user.events.page(params[:page]).per(20)
 
     @following = @user.following.page(params[:page]).per(20)
     @followers = @user.followers.page(params[:page]).per(20)

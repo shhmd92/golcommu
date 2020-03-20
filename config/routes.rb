@@ -14,12 +14,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts, except: [:index], param: :url_token do
+  resources :events, except: [:index], param: :url_token do
     resources :comments, only: [:create, :destroy]
   end
 
   resources :relationships, only: [:create, :destroy]
   resources :likes, only: [:create, :destroy]
+  resources :participants, only: [:create, :destroy]
 
   resources :users, path: '/', only: [:show, :edit, :update, :destroy], constraints: { id: /[^\/]+/ }
 

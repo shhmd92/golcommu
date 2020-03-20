@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_18_124251) do
+ActiveRecord::Schema.define(version: 2020_03_20_060104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,23 +18,14 @@ ActiveRecord::Schema.define(version: 2020_03_18_124251) do
   create_table "comments", force: :cascade do |t|
     t.string "content"
     t.bigint "user_id"
-    t.bigint "post_id"
+    t.bigint "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["event_id"], name: "index_comments_on_event_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "likes", force: :cascade do |t|
-    t.bigint "post_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_likes_on_post_id"
-    t.index ["user_id"], name: "index_likes_on_user_id"
-  end
-
-  create_table "posts", force: :cascade do |t|
+  create_table "events", force: :cascade do |t|
     t.string "title"
     t.text "content"
     t.string "image"
@@ -42,8 +33,29 @@ ActiveRecord::Schema.define(version: 2020_03_18_124251) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "url_token"
-    t.index ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at"
-    t.index ["user_id"], name: "index_posts_on_user_id"
+    t.date "event_date"
+    t.time "start_time"
+    t.time "end_time"
+    t.index ["user_id", "created_at"], name: "index_events_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "event_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_likes_on_event_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_participants_on_event_id"
+    t.index ["user_id"], name: "index_participants_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -71,9 +83,9 @@ ActiveRecord::Schema.define(version: 2020_03_18_124251) do
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
     t.string "avatar"
+    t.string "name"
     t.text "introduction"
     t.integer "play_type"
-    t.integer "prefecture", default: 0
     t.integer "average_score"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -81,9 +93,11 @@ ActiveRecord::Schema.define(version: 2020_03_18_124251) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "events"
   add_foreign_key "comments", "users"
-  add_foreign_key "likes", "posts"
+  add_foreign_key "events", "users"
+  add_foreign_key "likes", "events"
   add_foreign_key "likes", "users"
-  add_foreign_key "posts", "users"
+  add_foreign_key "participants", "events"
+  add_foreign_key "participants", "users"
 end

@@ -12,12 +12,12 @@
     </section>
   </aside>
   <div class="col-md-8">
-    <% if @user.posts.any? %>
-    <h3>Microposts (<%= @user.posts.count %>)</h3>
-    <ol class="posts">
-      <%= render partial: 'posts/post_card', collection: @posts %>
+    <% if @user.events.any? %>
+    <h3>Microposts (<%= @user.events.count %>)</h3>
+    <ol class="events">
+      <%= render partial: 'events/event_card', collection: @events %>
     </ol>
-    <%= paginate(@posts) %>
+    <%= paginate(@events) %>
     <% end %>
   </div>
 </div>

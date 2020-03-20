@@ -17,9 +17,9 @@
   <%= image_tag 'fallback/default_user_avatar.png' %>
   <%= f.hidden_field :avatar_cache %>
   <% end %>
-  <label for="post_img" class="btn submit-btn" style="cursor:pointer;">
+  <label for="event_img" class="btn submit-btn" style="cursor:pointer;">
     <div style="white-space: nowrap;">画像を変更</div>
-    <%= f.file_field :avatar, id: 'post_img', class: "d-none" %>
+    <%= f.file_field :avatar, id: 'event_img', class: "d-none" %>
   </label>
 </div>
 
@@ -38,11 +38,6 @@
 <div class="field">
   <%= f.label :プレータイプ %><br>
   <%= f.select :play_type, User.play_types.keys,{prompt: '選択してください'}, class: 'form-control btn btn-info' %>
-</div>
-
-<div class="field">
-  <%= f.label :所在地 %><br>
-  <%= f.select :prefecture, User.prefectures.keys, {prompt: '選択してください'}, class: 'form-control btn btn-info' %>
 </div>
 
 <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
