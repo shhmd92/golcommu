@@ -61,7 +61,7 @@ class User < ApplicationRecord
   end
 
   # ユーザーが既に該当イベントに参加しているか
-  def already_joined?(event)
+  def already_participated?(event)
     participants.exists?(event_id: event.id)
   end
 end

@@ -8,16 +8,18 @@
     <!-- ユーザーネーム -->
     <div class="user-card-names-container d-flex justify-content-center mb-2">
       <div class="user-card-names text-center">
-        <div class="user-username"><%= link_to user_card.username, user_path(user_card) %></div>
+        <div class="user-username">
+          <%= link_to user_card.username, user_path(user_card) %>
+        </div>
       </div>
     </div>
     <!-- ボタン -->
     <% if user_signed_in? %>
-    <%= render 'users/follow_form', object: user_card %>
-    <% if current_user.admin? && user_card != current_user %>
-    <%= render 'delete_user_modal', user: user_card %>
-    <a class="btn delete rounded-pill" data-toggle="modal" data-target="#delete_user_modal">削除</a>
-    <% end %>
+      <%= render 'users/follow_form', object: user_card %>
+      <% if current_user.admin? && user_card != current_user %>
+        <%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_USER_MODAL_MODE, object: user_card} %>
+        <a class="btn delete rounded-pill" data-toggle="modal" data-target="#modal">削除</a>
+      <% end %>
     <% end %>
 
   </div>

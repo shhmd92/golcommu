@@ -1,21 +1,48 @@
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<!-- 変数.modeによって内容を変更する -->
+<div class="modal" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">お試しログイン</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
       <div class="modal-body">
-        ログインすることでこちらのサイトをお試しになれます。
+        <% if(mode == ApplicationHelper::EASY_LOGIN_MODAL_MODE) %>
+          ログインすることでこちらのサイトをお試しになれます。
+        <% elsif (mode == ApplicationHelper::DELETE_USER_MODAL_MODE) %>
+          このユーザーを削除しますか？
+        <% elsif (mode == ApplicationHelper::PARTICIPATE_EVENT_MODAL_MODE) %>
+          このイベントに参加しますか？
+        <% elsif (mode == ApplicationHelper::STOP_PARTICIPATE_EVENT_MODAL_MODE) %>
+          このイベントの参加をやめますか？
+        <% end %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal">キャンセル</button>
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <%= f.hidden_field :email, {value: 'guest@example.com'} %>
-        <%= f.hidden_field :password, value: "guestpassword" %>
-        <%= f.submit "ログイン", class: "btn btn-primary"%>
+        <% if(mode == ApplicationHelper::EASY_LOGIN_MODAL_MODE) %>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <%= f.hidden_field :email, {value: 'guest@example.com'} %>
+            <%= f.hidden_field :password, value: "guestpassword" %>
+            <%= f.submit "ログイン", class: "btn btn-primary"%>
+          <% end %>
+        <% elsif (mode == ApplicationHelper::DELETE_USER_MODAL_MODE) %>
+          <%= link_to "削除", object, class: "btn", style: "color: #f90e43;", method: :delete %>
+        <% elsif (mode == ApplicationHelper::PARTICIPATE_EVENT_MODAL_MODE) %>
+          <%= form_with(model: object.participants.build, local: true) do |f| %>
+            <div>
+              <%= hidden_field_tag :event_id, object.id %>
+            </div>
+            <%= button_tag(class: "btn like-sm rounded-pill d-flex d-sm-none align-items-center justify-content-center px-3") do %>
+              <i class="far fa-thumbs-up" style="font-size: 1.1rem;"></i>
+            <% end %>
+            <%= button_tag(class: "btn like rounded-pill d-none d-sm-flex align-items-center justify-content-center px-3") do %>
+              参加する<i class="far fa-thumbs-up"></i>
+            <% end %>
+          <% end %>
+        <% elsif (mode == ApplicationHelper::STOP_PARTICIPATE_EVENT_MODAL_MODE) %>
+          <%= form_with(model: object.participants.find_by(user_id: current_user.id), html: { method: :delete }, local: true) do |f| %>
+            <div><%= hidden_field_tag :event_id, object.id %></div>
+              <%= button_tag(class: "btn unlike-sm rounded-pill d-flex d-sm-none align-items-center justify-content-center px-3") do %>
+                <i class="fas fa-check" style="font-size: 1.1rem; position: relative; top: 1px;"></i>
+              <% end %>
+            <%= f.submit "参加をやめる", class: "btn unlike rounded-pill d-none d-sm-flex align-items-center justify-content-center px-3" %>
+          <% end %>
         <% end %>
       </div>
     </div>

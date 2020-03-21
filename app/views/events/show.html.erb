@@ -3,8 +3,9 @@
 <h3><%= @event.title %></h3>
 <h3><%= @event.content %></h3>
 
+<!-- いいね -->
 <%= render 'events/like_form', event: @event %>
-
+<!-- 参加者 -->
 <%= render 'events/participants_form', event: @event %>
 
 <h2>コメント一覧</h2>
