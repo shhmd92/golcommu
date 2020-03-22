@@ -1,3 +1,11 @@
+<%= search_form_for @search, url: root_path do |f| %>
+  <div class="form-group">
+    <%= f.label :content_cont, "地域" %>
+    <%= f.search_field :content_cont, class: "form-control" %>
+  </div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>
+
 <div class="row">
   <div class="col-md-8">
     <%= render 'events/new_event_card' %>

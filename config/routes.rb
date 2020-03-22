@@ -10,12 +10,15 @@ Rails.application.routes.draw do
 
   resources :users do
     collection do
-      get :following, :followers
+      get :following, :followers, :search
     end
   end
 
   resources :events, except: [:index], param: :url_token do
     resources :comments, only: [:create, :destroy]
+    collection do
+      get :search
+    end
   end
 
   resources :relationships, only: [:create, :destroy]

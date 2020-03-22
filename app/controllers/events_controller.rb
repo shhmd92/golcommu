@@ -27,7 +27,7 @@ class EventsController < ApplicationController
     @event.destroy
     flash[:success] = '投稿を削除しました'
     redirect_to request.referer || root_url
-  end
+  endz
 
   private
 
@@ -39,4 +39,4 @@ class EventsController < ApplicationController
     @event = current_user.evens.find_by(url_token: params[:url_token])
     redirect_to root_url if @event.nil?
     end
-end
+  end
