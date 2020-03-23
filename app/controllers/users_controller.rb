@@ -2,11 +2,12 @@ class UsersController < ApplicationController
   before_action :admin_user,     only: :destroy
 
   def index
-    @users = User.page(params[:page]).per(20)
+    @search = User.ransack(params[:q])
+    @users = @search.result.page(params[:page]).per(20)
   end
 
   def show
-    @user = User.find_by!(username: params[:id])
+    @user = User.find_by!(url_token: params[:url_token])
 
     @events = @user.events.page(params[:page]).per(20)
 

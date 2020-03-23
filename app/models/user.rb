@@ -18,7 +18,10 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
-  validates :username, presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z0-9_]+\z/ }
+  before_validation :generate_url_token, on: :create
+
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
+  validates :url_token, presence: true, uniqueness: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -37,7 +40,7 @@ class User < ApplicationRecord
   }
 
   def to_param
-    username
+    url_token
   end
 
   # ユーザーをフォローする
@@ -63,5 +66,11 @@ class User < ApplicationRecord
   # ユーザーが既に該当イベントに参加しているか
   def already_participated?(event)
     participants.exists?(event_id: event.id)
+  end
+
+  private
+
+  def generate_url_token
+    self.url_token = SecureRandom.urlsafe_base64
   end
 end

@@ -1,13 +1,19 @@
-<li id="event-<%= event_card.id %>">
-  <!-- gravatar_for使いたい -->
-  <span class="user"><%= link_to event_card.user.username, user_path(event_card.user) %></span>
-  <span class="title"><%= link_to event_card.title, event_path(event_card) %></span>
-  <span><%= image_tag event_card.image.url if event_card.image? %></span>
-  <span class="timestamp">
-    <%= time_ago_in_words(event_card.created_at) %>前に作成
-  </span>
-  <% if current_user?(event_card.user) %>
-  <%= link_to "ゴミ箱", event_card, method: :delete, 
-      data: { confirm: "投稿を削除しますか？" } %>
-  <% end %>
-</li>
+<div class="contentCard">
+  <div class="contentCard_face">
+  </div>
+  <div class="contentCard_body">
+    <li id="event-<%= event_card.id %>">
+      <!-- gravatar_for使いたい -->
+      <span class="user"><%= link_to event_card.user.username, user_path(event_card.user) %></span>
+      <span class="title"><%= link_to event_card.title, event_path(event_card) %></span>
+      <span><%= image_tag event_card.image.url if event_card.image? %></span>
+      <span class="timestamp">
+        <%= time_ago_in_words(event_card.created_at) %>前に作成
+      </span>
+      <% if current_user?(event_card.user) %>
+      <%= link_to "ゴミ箱", event_card, method: :delete, 
+          data: { confirm: "投稿を削除しますか？" } %>
+      <% end %>
+    </li>
+  </div>
+</div>

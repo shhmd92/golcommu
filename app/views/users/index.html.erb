@@ -1,5 +1,13 @@
 <% provide(:title, 'すべてのユーザー') %>
 
+<%= search_form_for @search, url: users_path do |f| %>
+  <div class="form-group">
+    <%= f.label :username_cont, "ユーザ名" %>
+    <%= f.search_field :username_cont, class: "form-control" %>
+  </div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>
+
 <div class="page-header d-flex align-items-center mx-auto mb-4">すべてのメンター</div>
 
 <div class="all-users user-cards row">
