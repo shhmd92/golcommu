@@ -1,3 +1,6 @@
+/* gloval */
+$main_color: #20c997;
+
 /* mixins, variables, etc. */
 
 @mixin box_sizing {
@@ -13,7 +16,8 @@
 /* header */
 
 .navbar {
-  height: 65px;
+  height: 55px;
+  color: $main_color;
 }
 
 /* footer */

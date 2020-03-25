@@ -1,56 +1,56 @@
-<nav class="navbar navbar-expand navbar-light mb-3">
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
   <div class="container">
     <%= link_to ApplicationHelper::WEBSITE_NAME, root_path, class: "navbar-brand font-weight-bold" %>
     <%= link_to "メンター一覧", users_path, class: "navbar-users nav-item nav-link active px-0 mr-1" %>
     <% if user_signed_in? %>
-    <%= link_to user_path(current_user), class: "avatar-user-name nav-link mr-3 p-0" do %>
-    <% end %>
-    <% if current_user.avatar?%>
-    <%= link_to image_tag(current_user.avatar.thum.url, class: "avatar-img rounded-circle z-depth-0",
+      <%= link_to user_path(current_user), class: "avatar-user-name nav-link mr-3 p-0" do %>
+      <% end %>
+      <% if current_user.avatar?%>
+        <%= link_to image_tag(current_user.avatar.thum.url, class: "avatar-img rounded-circle z-depth-0",
                                     alt: "nav avatar image"), user_path(current_user), class: "nav-link p-0" %>
-    <% else %>
-    <%= link_to image_tag("fallback/default_user_avatar.png", class: "avatar-img rounded-circle z-depth-0",
-                                    alt: "nav avatar image"), user_path(current_user), class: "nav-link p-0" %>
-    <div class="dropdown">
-      <%= image_tag 'fallback/default_user_avatar.png', :size =>'30x30' %>
-      <div class="dropdown-menu dropdown-menu-right">
-        <a href="https://menta.work/user/13874">　プロフィール<i class="fas fa-id-card"></i></a>
-      </div>
-    </div>
-    <div class="dropdown mr-1">
-      <button type="button" class="btn dropdown-toggle setting-btn py-0 px-1" , data-toggle="dropdown" ,
-        data-offset="0,10" , aria-haspopup="true" , aria-expanded="false" , style="box-shadow: none">
-        <i　class="fas fa-ellipsis-h"></i></button>
-      <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item d-flex align-items-center" style="color: #f90e43; cursor: pointer;" data-toggle="modal"
-          data-target="#event_modal">
-          <div style="width: 100%">投稿を削除</div><i class="fas fa-trash-alt"></i>
-        </a>
-      </div>
-    </div>
+      <% else %>
+        <%= link_to image_tag("fallback/default_user_avatar.png", class: "avatar-img rounded-circle z-depth-0",
+                                      alt: "nav avatar image"), user_path(current_user), class: "nav-link p-0" %>
+        <div class="dropdown">
+          <%= image_tag 'fallback/default_user_avatar.png', :size =>'30x30' %>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a href="https://menta.work/user/13874">　プロフィール<i class="fas fa-id-card"></i></a>
+          </div>
+        </div>
+        <div class="dropdown mr-1">
+          <button type="button" class="btn dropdown-toggle setting-btn py-0 px-1" , data-toggle="dropdown" ,
+            data-offset="0,10" , aria-haspopup="true" , aria-expanded="false" , style="box-shadow: none">
+            <i　class="fas fa-ellipsis-h"></i></button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item d-flex align-items-center" style="color: #f90e43; cursor: pointer;" data-toggle="modal"
+              data-target="#event_modal">
+              <div style="width: 100%">投稿を削除</div><i class="fas fa-trash-alt"></i>
+            </a>
+          </div>
+        </div>
 
-    <div class="dropdown">
-      <!-- 切替ボタンの設定 -->
-      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        ドロップダウンリンク
-      </a>
-      <!-- ドロップメニューの設定 -->
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <a class="dropdown-item" href="#">メニュー1</a>
-        <a class="dropdown-item" href="#">メニュー2</a>
-        <a class="dropdown-item" href="#">メニュー3</a>
-      </div><!-- /.dropdown-menu -->
-    </div>
+        <div class="dropdown">
+          <!-- 切替ボタンの設定 -->
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            ドロップダウンリンク
+          </a>
+          <!-- ドロップメニューの設定 -->
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">メニュー1</a>
+            <a class="dropdown-item" href="#">メニュー2</a>
+            <a class="dropdown-item" href="#">メニュー3</a>
+          </div><!-- /.dropdown-menu -->
+        </div>
 
-    <% end %>
-    <%= link_to 'プロフィール変更', edit_user_registration_path %>
-    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+      <% end %>
+      <%= link_to 'プロフィール変更', edit_user_registration_path %>
+      <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
     <% else %>
-    <%= link_to 'ログイン', new_user_session_path %>
-    <%= render 'layouts/modal', {mode: ApplicationHelper::EASY_LOGIN_MODAL_MODE, object: nil} %>
-    <button type="button" class="btn btn-primary mt-1" data-toggle="modal" data-target="#modal">お試しログイン</button>
-    <%= link_to '会員登録', new_user_registration_path %>
+      <%= link_to 'ログイン', new_user_session_path %>
+      <%= render 'layouts/modal', {mode: ApplicationHelper::EASY_LOGIN_MODAL_MODE, object: nil} %>
+      <button type="button" class="btn btn-primary mt-1" data-toggle="modal" data-target="#modal">お試しログイン</button>
+      <%= link_to '会員登録', new_user_registration_path %>
     <% end %>
   </div>
 </nav>

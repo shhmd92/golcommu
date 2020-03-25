@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-   # Webサイト名
-  WEBSITE_NAME = 'GolfMenta'
+  # Webサイト名
+  WEBSITE_NAME = 'ゴルコミュ'
   # モーダルモード
   EASY_LOGIN_MODAL_MODE = '1'
   DELETE_USER_MODAL_MODE = '2'
