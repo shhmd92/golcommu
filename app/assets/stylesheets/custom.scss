@@ -10,14 +10,22 @@ $main_color: #20c997;
 }
 
 /* universal */
+.container {
+  max-width: 960px;
+}
 
+.dropdown-font {
+  font-size: 14px;
+}
 
 
 /* header */
-
 .navbar {
   height: 55px;
-  color: $main_color;
+}
+
+.logo {
+  margin-right: auto;
 }
 
 /* footer */
