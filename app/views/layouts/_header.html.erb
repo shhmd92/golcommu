@@ -1,40 +1,63 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
   <div class="container">
-    <div class="logo">
+    <div class="header-logo">
       <%= link_to ApplicationHelper::WEBSITE_NAME, root_path, class: "navbar-brand font-weight-bold" %>
-      <%= link_to "メンター一覧", users_path, class: "navbar-users nav-item nav-link active px-0 mr-1" %>
     </div>
-    <% if user_signed_in? %>
-      <%= link_to user_path(current_user), class: "avatar-user-name nav-link mr-3 p-0" do %>
-      <% end %>
-      <div class="dropdown">
-        <button type="button" class="btn setting-btn py-0 px-1", data-toggle="dropdown",
-          data-offset="0,10", aria-haspopup="true", aria-expanded="false", style="box-shadow: none">
-          <% if current_user.avatar?%>
-            <%= image_tag current_user.avatar.thum.url, class: 'avatar-img rounded-circle z-depth-0',
-              :size =>'30x30' %>
-          <% else %>
-            <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img rounded-circle z-depth-0',
-              :size =>'30x30' %>
+    <div class="header-menu">
+      <ul>
+        <li>
+          <%= link_to users_path, class: "text-info" do %>
+            <i class="fas fa-search"></i>ゴル友を探す
           <% end %>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right dropdown-font">
-          <%= link_to edit_user_registration_path, class: "dropdown-item d-flex align-items-center" do %>
-            <i class="fas fa-edit"></i>
-            <div style="width: 100%">&nbsp;プロフィール編集</div>
-          <% end %>
-          <%= link_to destroy_user_session_path, class: "dropdown-item d-flex align-items-center",
-            method: :delete do %>
-            <i class="fas fa-sign-out-alt"></i>
-            <div style="width: 100%">&nbsp;ログアウト</div>
-          <% end %>
+        </li>
+      </ul>
+    </div>
+    <div class="header-right">
+      <% if user_signed_in? %>
+        <%= link_to user_path(current_user), class: "avatar-user-name nav-link mr-3 p-0" do %>
+        <% end %>
+        <div class="dropdown">
+          <button type="button" class="btn setting-btn py-0 px-1", data-toggle="dropdown",
+            data-offset="0,10", aria-haspopup="true", aria-expanded="false", style="box-shadow: none">
+            <% if current_user.avatar?%>
+              <%= image_tag current_user.avatar.thum.url, class: 'avatar-img rounded-circle z-depth-0',
+                :size =>'30x30' %>
+            <% else %>
+              <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img rounded-circle z-depth-0',
+                :size =>'30x30' %>
+            <% end %>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right dropdown-font">
+            <%= link_to edit_user_registration_path, class: "dropdown-item d-flex align-items-center" do %>
+              <i class="fas fa-edit"></i>
+              <div style="width: 100%">&nbsp;プロフィール編集</div>
+            <% end %>
+            <%= link_to destroy_user_session_path, class: "dropdown-item d-flex align-items-center",
+              method: :delete do %>
+              <i class="fas fa-sign-out-alt"></i>
+              <div style="width: 100%">&nbsp;ログアウト</div>
+            <% end %>
+          </div>
         </div>
-      </div>
-    <% else %>
-      <%= link_to 'ログイン', new_user_session_path %>
-      <%= render 'layouts/modal', {mode: ApplicationHelper::EASY_LOGIN_MODAL_MODE, object: nil} %>
-      <button type="button" class="btn btn-primary mt-1" data-toggle="modal" data-target="#modal">お試しログイン</button>
-      <%= link_to '会員登録', new_user_registration_path %>
-    <% end %>
+      <% else %>
+        <%= render 'layouts/modal', {mode: ApplicationHelper::EASY_LOGIN_MODAL_MODE, object: nil} %>
+        <div class="guest-loginbtn">
+          <button type="button" class="btn btn-outline-secondary rounded-pill btn-block"
+            data-toggle="modal" data-target="#modal">
+            お試しログイン
+          </button>
+        </div>
+        <div class="loginbtn">
+          <button type="button" class="btn btn-outline-info rounded-pill btn-block">
+            <%= link_to 'ログイン', new_user_session_path, class: "text-info" %>
+          </button>
+        </div>
+        <div class="loginbtn">
+          <button type="button" class="btn btn-info rounded-pill btn-block">
+            <%= link_to '会員登録', new_user_registration_path, class: "text-white" %>
+          </button>
+        </div>
+      <% end %>
+    </div>
   </div>
 </nav>

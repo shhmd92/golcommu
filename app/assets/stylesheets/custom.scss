@@ -11,21 +11,56 @@ $main_color: #20c997;
 
 /* universal */
 .container {
-  max-width: 960px;
+  // max-width: 960px;
 }
 
 .dropdown-font {
   font-size: 14px;
 }
 
-
 /* header */
 .navbar {
   height: 55px;
 }
 
-.logo {
-  margin-right: auto;
+.header-logo {
+  width: 100px;
+}
+
+.header-menu {
+  display: flex;
+  justify-content: center;
+
+  ul {
+    display: flex;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 12px;
+    list-style: none;
+
+    a:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.header-right {
+  margin-left: auto;
+  display: flex;
+}
+
+.loginbtn {
+  width: 100px;
+  margin: 0px 5px 0px 5px;
+
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+.guest-loginbtn {
+  @extend .loginbtn;
+  width: 150px;
 }
 
 /* footer */
