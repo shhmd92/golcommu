@@ -1,0 +1,58 @@
+<div class="form-group">
+  <%= render "devise/shared/error_messages", resource: resource %>
+</div>
+
+<% if controller_name == 'registrations' %>
+  <div class="form-group">
+    <%= form.label :username, "ユーザネーム", class: 'control-label' %>
+    <%= form.text_field :username, class: 'form-control rounded-pill', autofocus: true %>
+  </div>
+<% end %>
+
+<% if controller_name == 'confirmations' %>
+  <div class="form-group">
+    <%= form.label :email, "Eメール", class: 'control-label' %>
+    <%= form.email_field :email, class: 'form-control rounded-pill',
+      :placeholder => "abc1234@example.com",
+      autofocus: true, autocomplete: "email",
+      value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+  </div>
+<% else %>
+  <div class="form-group">
+    <%= form.label :email, "Eメール", class: 'control-label' %>
+    <%= form.email_field :email, class: 'form-control rounded-pill',
+      :placeholder => "abc1234@example.com",
+      autofocus: true, autocomplete: "email" %>
+  </div>
+<% end %>
+
+<% if controller_name == 'registrations' || controller_name == 'sessions' %>
+  <div class="form-group">
+    <%= form.label :password, "パスワード", class: 'control-label' %>
+    <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %>文字以上の半角英数字を入力してください)</em>
+    <% end %><br />
+    <%= form.password_field :password, class: 'form-control rounded-pill',
+      autocomplete: "new-password" %>
+  </div>
+<% end %>
+
+<% if controller_name == 'registrations' %>
+  <div class="form-group">
+    <%= form.label :password_confirmation, "パスワードの再入力", class: 'control-label' %><br />
+    <%= form.password_field :password_confirmation, class: 'form-control rounded-pill',
+      autocomplete: "new-password" %>
+  </div>
+<% end %>
+
+<div class="form-group">
+  <% button_name = "" %>
+  <% if controller_name == 'registrations' %>
+    <% button_name = "新規登録" %>
+  <% elsif controller_name == 'sessions' %>
+    <% button_name = "ログイン" %>
+  <% elsif controller_name == 'passwords' || controller_name == 'confirmations' %>
+    <% button_name = "送信する" %>
+  <% end %>
+  <%= form.submit "#{button_name}", class: "btn btn-info rounded-pill btn-block text-white" %>
+</div>
