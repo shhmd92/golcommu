@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 2020_03_20_060104) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
+    t.boolean "guest", default: false
     t.string "avatar"
-    t.string "name"
     t.text "introduction"
     t.integer "play_type"
     t.integer "average_score"

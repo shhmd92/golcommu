@@ -11,6 +11,8 @@
           このイベントに参加しますか？
         <% elsif (mode == ApplicationHelper::STOP_PARTICIPATE_EVENT_MODAL_MODE) %>
           このイベントの参加をやめますか？
+        <% elsif (mode == ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE) %>
+          本当にアカウントを削除しますか？
         <% end %>
       </div>
       <div class="modal-footer">
@@ -42,6 +44,10 @@
                 <i class="fas fa-check" style="font-size: 1.1rem; position: relative; top: 1px;"></i>
               <% end %>
             <%= f.submit "参加をやめる", class: "btn unlike rounded-pill d-none d-sm-flex align-items-center justify-content-center px-3" %>
+          <% end %>
+        <% elsif(mode == ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE) %>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= f.submit "削除", class: "btn text-danger btn-sm"%>
           <% end %>
         <% end %>
       </div>

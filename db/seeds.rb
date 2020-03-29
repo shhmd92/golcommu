@@ -2,7 +2,6 @@ Faker::Config.locale = :en
 
 # 管理ユーザー作成
 admin = User.create!(username: "admin",
-                     name: "管理者",
                      email: "admin@example.com",
                      password:              "adminpassword",
                      password_confirmation: "adminpassword",
@@ -12,12 +11,12 @@ admin = User.create!(username: "admin",
 
 # ゲストユーザー作成
 User.create!(username: "guest",
-             name: "ゲスト",
              email: "guest@example.com",
              password:              "guestpassword",
              password_confirmation: "guestpassword",
              confirmed_at: Time.zone.now,
-             confirmation_sent_at: Time.zone.now)
+             confirmation_sent_at: Time.zone.now,
+             guest: true)
 
 # 一般ユーザ作成
 60.times do |n|
@@ -26,7 +25,6 @@ User.create!(username: "guest",
   email = "test#{n+1}@example.com"
   password = "password"
   User.create!(username: username,
-               name: name,
                email: email,
                password: password,
                password_confirmation: password,

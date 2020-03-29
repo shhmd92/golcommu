@@ -2,8 +2,8 @@
   <div class="loginpanel">
     <h1 class="text-info">ログイン</h1>
 
-    <%= form_with(model: resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <%= render "devise/shared/form_item", form: f %>
+    <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
+      <%= render "devise/shared/new_form_item", form: f %>
 
       <% if devise_mapping.rememberable? %>
         <div class="field">

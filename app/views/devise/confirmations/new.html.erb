@@ -3,8 +3,8 @@
     <h1 class="text-info">メール再送</h1>
     <p>確認用メールが届かない場合は、こちらから再送してください。</p>
     <%= form_with(model: resource, as: resource_name, url: confirmation_path(resource_name),
-      html: { method: :post }) do |f| %>
-      <%= render "devise/shared/form_item", {form: f, resource: resource} %>
+      html: { method: :post }, local: true) do |f| %>
+      <%= render "devise/shared/new_form_item", {form: f, resource: resource} %>
     <% end %>
 
     <%= render "devise/shared/links" %>

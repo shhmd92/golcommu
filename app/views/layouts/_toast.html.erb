@@ -1,0 +1,28 @@
+<% if notice %>
+  <div aria-live="polite" aria-atomic="true"
+    class="d-flex justify-content-center align-items-center fixed-top mt-5">
+    <div class="toast bg-success text-white" role="notice" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body">
+        <%= notice %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% if alert %>
+  <div aria-live="polite" aria-atomic="true"
+    class="d-flex justify-content-center align-items-center fixed-top mt-5">
+    <div class="toast bg-warning text-white" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body">
+        <%= alert %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script>
+  $('.toast')
+    .toast({
+      autohide: true,
+      delay: 2000
+    })
+    .toast('show')
+</script>

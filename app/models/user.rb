@@ -18,7 +18,7 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
-  validates :username, presence: true, uniqueness: { case_sensitive: false }
+  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -40,28 +40,36 @@ class User < ApplicationRecord
     username
   end
 
-  # ユーザーをフォローする
   def follow(other_user)
     following << other_user
   end
 
-  # ユーザーをフォロー解除する
   def unfollow(other_user)
     active_relationships.find_by(followed_id: other_user.id).destroy
   end
 
-  # 現在のユーザーがフォローしてたらtrueを返す
   def following?(other_user)
     following.include?(other_user)
   end
 
-  # ユーザーが既にいいねしているか
   def already_liked?(event)
     likes.exists?(event_id: event.id)
   end
 
-  # ユーザーが既に該当イベントに参加しているか
   def already_participated?(event)
     participants.exists?(event_id: event.id)
+  end
+
+  def update_without_current_password(params, *options)
+    params.delete(:current_password)
+
+    if params[:password].blank? && params[:password_confirmation].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation)
+    end
+
+    result = update(params, *options)
+    clean_up_passwords
+    result
   end
 end
