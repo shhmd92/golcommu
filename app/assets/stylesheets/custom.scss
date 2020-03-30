@@ -16,7 +16,7 @@
 }
 
 .page {
-  padding-bottom: 60px;
+  padding: 30px 0px 30px 0px;
   text-align: center;
 }
 
@@ -29,6 +29,14 @@
   width: 665px;
 }
 
+/* not_logged_in */
+.not-logged-in-container {
+  background-image: image-url('lp_image.png');
+  background-size: cover;
+  height: 800px;
+  opacity: 0.7;
+  padding: 50px 0px 0px 50px;
+}
 
 /* form */
 .form-group {
@@ -68,7 +76,6 @@
 /* header */
 .navbar {
   height: 55px;
-  margin-bottom: 30px;
 }
 
 .header-logo {

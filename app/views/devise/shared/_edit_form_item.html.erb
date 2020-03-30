@@ -11,15 +11,16 @@
   <div class="form-group">
     <div class="circle-avatar">
       <% if current_user.persisted? && current_user.avatar? %>
-      <%= image_tag current_user.avatar.to_s %>
-      <label><%= form.check_box :remove_avatar %> 画像を削除</label>
+      <%= image_tag current_user.avatar.to_s, id: :img_prev %>
       <% else %>
-      <%= image_tag 'fallback/default_user_avatar.png' %>
+      <%= image_tag 'fallback/default_user_avatar.png', id: :img_prev %>
       <%= form.hidden_field :avatar_cache %>
       <% end %>
-      <label for="event_img" class="btn submit-btn" style="cursor:pointer;">
-        <div style="white-space: nowrap;">画像を変更</div>
-        <%= form.file_field :avatar, id: 'event_img', class: "d-none" %>
+      <label for="user_img">
+        <span class="btn btn-outline-secondary">
+          画像変更
+        </span>
+        <%= form.file_field :avatar, id: :user_img, class: "d-none" %>
       </label>
     </div>
   </div>

@@ -33,9 +33,9 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process resize_to_fit: [50, 50]
-  # end
+  version :thumb30 do
+    process resize_to_fit: [30, 30]
+  end
 
   # アップロード可能な拡張子のリスト
   def extension_whitelist
