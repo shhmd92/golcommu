@@ -1,12 +1,18 @@
-<% provide(:title, 'すべてのユーザー') %>
+<% provide(:title, 'すべてのゴルファー') %>
 
-<div class="page-header d-flex align-items-center mx-auto mb-4">すべてのメンター</div>
+<div class="page">
+  <div class="user-index-panel">
+  <div class="page-header d-flex align-items-center mx-auto mb-4">
+    すべてのメンター
+    <%= paginate(@users) %>
+  </div>
 
-<div class="all-users user-cards row">
-  <%= render partial: 'users/user_card', collection: @users, as: :user_card %>
-</div>
+  <div class="users">
+    <%= render partial: 'users/user_card', collection: @users, as: :user_card %>
+  </div>
 
-<div class="all-users-footer">
-  <%= paginate(@users) %>
-
+  <div class="all-users-footer">
+    <%= paginate(@users) %>
+  </div>
+  </div>
 </div>

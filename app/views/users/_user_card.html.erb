@@ -1,19 +1,31 @@
-<div class="user-card d-flex align-items-center">
+<div class="userList-card">
   <div style="width: 100%">
 
-    <!-- アイコン -->
-    <div class="d-flex align-items-end justify-content-center mb-3">
-
-    </div>
-    <!-- ユーザーネーム -->
-    <div class="user-card-names-container d-flex justify-content-center mb-2">
-      <div class="user-card-names text-center">
-        <div class="user-username">
-          <%= link_to user_card.username, user_path(user_card) %>
-        </div>
+    <div class="userList-image">
+      <%= link_to user_path(user_card) do %>
+        <% if user_card.avatar?%>
+          <%= image_tag user_card.avatar.url, class: 'avatar-img rounded-circle z-depth-0' %>
+        <% else %>
+          <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img rounded-circle z-depth-0' %>
+        <% end %>
+      <% end %>
+      <div class="userList-image-name">
+        <%= user_card.username %>
       </div>
     </div>
-    <!-- ボタン -->
+
+    <div class="userList-body">
+      <div class="userList-body-intro">
+        <%= user_card.play_type %>
+      </div>
+      <div class="userList-body-intro">
+        <%= user_card.introduction %>
+      </div>
+    </div>
+
+    <div class="userList-btn">
+    </div>
+
     <% if user_signed_in? %>
       <%= render 'users/follow_form', object: user_card %>
       <% if current_user.admin? && user_card != current_user %>

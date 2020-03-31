@@ -20,9 +20,9 @@
           <button type="button" class="btn setting-btn py-0 px-1", data-toggle="dropdown",
             data-offset="0,10", aria-haspopup="true", aria-expanded="false", style="box-shadow: none">
             <% if current_user.avatar?%>
-              <%= image_tag current_user.avatar.thumb30.url, class: 'avatar-img rounded-circle z-depth-0' %>
+              <%= image_tag current_user.avatar.url, class: 'avatar-img-mini rounded-circle' %>
             <% else %>
-              <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img rounded-circle z-depth-0',
+              <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img-mini rounded-circle',
                 :size =>'30x30' %>
             <% end %>
           </button>

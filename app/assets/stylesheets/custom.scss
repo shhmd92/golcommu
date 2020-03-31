@@ -20,14 +20,72 @@
   text-align: center;
 }
 
-.panel {
-  background: #fff;
-  padding: 80px;
+%panel {
   margin: 0 auto;
   color: #878787;
   font-size: 13px;
+}
+
+.mid-white-panel {
+  @extend %panel;
+  padding: 80px;
+  background: #fff;
   width: 665px;
 }
+
+/* image */
+.avatar-img-mini {
+  width: 40px;
+  height: 40px;
+}
+
+.avatar-img {
+  width: 100;
+  height: 100px;
+}
+
+.circle-avatar img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+/* header */
+.navbar {
+  height: 55px;
+}
+
+.header-logo {
+  width: 100px;
+}
+
+.header-menu {
+  display: flex;
+  justify-content: center;
+
+  ul {
+    display: flex;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 12px;
+    list-style: none;
+
+    a:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.header-right {
+  margin-left: auto;
+  display: flex;
+}
+
+
+/* footer */
+
 
 /* not_logged_in */
 .not-logged-in-container {
@@ -73,37 +131,7 @@
 }
 
 
-/* header */
-.navbar {
-  height: 55px;
-}
-
-.header-logo {
-  width: 100px;
-}
-
-.header-menu {
-  display: flex;
-  justify-content: center;
-
-  ul {
-    display: flex;
-    font-size: 1rem;
-    font-weight: 700;
-    margin-top: 12px;
-    list-style: none;
-
-    a:hover {
-      text-decoration: none;
-    }
-  }
-}
-
-.header-right {
-  margin-left: auto;
-  display: flex;
-}
-
+/* loginbtn */
 .loginbtn {
   width: 100px;
   margin: 0px 5px 0px 5px;
@@ -118,44 +146,37 @@
   width: 150px;
 }
 
-/* footer */
-
 
 /* user-index */
-.user-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  padding: 0 15px;
-  margin-bottom: 15px;
+.user-index-panel {
+  @extend %panel;
+  width: 450px;
 }
 
-/* user-profile */
-.circle-avatar img {
+.users {}
+
+.userList-card {
+  background: #fff;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  padding: 10px 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.userList-image {
   width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
 }
 
-.avatar-img {
-  width: 32px;
-  height: 32px;
-}
-
-.userpage {
-  @extend .page;
-}
-
-.userpanel {
-  @extend .panel;
-}
-
-/* login */
-.loginpage {
-  @extend .page;
-}
-
-.loginpanel {
-  @extend .panel;
+.userList-body {
+  -webkit-box-flex: 1;
+  flex: 1;
+  text-align: left;
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-align: center;
+  align-items: center;
 }
