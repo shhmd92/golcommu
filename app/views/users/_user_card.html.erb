@@ -1,31 +1,32 @@
 <div class="userList-card">
-  <div style="width: 100%">
-
-    <div class="userList-image">
-      <%= link_to user_path(user_card) do %>
-        <% if user_card.avatar?%>
-          <%= image_tag user_card.avatar.url, class: 'avatar-img rounded-circle z-depth-0' %>
-        <% else %>
-          <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img rounded-circle z-depth-0' %>
-        <% end %>
+  <div class="userList-float userList-image">
+    <%= link_to user_path(user_card) do %>
+      <% if user_card.avatar?%>
+        <%= image_tag user_card.avatar.url, class: 'avatar-img rounded-circle z-depth-0' %>
+      <% else %>
+        <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img rounded-circle z-depth-0' %>
       <% end %>
-      <div class="userList-image-name">
-        <%= user_card.username %>
-      </div>
+    <% end %>
+    <div class="userList-image-name">
+      <%= user_card.username %>
     </div>
+  </div>
 
-    <div class="userList-body">
-      <div class="userList-body-intro">
-        <%= user_card.play_type %>
-      </div>
-      <div class="userList-body-intro">
+  <div class="userList-float userList-body">
+    <div class="userList-body-intro">
+      <%= link_to user_path(user_card) do %>
         <%= user_card.introduction %>
-      </div>
+      <% end %>
     </div>
-
-    <div class="userList-btn">
+    <div class="userList-body-type">
+      プレータイプ：<%= user_card.play_type %>
     </div>
+    <div class="userList-body-average">
+      平均スコア：<%= user_card.average_score %>
+    </div>
+  </div>
 
+  <div class="userList-float userList-btn">
     <% if user_signed_in? %>
       <%= render 'users/follow_form', object: user_card %>
       <% if current_user.admin? && user_card != current_user %>
@@ -33,6 +34,5 @@
         <a class="btn delete rounded-pill" data-toggle="modal" data-target="#modal">削除</a>
       <% end %>
     <% end %>
-
   </div>
 </div>

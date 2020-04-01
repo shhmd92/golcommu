@@ -24,12 +24,17 @@ User.create!(username: "guest",
   name = Faker::Name.unique.name
   email = "test#{n+1}@example.com"
   password = "password"
+  play_type = rand(1..3)
+  average_score = rand(1..6)
   User.create!(username: username,
                email: email,
                password: password,
                password_confirmation: password,
                confirmed_at: Time.zone.now,
                confirmation_sent_at: Time.zone.now,
+               introduction: "紹介文",
+               play_type: play_type,
+               average_score: average_score,
                )
 end
 

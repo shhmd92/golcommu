@@ -40,8 +40,8 @@
 }
 
 .avatar-img {
-  width: 100;
-  height: 100px;
+  width: 80;
+  height: 80px;
 }
 
 .circle-avatar img {
@@ -150,33 +150,49 @@
 /* user-index */
 .user-index-panel {
   @extend %panel;
-  width: 450px;
+  width: 900px;
 }
 
-.users {}
+.users {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 20px;
+}
 
 .userList-card {
   background: #fff;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: start;
-  justify-content: flex-start;
   padding: 10px 10px;
-  flex-wrap: wrap;
   margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.userList-float {
+  float: left;
 }
 
 .userList-image {
-  width: 100px;
+  width: 80px;
+}
+
+.userList-image-name {
+  margin-bottom: 5px;
 }
 
 .userList-body {
+  width: 240px;
   -webkit-box-flex: 1;
   flex: 1;
   text-align: left;
-  display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
   -webkit-box-align: center;
   align-items: center;
+}
+
+.userList-body-intro {
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 10px 0;
 }
