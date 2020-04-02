@@ -179,7 +179,7 @@
 }
 
 .userList-body {
-  width: 240px;
+  width: 230px;
   -webkit-box-flex: 1;
   flex: 1;
   text-align: left;
@@ -193,6 +193,54 @@
   width: 100%;
   font-size: 1.1rem;
   font-weight: 700;
-  line-height: 1.4;
+  height: 40px;
   margin: 10px 0;
+  text-overflow: ellipsis;
+}
+
+.userList-body-type {
+  width: 100%;
+}
+
+.userList-body-average {
+  width: 100%;
+}
+
+/* pagination */
+.page-nav {
+  width: 100%;
+
+  ul {
+    display: inline-block;
+    text-align: center;
+  }
+
+  li {
+    float: left;
+  }
+}
+
+.pagination>li>a {
+  color: #696969;
+}
+
+.pagination>.active>a {
+  background: #93c9ff;
+}
+
+.pagination>li>a:hover {
+  border-color: $info;
+  background-color: $info;
+  color: white;
+}
+
+.page-item.active .page-link {
+  border-color: $info;
+  background-color: $info;
+}
+
+.page-link-disabled {
+  @extend .page-link;
+  cursor: default;
+  pointer-events: none;
 }
