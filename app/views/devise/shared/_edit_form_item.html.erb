@@ -27,6 +27,24 @@
 
   <div class="form-group">
     <div class="field">
+      <%= form.label :性別, class: 'control-label' %><br>
+      <%= form.radio_button :sex, :man %>
+      <%= form.label :sex, "男性", {value: :man, style: "display: inline-block;"} %>
+      <%= form.radio_button :sex, :woman, {style: "margin-left:10px;"} %>
+      <%= form.label :sex, "女性", {value: :woman, style: "display: inline-block;"} %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="field">
+      <%= form.label :都道府県, class: 'control-label' %><br>
+      <%= form.select :prefecture, User.prefectures.keys,{prompt: '選択してください'},
+        class: 'form-control btn btn-info btn-block' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="field">
       <%= form.label :アベレージスコア, class: 'control-label' %><br>
       <%= form.select :average_score, User.average_scores.keys,{prompt: '選択してください'},
         class: 'form-control btn btn-info btn-block' %>

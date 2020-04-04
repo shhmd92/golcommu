@@ -2,7 +2,11 @@
 
 <div class="page">
   <div class="user-index-panel">
-    <div class="page-header d-flex align-items-center mx-auto mb-4">
+    <div class="search-form">
+      <%= render partial: 'users/search_form' %>
+    </div>
+
+    <div>
       <%= paginate(@users) %>
     </div>
 
@@ -10,7 +14,7 @@
       <%= render partial: 'users/user_card', collection: @users, as: :user_card %>
     </div>
 
-    <div class="all-users-footer">
+    <div class="users-footer">
       <%= paginate(@users) %>
     </div>
   </div>
