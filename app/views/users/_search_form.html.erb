@@ -1,21 +1,100 @@
 <div class="search-box bg-white">
-  <div class="text-info">
+  <div class="text-info search-title">
     ゴル友を探す
   </div>
-  <table>
-    <tr>
-      <td>
-        年代
+  <table class="search-table">
+    <tr class="search-tr">
+      <td class="search-item-head">
+        <div>
+          エリア
+        </div>
+      </td>
+      <td class="search-item-body">
+        <div>
+          <%= link_to search_users_path(:prefecture_id => 0, :search_item_hash => @search_item_hash),
+            class: "text-info #{@search_item_hash[:prefecture].to_i == 0 ? 'search-item-selected' : ''}" do %>
+            指定なし
+          <% end %>
+        </div>
+        <% User.prefectures.each do |prefecture| %>
+          <div>
+            <%= link_to search_users_path(:prefecture_id => prefecture[1], :search_item_hash => @search_item_hash),
+              class: "text-info #{@search_item_hash[:prefecture].to_i == prefecture[1].to_i ? 'search-item-selected' : ''}" do %>
+              <%= prefecture[0] %>
+            <% end %>
+          </div>
+        <% end %>
       </td>
     </tr>
-    <tr>
-      <td>
-        性別
+    <tr class="search-tr">
+      <td class="search-item-head">
+        <div>
+          年代
+        </div>
+      </td>
+      <td class="search-item-body">
+        <div>
+          <%= link_to search_users_path(:ages_id => 0, :search_item_hash => @search_item_hash),
+            class: "text-info #{@search_item_hash[:ages].to_i == 0 ? 'search-item-selected' : ''}" do %>
+            指定なし
+          <% end %>
+        </div>
+        <% User.ages.each do |age| %>
+          <div>
+            <%= link_to search_users_path(:ages_id => age[1], :search_item_hash => @search_item_hash),
+              class: "text-info #{@search_item_hash[:ages].to_i == age[1].to_i ? 'search-item-selected' : ''}" do %>
+              <%= age[0] %>
+            <% end %>
+          </div>
+        <% end %>
       </td>
     </tr>
-    <tr>
-      <td>
-        エリア
+    <tr class="search-tr">
+      <td class="search-item-head">
+        <div>
+          性別
+        </div>
+      </td>
+      <td class="search-item-body">
+        <div>
+          <%= link_to search_users_path(:sex_id => 0, :search_item_hash => @search_item_hash),
+            class: "text-info #{@search_item_hash[:sex].to_i == 0 ? 'search-item-selected' : ''}" do %>
+            指定なし
+          <% end %>
+        </div>
+        <% User.sexes.each do |sex| %>
+          <% unless sex[1].to_i == 0 %>
+          <div>
+            <%= link_to search_users_path(:sex_id => sex[1], :search_item_hash => @search_item_hash),
+              class: "text-info #{@search_item_hash[:sex].to_i == sex[1].to_i ? 'search-item-selected' : ''}" do %>
+              <%= sex[0] %>
+            <% end %>
+          </div>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <tr class="search-tr">
+      <td class="search-item-head">
+        <div>
+          プレータイプ
+        </div>
+      </td>
+      <td class="search-item-body">
+        <div>
+          <%= link_to search_users_path(:play_type_id => 0, :search_item_hash => @search_item_hash),
+            class: "text-info #{@search_item_hash[:play_type].to_i == 0 ? 'search-item-selected' : ''}" do %>
+            指定なし
+          <% end %>
+        </div>
+        <% User.play_types.each do |play_type| %>
+          <div>
+            <%= link_to search_users_path(:play_type_id => play_type[1], :search_item_hash => @search_item_hash),
+              class: "text-info #{@search_item_hash[:play_type].to_i == play_type[1].to_i ? 'search-item-selected' : ''}" do %>
+              <%= play_type[0] %>
+            <% end %>
+          </div>
+        <% end %>
       </td>
     </tr>
   </table>

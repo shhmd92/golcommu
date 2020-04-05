@@ -28,12 +28,12 @@
   <div class="form-group">
     <div class="field">
       <%= form.label :性別, class: 'control-label' %><br>
-      <%= form.radio_button :sex, :not_known %>
-      <%= form.label :sex, "未設定", {value: :not_known, style: "display: inline-block;"} %>
-      <%= form.radio_button :sex, :male, {style: "margin-left:10px;"} %>
-      <%= form.label :sex, "男性", {value: :male, style: "display: inline-block;"} %>
-      <%= form.radio_button :sex, :female, {style: "margin-left:10px;"} %>
-      <%= form.label :sex, "女性", {value: :female, style: "display: inline-block;"} %>
+      <%= form.radio_button :sex, :未設定, checked: "checked" %>
+      <%= form.label :sex, "未設定", {value: :未設定, style: "display: inline-block;"} %>
+      <%= form.radio_button :sex, :男性, {style: "margin-left:10px;"} %>
+      <%= form.label :sex, "男性", {value: :男性, style: "display: inline-block;"} %>
+      <%= form.radio_button :sex, :女性, {style: "margin-left:10px;"} %>
+      <%= form.label :sex, "女性", {value: :女性, style: "display: inline-block;"} %>
     </div>
   </div>
 
@@ -45,6 +45,14 @@
         default: Date.new(1990, 1, 1),
         datetime_separator: ''},
         {class: 'form-control-select btn btn-info'} %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="field">
+      <%= form.label :都道府県, class: 'control-label' %><br>
+      <%= form.select :prefecture, User.prefectures.keys,{prompt: '選択してください'},
+        class: 'form-control btn btn-info btn-block' %>
     </div>
   </div>
 

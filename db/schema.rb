@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_060104) do
     t.boolean "admin", default: false
     t.boolean "guest", default: false
     t.string "avatar"
-    t.integer "sex"
+    t.integer "sex", default: 0
     t.date "birth_date"
     t.integer "prefecture"
     t.text "introduction"

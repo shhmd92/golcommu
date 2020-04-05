@@ -25,7 +25,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  enum sex: { not_known: 0, male: 1, female: 2 }
+  enum sex: { 未設定: 0, 男性: 1, 女性: 2 }
+
+  enum ages: {
+    '10代以下': 1, '20代': 2, '30代': 3, '40代': 4, '50代': 5, '60代以上': 6
+  }
 
   enum prefecture: {
     北海道: 1, 青森県: 2, 岩手県: 3, 宮城県: 4, 秋田県: 5, 山形県: 6, 福島県: 7,
@@ -83,5 +87,27 @@ class User < ApplicationRecord
     result = update(params, *options)
     clean_up_passwords
     result
+  end
+
+  def get_ages
+    if birth_date?
+      age = (Date.today.strftime('%Y%m%d').to_i - birth_date.strftime('%Y%m%d').to_i) / 10_000
+      case age
+      when 0..19
+        User.ages.keys[0]
+      when 20..29
+        User.ages.keys[1]
+      when 30..39
+        User.ages.keys[2]
+      when 40..49
+        User.ages.keys[3]
+      when 50..59
+        User.ages.keys[4]
+      else
+        User.ages.keys[5]
+      end
+    else
+      '不明'
+    end
   end
 end

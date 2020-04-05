@@ -25,6 +25,9 @@ User.create!(username: "guest",
   email = "test#{n+1}@example.com"
   password = "password"
   sex = rand(0..2)
+  s1 = Date.parse("1950/01/01")
+  s2 = Date.parse("2010/12/31")
+  birth_date = Random.rand(s1 .. s2)
   prefecture = rand(1..47)
   play_type = rand(1..3)
   if (play_type == 3)
@@ -39,8 +42,9 @@ User.create!(username: "guest",
                confirmed_at: Time.zone.now,
                confirmation_sent_at: Time.zone.now,
                sex: sex,
+               birth_date: birth_date,
                prefecture: prefecture,
-               introduction: "紹介文紹介文紹介文紹介文紹介文紹介文紹介文",
+               introduction: "紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文",
                play_type: play_type,
                average_score: average_score,
                )

@@ -7,21 +7,30 @@
         <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img rounded-circle z-depth-0' %>
       <% end %>
     <% end %>
-    <div class="userList-image-name">
-      <%= user_card.username %>
-    </div>
   </div>
 
   <div class="userList-float userList-body">
+    <div class="userList-body-name">
+      <%= link_to user_path(user_card) do %>
+        <%= user_card.username %>
+      <% end %>
+    </div>
     <div class="userList-body-intro">
       <%= link_to user_path(user_card) do %>
         <%= user_card.introduction %>
       <% end %>
     </div>
-    <div class="userList-body-type">
+    <div class="userList-body-detail">
+      エリア：<%= user_card.prefecture %>
+    </div>
+    <div class="userList-body-detail">
+      年代：<%= user_card.get_ages %>&emsp;
+      性別：<%= user_card.sex %>
+    </div>
+    <div class="userList-body-detail">
       プレータイプ：<%= user_card.play_type %>
     </div>
-    <div class="userList-body-average">
+    <div class="userList-body-detail">
       平均スコア：<%= user_card.average_score %>
     </div>
   </div>
