@@ -24,7 +24,7 @@ User.create!(username: "guest",
   name = Faker::Name.unique.name
   email = "test#{n+1}@example.com"
   password = "password"
-  sex = rand(1..2)
+  sex = rand(0..2)
   prefecture = rand(1..47)
   play_type = rand(1..3)
   if (play_type == 3)

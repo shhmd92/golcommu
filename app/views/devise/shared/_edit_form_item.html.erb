@@ -28,18 +28,23 @@
   <div class="form-group">
     <div class="field">
       <%= form.label :性別, class: 'control-label' %><br>
-      <%= form.radio_button :sex, :man %>
-      <%= form.label :sex, "男性", {value: :man, style: "display: inline-block;"} %>
-      <%= form.radio_button :sex, :woman, {style: "margin-left:10px;"} %>
-      <%= form.label :sex, "女性", {value: :woman, style: "display: inline-block;"} %>
+      <%= form.radio_button :sex, :not_known %>
+      <%= form.label :sex, "未設定", {value: :not_known, style: "display: inline-block;"} %>
+      <%= form.radio_button :sex, :male, {style: "margin-left:10px;"} %>
+      <%= form.label :sex, "男性", {value: :male, style: "display: inline-block;"} %>
+      <%= form.radio_button :sex, :female, {style: "margin-left:10px;"} %>
+      <%= form.label :sex, "女性", {value: :female, style: "display: inline-block;"} %>
     </div>
   </div>
 
   <div class="form-group">
     <div class="field">
-      <%= form.label :都道府県, class: 'control-label' %><br>
-      <%= form.select :prefecture, User.prefectures.keys,{prompt: '選択してください'},
-        class: 'form-control btn btn-info btn-block' %>
+      <%= form.label :生年月日, class: 'control-label' %><br>
+      <%= form.date_select :birth_date, {use_month_numbers: true,
+        start_year: 1930, end_year: Time.now.year,
+        default: Date.new(1990, 1, 1),
+        datetime_separator: ''},
+        {class: 'form-control-select btn btn-info'} %>
     </div>
   </div>
 
