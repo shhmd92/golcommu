@@ -11,14 +11,14 @@
       </td>
       <td class="search-item-body">
         <div>
-          <%= link_to search_users_path(:prefecture_id => 0, :search_item_hash => @search_item_hash),
+          <%= link_to search_users_path(:prefecture => 0, :search_item_hash => @search_item_hash),
             class: "text-info #{@search_item_hash[:prefecture].to_i == 0 ? 'search-item-selected' : ''}" do %>
             指定なし
           <% end %>
         </div>
         <% User.prefectures.each do |prefecture| %>
           <div>
-            <%= link_to search_users_path(:prefecture_id => prefecture[1], :search_item_hash => @search_item_hash),
+            <%= link_to search_users_path(:prefecture => prefecture[1], :search_item_hash => @search_item_hash),
               class: "text-info #{@search_item_hash[:prefecture].to_i == prefecture[1].to_i ? 'search-item-selected' : ''}" do %>
               <%= prefecture[0] %>
             <% end %>
@@ -34,16 +34,17 @@
       </td>
       <td class="search-item-body">
         <div>
-          <%= link_to search_users_path(:ages_id => 0, :search_item_hash => @search_item_hash),
+          <%= link_to search_users_path(:ages => 0, :search_item_hash => @search_item_hash),
             class: "text-info #{@search_item_hash[:ages].to_i == 0 ? 'search-item-selected' : ''}" do %>
             指定なし
           <% end %>
         </div>
-        <% User.ages.each do |age| %>
+        <% User.ages.each_value do |age| %>
           <div>
-            <%= link_to search_users_path(:ages_id => age[1], :search_item_hash => @search_item_hash),
-              class: "text-info #{@search_item_hash[:ages].to_i == age[1].to_i ? 'search-item-selected' : ''}" do %>
-              <%= age[0] %>
+            <%= link_to search_users_path(:ages => age[:id], :age_min => age[:min], :age_max => age[:max],
+              :search_item_hash => @search_item_hash),
+              class: "text-info #{@search_item_hash[:ages].to_i == age[:id] ? 'search-item-selected' : ''}" do %>
+              <%= age[:name] %>
             <% end %>
           </div>
         <% end %>
@@ -57,7 +58,7 @@
       </td>
       <td class="search-item-body">
         <div>
-          <%= link_to search_users_path(:sex_id => 0, :search_item_hash => @search_item_hash),
+          <%= link_to search_users_path(:sex => 0, :search_item_hash => @search_item_hash),
             class: "text-info #{@search_item_hash[:sex].to_i == 0 ? 'search-item-selected' : ''}" do %>
             指定なし
           <% end %>
@@ -65,7 +66,7 @@
         <% User.sexes.each do |sex| %>
           <% unless sex[1].to_i == 0 %>
           <div>
-            <%= link_to search_users_path(:sex_id => sex[1], :search_item_hash => @search_item_hash),
+            <%= link_to search_users_path(:sex => sex[1], :search_item_hash => @search_item_hash),
               class: "text-info #{@search_item_hash[:sex].to_i == sex[1].to_i ? 'search-item-selected' : ''}" do %>
               <%= sex[0] %>
             <% end %>
@@ -82,14 +83,14 @@
       </td>
       <td class="search-item-body">
         <div>
-          <%= link_to search_users_path(:play_type_id => 0, :search_item_hash => @search_item_hash),
+          <%= link_to search_users_path(:play_type => 0, :search_item_hash => @search_item_hash),
             class: "text-info #{@search_item_hash[:play_type].to_i == 0 ? 'search-item-selected' : ''}" do %>
             指定なし
           <% end %>
         </div>
         <% User.play_types.each do |play_type| %>
           <div>
-            <%= link_to search_users_path(:play_type_id => play_type[1], :search_item_hash => @search_item_hash),
+            <%= link_to search_users_path(:play_type => play_type[1], :search_item_hash => @search_item_hash),
               class: "text-info #{@search_item_hash[:play_type].to_i == play_type[1].to_i ? 'search-item-selected' : ''}" do %>
               <%= play_type[0] %>
             <% end %>

@@ -27,9 +27,9 @@ class User < ApplicationRecord
 
   enum sex: { 未設定: 0, 男性: 1, 女性: 2 }
 
-  enum ages: {
-    '10代以下': 1, '20代': 2, '30代': 3, '40代': 4, '50代': 5, '60代以上': 6
-  }
+  # enum ages: {
+  #   '10代以下': 1, '20代': 2, '30代': 3, '40代': 4, '50代': 5, '60代以上': 6
+  # }
 
   enum prefecture: {
     北海道: 1, 青森県: 2, 岩手県: 3, 宮城県: 4, 秋田県: 5, 山形県: 6, 福島県: 7,
@@ -89,25 +89,30 @@ class User < ApplicationRecord
     result
   end
 
+  def self.ages
+    ages = {
+      age10: { id: 1, min: 0, max: 19, name: '10代以下' },
+      age20: { id: 2, min: 20, max: 29, name: '20代' },
+      age30: { id: 3, min: 30, max: 39, name: '30代' },
+      age40: { id: 4, min: 40, max: 49, name: '40代' },
+      age50: { id: 5, min: 50, max: 59, name: '50代' },
+      age60: { id: 6, min: 60, max: 200, name: '60代以上' }
+    }
+  end
+
   def get_ages
+    ages_name = '不明'
     if birth_date?
       age = (Date.today.strftime('%Y%m%d').to_i - birth_date.strftime('%Y%m%d').to_i) / 10_000
-      case age
-      when 0..19
-        User.ages.keys[0]
-      when 20..29
-        User.ages.keys[1]
-      when 30..39
-        User.ages.keys[2]
-      when 40..49
-        User.ages.keys[3]
-      when 50..59
-        User.ages.keys[4]
-      else
-        User.ages.keys[5]
+      User.ages.each_value do |value|
+        min = value[:min].to_i
+        max = value[:max].to_i
+        if age.between?(min, max)
+          ages_name
+          ages_name = value[:name]
+        end
       end
-    else
-      '不明'
     end
+    ages_name
   end
 end

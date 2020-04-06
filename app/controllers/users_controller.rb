@@ -2,15 +2,17 @@ class UsersController < ApplicationController
   before_action :admin_user,     only: :destroy
 
   def index
-    @search_item_hash = { prefecture: 0, ages: 0, sex: 0, play_type: 0 }
+    @search_item_hash = { prefecture: 0, ages: 0, age_min: 0, age_max: 0, sex: 0, play_type: 0 }
     @users = User.where.not(admin: true, id: current_user.id).page(params[:page]).per(20)
   end
 
   def search
-    prefecture = params[:prefecture_id].nil? ? params[:search_item_hash][:prefecture] : params[:prefecture_id]
-    ages = params[:ages_id].nil? ? params[:search_item_hash][:ages] : params[:ages_id]
-    sex = params[:sex_id].nil? ? params[:search_item_hash][:sex] : params[:sex_id]
-    play_type = params[:play_type_id].nil? ? params[:search_item_hash][:play_type] : params[:play_type_id]
+    prefecture = params[:prefecture].nil? ? params[:search_item_hash][:prefecture] : params[:prefecture]
+    ages = params[:ages].nil? ? params[:search_item_hash][:ages] : params[:ages]
+    age_min = params[:age_min].nil? ? params[:search_item_hash][:age_min] : params[:age_min]
+    age_max = params[:age_max].nil? ? params[:search_item_hash][:age_max] : params[:age_max]
+    sex = params[:sex].nil? ? params[:search_item_hash][:sex] : params[:sex]
+    play_type = params[:play_type].nil? ? params[:search_item_hash][:play_type] : params[:play_type]
 
     query = 'SELECT * FROM users WHERE admin = :admin and id <> :user_id'
     query_hash = { admin: false, user_id: current_user.id }
@@ -18,10 +20,14 @@ class UsersController < ApplicationController
       query += ' AND prefecture = :prefecture'
       query_hash[:prefecture] = prefecture
     end
-    # if ages.to_i.between?(1, User.ages.count)
-    #   query += ' AND birth_date = :sex'
-    #   query_hash[:birth_date] = sex
-    # end
+    if ages.to_i.between?(1, User.ages.count)
+      birth_date_start = Date.today.prev_year(age_max.to_i)
+      birth_date_end = Date.today.prev_year(age_min.to_i)
+
+      query += ' AND birth_date >= :birth_date_start AND birth_date <= :birth_date_end'
+      query_hash[:birth_date_start] = birth_date_start
+      query_hash[:birth_date_end] = birth_date_end
+    end
     if sex.to_i.between?(1, User.sexes.count - 1)
       query += ' AND sex = :sex'
       query_hash[:sex] = sex
@@ -34,7 +40,8 @@ class UsersController < ApplicationController
     @users = User.find_by_sql([query, query_hash])
     @users = Kaminari.paginate_array(@users).page(params[:page]).per(20)
 
-    @search_item_hash = { prefecture: prefecture, ages: ages, sex: sex, play_type: play_type }
+    @search_item_hash = { prefecture: prefecture, ages: ages, age_min: age_min, age_max: age_max,
+      sex: sex, play_type: play_type }
     render action: :index
   end
 
