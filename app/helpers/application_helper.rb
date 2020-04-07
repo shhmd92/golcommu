@@ -9,6 +9,7 @@ module ApplicationHelper
   PARTICIPATE_EVENT_MODAL_MODE = '3'
   STOP_PARTICIPATE_EVENT_MODAL_MODE = '4'
   DELETE_ACCOUNT_MODAL_MODE = '5'
+  DELETE_EVENT_MODAL_MODE = '6'
 
   # ページごとの完全なタイトルを返します
   def full_title(page_title = '')

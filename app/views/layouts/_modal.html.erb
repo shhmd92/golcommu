@@ -1,8 +1,9 @@
 <!-- 変数.modeによって内容を変更する -->
-<div class="modal" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal modal-default" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body">
+        <br/>
         <% if(mode == ApplicationHelper::EASY_LOGIN_MODAL_MODE) %>
           ログインすることでこちらのサイトをお試しになれます。
         <% elsif (mode == ApplicationHelper::DELETE_USER_MODAL_MODE) %>
@@ -13,7 +14,10 @@
           このイベントの参加をやめますか？
         <% elsif (mode == ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE) %>
           本当にアカウントを削除しますか？
+        <% elsif (mode == ApplicationHelper::DELETE_EVENT_MODAL_MODE) %>
+          このイベントを削除しますか？
         <% end %>
+        <br/><br/>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm" data-dismiss="modal">キャンセル</button>
@@ -23,7 +27,7 @@
             <%= f.hidden_field :password, value: "guestpassword" %>
             <%= f.submit "ログイン", class: "btn text-info btn-sm"%>
           <% end %>
-        <% elsif (mode == ApplicationHelper::DELETE_USER_MODAL_MODE) %>
+        <% elsif (mode == ApplicationHelper::DELETE_USER_MODAL_MODE || mode == ApplicationHelper::DELETE_EVENT_MODAL_MODE) %>
           <%= link_to "削除", object, class: "btn", style: "color: #f90e43;", method: :delete %>
         <% elsif (mode == ApplicationHelper::PARTICIPATE_EVENT_MODAL_MODE) %>
           <%= form_with(model: object.participants.build, local: true) do |f| %>

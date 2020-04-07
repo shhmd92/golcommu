@@ -1,7 +1,7 @@
 <div class="page">
   <div class="mid-white-panel">
     <h2>プロフィール編集</h2>
-    <% if current_user.admin? || current_user.guest? %>
+    <% if current_user.guest? %>
       <p class="text-warning">このユーザは更新できません</p>
     <% end %>
 

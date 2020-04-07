@@ -1,14 +1,24 @@
-<div class="row">
-  <div class="col-md-8">
-    <%= render 'events/new_event_card' %>
-  </div>
-  <div class="col-md-8">
-    <% if @events.any? %>
-    <h3>Microposts (<%= @events.count %>)</h3>
-    <ol class="events">
-      <%= render partial: 'events/event_card', collection: @events %>
-    </ol>
-    <%= paginate(@events) %>
-    <% end %>
+<div class="page">
+  <div class="event-index-panel">
+
+    <div class="">
+      <%= render 'events/new_event_card' %>
+    </div>
+
+    <div class="search-form">
+      
+    </div>
+
+    <div>
+      <%= paginate(@events) %>
+    </div>
+
+    <div class="events">
+      <%= render partial: 'events/event_card', collection: @events, as: :event_card %>
+    </div>
+
+    <div>
+      <%= paginate(@events) %>
+    </div>
   </div>
 </div>

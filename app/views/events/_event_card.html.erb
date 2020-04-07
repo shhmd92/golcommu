@@ -1,13 +1,13 @@
-<li id="event-<%= event_card.id %>">
-  <!-- gravatar_for使いたい -->
-  <span class="user"><%= link_to event_card.user.username, user_path(event_card.user) %></span>
-  <span class="title"><%= link_to event_card.title, event_path(event_card) %></span>
-  <span><%= image_tag event_card.image.url if event_card.image? %></span>
-  <span class="timestamp">
-    <%= time_ago_in_words(event_card.created_at) %>前に作成
-  </span>
-  <% if current_user?(event_card.user) %>
-  <%= link_to "ゴミ箱", event_card, method: :delete, 
-      data: { confirm: "投稿を削除しますか？" } %>
-  <% end %>
-</li>
+<div class="eventList-card">
+  <div class="eventList-float eventList-body">
+  </div>
+
+  <div class="eventList-float eventList-btn">
+    <% if current_user?(event_card.user) || current_user.admin? %>
+      
+      <a class="btn eventList-delete text-danger" data-toggle="modal" data-target="#modal">
+      <i class="fa fa-trash" aria-hidden="true"></i></a>
+    <% end %>
+  </div>
+</div>
+<%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_EVENT_MODAL_MODE, object: event_card} %>

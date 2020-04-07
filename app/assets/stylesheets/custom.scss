@@ -87,6 +87,13 @@
 /* footer */
 
 
+/* modal */
+.modal-default {
+  font-size: 15px;
+  color: black;
+}
+
+
 /* not_logged_in */
 .not-logged-in-container {
   background-image: image-url('lp_image.png');
@@ -156,7 +163,54 @@
 }
 
 
-/* user-index */
+/* events */
+.event-index-panel {
+  @extend %panel;
+  width: 900px;
+}
+
+.events {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-column-gap: 20px;
+}
+
+.eventList-card {
+  background: #fff;
+  padding: 10px 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.eventList-float {
+  float: left;
+}
+
+.eventList-body {
+  width: 230px;
+  -webkit-box-flex: 1;
+  flex: 1;
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.eventList-btn {
+  width: 110px;
+  padding-left: 5px;
+}
+
+.eventList-delete {
+  margin-top: 10px;
+  font-size: .8rem;
+  border-radius: 40px;
+  width: 100%;
+}
+
+
+/* users */
 .user-index-panel {
   @extend %panel;
   width: 900px;
@@ -226,6 +280,13 @@
 }
 
 .userList-follow {
+  font-size: .8rem;
+  border-radius: 40px;
+  width: 100%;
+}
+
+.userList-delete {
+  margin-top: 10px;
   font-size: .8rem;
   border-radius: 40px;
   width: 100%;
@@ -321,4 +382,5 @@
 .search-item-selected {
   background-color: $info;
   color: white !important;
+  pointer-events: none;
 }

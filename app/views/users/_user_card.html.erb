@@ -39,9 +39,9 @@
     <% if user_signed_in? %>
       <%= render 'users/follow_form', object: user_card %>
       <% if current_user.admin? && user_card != current_user %>
-        <%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_USER_MODAL_MODE, object: user_card} %>
-        <a class="btn delete rounded-pill" data-toggle="modal" data-target="#modal">削除</a>
+        <a class="btn userList-delete bg-danger text-white" data-toggle="modal" data-target="#modal">削除</a>
       <% end %>
     <% end %>
   </div>
 </div>
+<%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_USER_MODAL_MODE, object: user_card} %>
