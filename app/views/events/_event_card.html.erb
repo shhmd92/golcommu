@@ -1,8 +1,25 @@
 <div class="eventList-card">
-  <div class="eventList-float eventList-body">
+  <div class="eventList-image">
+    <% if event_card.image?%>
+      <%= image_tag event_card.image.url, class: 'event-img-card' %>
+    <% else %>
+      <%= image_tag 'fallback/no_image.png', class: 'event-img-card' %>
+    <% end %>
   </div>
 
-  <div class="eventList-float eventList-btn">
+  <!-- date, place, user, participants, content, likes -->
+
+  <div class="eventList-body">
+    <div class="eventList-body-title">
+      <%= event_card.title %>
+    </div>
+
+    <div class="eventList-body-title">
+      <%= event_card.user.username %>
+    </div>
+  </div>
+
+  <div class="eventList-btn">
     <% if current_user?(event_card.user) || current_user.admin? %>
       
       <a class="btn eventList-delete text-danger" data-toggle="modal" data-target="#modal">

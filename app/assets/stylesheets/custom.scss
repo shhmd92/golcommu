@@ -51,6 +51,11 @@
   object-fit: cover;
 }
 
+.event-img-card {
+  width: 200px;
+  height: 200px;
+}
+
 
 /* header */
 .navbar {
@@ -177,29 +182,34 @@
 
 .eventList-card {
   background: #fff;
-  padding: 10px 10px;
-  margin-bottom: 10px;
-  overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
-.eventList-float {
-  float: left;
+.eventList-image {
+  width: 200px;
+  margin-right: 10px;
 }
 
 .eventList-body {
-  width: 230px;
-  -webkit-box-flex: 1;
   flex: 1;
   text-align: left;
   display: flex;
   flex-wrap: wrap;
-  -webkit-box-align: center;
   align-items: center;
 }
 
+.eventList-body-title {
+  font-size: 1.5rem;
+}
+
 .eventList-btn {
-  width: 110px;
-  padding-left: 5px;
+  width: 100px;
+  font-size: 0.8rem;
+  padding-left: 20px;
 }
 
 .eventList-delete {
@@ -227,10 +237,6 @@
   padding: 10px 10px;
   margin-bottom: 20px;
   overflow: hidden;
-}
-
-.userList-float {
-  float: left;
 }
 
 .userList-image {

@@ -1,24 +1,9 @@
-<h3>いいね件数: <%= event.likes.count %></h3>
-<% if current_user.already_liked?(event) %>
-  <%= form_with(model: event.likes.find_by(user_id: current_user.id), html: { method: :delete }, local: true) do |f| %>
-    <div><%= hidden_field_tag :event_id, event.id %></div>
-    <%= button_tag(class: "btn unlike-sm rounded-pill d-flex d-sm-none align-items-center justify-content-center px-3") do %>
-      <i class="fas fa-check" style="font-size: 1.1rem; position: relative; top: 1px;"></i>
-    <% end %>
-    <%= f.submit "いいね！済み", class: "btn unlike rounded-pill d-none d-sm-flex align-items-center justify-content-center px-3" %>
+<% unless object == current_user %>
+<div class="like-form event-<%= object.id %>" style="width: 100%;">
+  <% if current_user.following?(object) %>
+    <%= render 'unlike', object: object %>
+  <% else %>
+    <%= render 'like', object: object %>
   <% end %>
-<% else %>
-  <%= form_with(model: event.likes.build, local: true) do |f| %>
-    <div><%= hidden_field_tag :event_id, event.id %></div>
-    <%= button_tag(class: "btn like-sm rounded-pill d-flex d-sm-none align-items-center justify-content-center px-3") do %>
-      <i class="far fa-thumbs-up" style="font-size: 1.1rem;"></i>
-    <% end %>
-    <%= button_tag(class: "btn like rounded-pill d-none d-sm-flex align-items-center justify-content-center px-3") do %>
-      いいね！<i class="far fa-thumbs-up"></i>
-    <% end %>
-  <% end %>
-<% end %>
-<h2>いいねしたユーザー</h2>
-<% event.liked_users.each do |user| %>
-<li><%= user.username %></li>
+</div>
 <% end %>
