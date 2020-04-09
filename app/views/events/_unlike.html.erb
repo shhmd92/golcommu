@@ -1,0 +1,4 @@
+<%= form_with(model: object.likes.find_by(user_id: current_user.id), html: { method: :delete }) do |f| %>
+  <%= hidden_field_tag :event_id, object.id %>
+  <%= f.submit "気になる済", class: "btn eventList-follow bg-info text-white" %>
+<% end %>

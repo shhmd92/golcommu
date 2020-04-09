@@ -20,8 +20,10 @@
   </div>
 
   <div class="eventList-btn">
+    <% if user_signed_in? %>
+      <%= render 'events/like_form', object: event_card %>
+    <% end %>
     <% if current_user?(event_card.user) || current_user.admin? %>
-      
       <a class="btn eventList-delete text-danger" data-toggle="modal" data-target="#modal">
       <i class="fa fa-trash" aria-hidden="true"></i></a>
     <% end %>

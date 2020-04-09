@@ -1,5 +1,5 @@
 <%= form_with(model: current_user.active_relationships.find_by(followed_id: object.id),
               html: { method: :delete }) do |f| %>
-<div><%= hidden_field_tag :user_id, object.id %></div>
-<%= f.submit "フォロー中", class: "btn userList-follow bg-info text-white" %>
+  <%= hidden_field_tag :user_id, object.id %>
+  <%= f.submit "フォロー中", class: "btn userList-follow bg-info text-white" %>
 <% end %>
