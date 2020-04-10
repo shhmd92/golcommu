@@ -7,12 +7,21 @@
   <%= render 'layouts/shim' %>
 </head>
 
-<body class="bg-light">
-  <%= render 'layouts/header' %>
-  <%= render 'layouts/toast' %>
 
-  <%= yield %>
-  <%= render 'layouts/footer' %>
+  <body class="bg-light">
+    <% if user_signed_in? %>
+      <div class="logged-in-container">
+    <% else %>
+      <div>
+    <% end %>
+    <div class="bg-mask">
+      <%= render 'layouts/header' %>
+      <%= render 'layouts/toast' %>
+
+      <%= yield %>
+      <%= render 'layouts/footer' %>
+      </div>
+    </div>
 </body>
 
 </html>

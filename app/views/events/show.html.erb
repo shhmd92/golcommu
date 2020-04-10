@@ -1,25 +1,15 @@
-<h1>投稿詳細ページ</h1>
-<h3><%= @event.user.email %></h3>
-<h3><%= @event.title %></h3>
-<h3><%= @event.content %></h3>
+<% provide(:title, @event.title) %>
 
-<!-- いいね -->
-<%= render 'events/like_form', event: @event %>
-<!-- 参加者 -->
-<%= render 'events/participants_form', event: @event %>
+<div class="page">
+  <div class="wide-white-panel">
+    <h2>イベント詳細</h2>
 
-<h2>コメント一覧</h2>
-<% @comments.each do |c| %>
-<div>
-  <div class="user-username"><%= link_to @event.user.username, user_path(@event.user) %></div>
-  <%= c.content %>
+    <div>
+      <%= render 'events/like_form', object: @event %>
+    </div>
+    <%= render 'events/participants_form', object: @event %>
+
+    <%= render 'events/comment', object: @event %>
+
+  </div>
 </div>
-<% end %>
-
-<%= form_with(model: [@event, @comment] ) do |f| %>
-<%= hidden_field_tag :event_id, @event.id %>
-<%= f.text_field :content %>
-<br>
-<%= f.submit 'コメントする' %>
-<% end %>
-<%= link_to "ホームへ戻る", root_path %>

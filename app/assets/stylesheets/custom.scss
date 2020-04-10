@@ -33,6 +33,13 @@
   width: 665px;
 }
 
+.wide-white-panel {
+  @extend %panel;
+  padding: 80px;
+  background: #fff;
+  width: 900px;
+}
+
 /* image */
 .avatar-img-mini {
   width: 40px;
@@ -96,6 +103,20 @@
 .modal-default {
   font-size: 15px;
   color: black;
+}
+
+
+/* logged_in */
+.logged-in-container {
+  background-image: image-url('main_container.png');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+}
+
+.bg-mask {
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
 }
 
 
@@ -168,6 +189,11 @@
 }
 
 
+/* list-common */
+%list-body-base {
+  width: 100%;
+}
+
 /* events */
 .event-index-panel {
   @extend %panel;
@@ -203,11 +229,20 @@
 }
 
 .eventList-body-title {
+  @extend %list-body-base;
   font-size: 1.5rem;
+  text-overflow: ellipsis;
+}
+
+.eventList-body-item {
+  @extend %list-body-base;
+  font-size: 0.8rem;
+  text-overflow: ellipsis;
+  border-bottom: 1px solid gray;
 }
 
 .eventList-btn {
-  width: 100px;
+  width: 120px;
   font-size: 0.8rem;
   padding-left: 20px;
 }
@@ -260,17 +295,13 @@
   align-items: center;
 }
 
-%userList-body-base {
-  width: 100%;
-}
-
 .userList-body-name {
-  @extend %userList-body-base;
+  @extend %list-body-base;
   text-overflow: ellipsis;
 }
 
 .userList-body-intro {
-  @extend %userList-body-base;
+  @extend %list-body-base;
   font-size: 1.1rem;
   line-height: 1.1;
   font-weight: 700;
@@ -282,7 +313,7 @@
 }
 
 .userList-body-detail {
-  @extend %userList-body-base;
+  @extend %list-body-base;
   font-size: 0.6rem;
 }
 

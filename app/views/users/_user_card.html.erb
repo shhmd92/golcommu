@@ -39,7 +39,9 @@
     <% if user_signed_in? %>
       <%= render 'users/follow_form', object: user_card %>
       <% if current_user.admin? && user_card != current_user %>
-        <a class="btn userList-delete bg-danger text-white" data-toggle="modal" data-target="#modal">削除</a>
+        <a class="btn userList-delete bg-danger text-white" data-toggle="modal" data-target="#modal">
+          削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>
+        </a>
       <% end %>
     <% end %>
   </div>

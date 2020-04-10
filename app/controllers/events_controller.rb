@@ -36,7 +36,7 @@ class EventsController < ApplicationController
   end
 
   def correct_user
-    @event = current_user.evens.find_by(url_token: params[:url_token])
+    @event = current_user.events.find_by(url_token: params[:url_token])
     redirect_to root_url if @event.nil?
     end
 end

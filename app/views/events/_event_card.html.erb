@@ -1,21 +1,38 @@
 <div class="eventList-card">
   <div class="eventList-image">
-    <% if event_card.image?%>
-      <%= image_tag event_card.image.url, class: 'event-img-card' %>
-    <% else %>
-      <%= image_tag 'fallback/no_image.png', class: 'event-img-card' %>
+    <%= link_to event_path(event_card) do %>
+      <% if event_card.image?%>
+        <%= image_tag event_card.image.url, class: 'event-img-card' %>
+      <% else %>
+        <%= image_tag 'fallback/no_image.png', class: 'event-img-card' %>
+      <% end %>
     <% end %>
   </div>
 
-  <!-- date, place, user, participants, content, likes -->
-
   <div class="eventList-body">
     <div class="eventList-body-title">
-      <%= event_card.title %>
+      <%= link_to event_path(event_card) do %>
+        <%= event_card.title %>
+      <% end %>
     </div>
 
-    <div class="eventList-body-title">
-      <%= event_card.user.username %>
+    <div class="eventList-body-item">
+      主催者：
+      <%= link_to user_path(event_card.user) do %>
+        <%= event_card.user.username %>
+      <% end %>
+    </div>
+
+    <div class="eventList-body-item">
+      日付：<%= event_card.event_date %>&nbsp;&nbsp;場所：<%= event_card.user.username %>
+    </div>
+
+    <div class="eventList-body-item">
+      参加人数：<%= event_card.participants.count %>／<%= event_card.participants.count %>
+    </div>
+
+    <div class="eventList-body-item">
+      <%= event_card.content %>
     </div>
   </div>
 
@@ -24,8 +41,9 @@
       <%= render 'events/like_form', object: event_card %>
     <% end %>
     <% if current_user?(event_card.user) || current_user.admin? %>
-      <a class="btn eventList-delete text-danger" data-toggle="modal" data-target="#modal">
-      <i class="fa fa-trash" aria-hidden="true"></i></a>
+      <a class="btn eventList-delete bg-danger text-white" data-toggle="modal" data-target="#modal">
+        削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>
+      </a>
     <% end %>
   </div>
 </div>
