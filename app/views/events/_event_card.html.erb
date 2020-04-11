@@ -41,7 +41,8 @@
       <%= render 'events/like_form', object: event_card %>
     <% end %>
     <% if current_user?(event_card.user) || current_user.admin? %>
-      <a class="btn eventList-delete bg-danger text-white" data-toggle="modal" data-target="#modal">
+      <a class="btn eventList-delete bg-danger text-white" data-toggle="modal"
+        data-target="#modal-<%= ApplicationHelper::DELETE_EVENT_MODAL_MODE %>">
         削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>
       </a>
     <% end %>

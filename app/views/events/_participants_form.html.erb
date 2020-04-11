@@ -1,11 +1,13 @@
 <% if current_user.already_participated?(object) %>
   <%= render 'layouts/modal', {mode: ApplicationHelper::STOP_PARTICIPATE_EVENT_MODAL_MODE, object: object} %>
-  <button type="button" class="btn btn-primary mt-1" data-toggle="modal" data-target="#modal">参加をやめる</button>
+  <button type="button" class="btn btn-primary mt-1" data-toggle="modal"
+    data-target="#modal-<%= ApplicationHelper::STOP_PARTICIPATE_EVENT_MODAL_MODE %>">参加をやめる</button>
 <% else %>
   <%= render 'layouts/modal', {mode: ApplicationHelper::PARTICIPATE_EVENT_MODAL_MODE, object: object} %>
-  <button type="button" class="btn btn-primary mt-1" data-toggle="modal" data-target="#modal">参加する</button>
+  <button type="button" class="btn btn-primary mt-1" data-toggle="modal"
+    data-target="#modal-<%= ApplicationHelper::PARTICIPATE_EVENT_MODAL_MODE %>">参加する</button>
 <% end %>
-<h2>参加者</h2>
+<h5>参加者</h5>
 <% object.participant_users.each do |user| %>
 <li><%= user.username %></li>
 <% end %>

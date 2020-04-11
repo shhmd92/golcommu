@@ -1,3 +1,5 @@
+<h5>コメント一覧</h5>
+
 <%= form_with(model: [object, @comment] ) do |f| %>
       <%= hidden_field_tag :event_id, object.id %>
       <%= f.text_field :content %>
@@ -5,10 +7,10 @@
       <%= f.submit 'コメントする' %>
     <% end %>
 
-<h2>コメント一覧</h2>
+
     <% @comments.each do |c| %>
-    <div>
-      <div class="user-username"><%= link_to @event.user.username, user_path(@event.user) %></div>
-      <%= c.content %>
-    </div>
+      <div>
+        <div class="user-username"><%= link_to @event.user.username, user_path(@event.user) %></div>
+        <%= c.content %>
+      </div>
     <% end %>

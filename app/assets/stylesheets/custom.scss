@@ -24,18 +24,17 @@
   margin: 0 auto;
   color: #878787;
   font-size: 13px;
+  padding: 50px;
 }
 
 .mid-white-panel {
   @extend %panel;
-  padding: 80px;
   background: #fff;
   width: 665px;
 }
 
 .wide-white-panel {
   @extend %panel;
-  padding: 80px;
   background: #fff;
   width: 900px;
 }
@@ -56,6 +55,11 @@
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.event-img {
+  width: 300px;
+  height: 300px;
 }
 
 .event-img-card {
@@ -260,6 +264,53 @@
   width: 100%;
 }
 
+.event-container {
+  background: #fff;
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.event-image {
+  margin-right: 10px;
+}
+
+.event-body {
+  font-size: 0.9rem;
+  text-align: left;
+  flex: 1;
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.event-body-btn {
+  float: right;
+  margin-left: 10px;
+  width: 100px;
+}
+
+.event-delete {
+  font-size: .8rem;
+  border-radius: 40px;
+  width: 100%;
+}
+
+.event-h-td {
+  width: 80px;
+}
+
+.event-item {
+  background-color: $secondary;
+  color: white;
+  margin-right: 1rem;
+  padding: 0rem 0.25rem 0rem 0.25rem;
+  width: 100%;
+  text-align: center;
+}
 
 /* users */
 .user-index-panel {

@@ -1,15 +1,78 @@
-<% provide(:title, @event.title) %>
+<% provide(:title, "イベント詳細") %>
 
 <div class="page">
   <div class="wide-white-panel">
-    <h2>イベント詳細</h2>
+    <h2><%= @event.title %></h2>
+
+    <div class="event-container">
+      <div class="event-image">
+        <% if @event.image?%>
+          <%= image_tag @event.image.url, class: 'event-img' %>
+        <% else %>
+          <%= image_tag 'fallback/no_image.png', class: 'event-img' %>
+        <% end %>
+      </div>
+
+      <div class="event-body">
+        <table class="w-100">
+          <tr>
+            <td colspan="2">
+              <div class="event-body-btn">
+                <% if current_user?(@event.user) %>
+                  <%= render 'events/like_form', object: @event %>
+                <% end %>
+              </div>
+              <div class="event-body-btn">
+                <% if current_user?(@event.user) || current_user.admin? %>
+                  <a class="btn event-delete bg-danger text-white" data-toggle="modal"
+                    data-target="#modal-<%= ApplicationHelper::DELETE_EVENT_MODAL_MODE %>">
+                    削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>
+                  </a>
+                <% end %>
+                <%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_EVENT_MODAL_MODE, object: @event} %>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="event-h-td">
+              <div class="event-item">主催者</div>
+            </td>
+            <td>
+              <%= @event.user.username %>
+            </td>
+          </tr>
+          <tr>
+            <td class="event-h-td">
+              <div class="event-item">日時</div>
+            </td>
+            <td>
+              <%= @event.event_date %>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td class="event-h-td">
+              <div class="event-item">詳細</div>
+            </td>
+            <td>
+              <%= @event.content %>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
     <div>
-      <%= render 'events/like_form', object: @event %>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link">参加者</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">コメント</a>
+        </li>
+      </ul>
     </div>
-    <%= render 'events/participants_form', object: @event %>
+          <%= render 'events/participants_form', object: @event %>
 
-    <%= render 'events/comment', object: @event %>
-
+      <%= render 'events/comment', object: @event %>
   </div>
 </div>
