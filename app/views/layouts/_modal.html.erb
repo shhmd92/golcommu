@@ -36,9 +36,8 @@
             <%= button_tag(class: "btn like-sm rounded-pill d-flex d-sm-none align-items-center justify-content-center px-3") do %>
               <i class="far fa-thumbs-up" style="font-size: 1.1rem;"></i>
             <% end %>
-            <%= button_tag(class: "btn like rounded-pill d-none d-sm-flex align-items-center justify-content-center px-3") do %>
-              参加する<i class="far fa-thumbs-up"></i>
-            <% end %>
+            <%= f.submit "参加する",
+              class: "btn text-info rounded-pill d-none d-sm-flex align-items-center justify-content-center px-3" %>
           <% end %>
         <% elsif (mode == ApplicationHelper::STOP_PARTICIPATE_EVENT_MODAL_MODE) %>
           <%= form_with(model: object.participants.find_by(user_id: current_user.id), html: { method: :delete }, local: true) do |f| %>
@@ -46,7 +45,8 @@
               <%= button_tag(class: "btn unlike-sm rounded-pill d-flex d-sm-none align-items-center justify-content-center px-3") do %>
                 <i class="fas fa-check" style="font-size: 1.1rem; position: relative; top: 1px;"></i>
               <% end %>
-            <%= f.submit "参加をやめる", class: "btn unlike rounded-pill d-none d-sm-flex align-items-center justify-content-center px-3" %>
+            <%= f.submit "参加をやめる",
+              class: "btn text-danger rounded-pill d-none d-sm-flex align-items-center justify-content-center px-3" %>
           <% end %>
         <% elsif(mode == ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE) %>
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>

@@ -1,0 +1,28 @@
+<div class="comment-form">
+  <div>
+    <%= form_with(model: [object, @comment], local: true) do |f| %>
+      <%= hidden_field_tag :event_id, object.id %>
+      <%= f.text_area :content, class: "base-textarea", id: "input-content-area",
+        rows: 4,
+        placeholder: "コメントする..." %>
+      <div class="comment-btn">
+        <p class="float-left text-danger" id="content-counter"></p>
+        <%= button_tag(id: "send-comment", class: "btn float-right pt-0",
+          style: "font-size:1em;",
+          disabled: true) do %>
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+
+  <div>
+    <% @comments.each do |c| %>
+      <div>
+        <div class="user-username"><%= link_to c.user.username, user_path(c.user) %></div>
+        <%= simple_format(h(c.content)) %>
+      </div>
+    <% end %>
+  </div>
+</div>

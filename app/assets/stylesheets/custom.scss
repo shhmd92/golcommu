@@ -24,7 +24,6 @@
   margin: 0 auto;
   color: #878787;
   font-size: 13px;
-  padding: 50px;
 }
 
 .mid-white-panel {
@@ -37,7 +36,47 @@
   @extend %panel;
   background: #fff;
   width: 900px;
+  padding: 50px;
 }
+
+/* button */
+.btn-field {
+  width: 110px;
+}
+
+.base-btn {
+  font-size: .8rem;
+  border-radius: 40px;
+  width: 100%;
+}
+
+.loginbtn {
+  width: 100px;
+  margin: 0px 5px 0px 5px;
+
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+.guest-loginbtn {
+  @extend .loginbtn;
+  width: 150px;
+}
+
+
+/* textarea */
+.base-textarea {
+  border: 2px solid $info;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  background-color: snow;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1em;
+  line-height: 1.2;
+}
+
 
 /* image */
 .avatar-img-mini {
@@ -177,26 +216,11 @@
 }
 
 
-/* loginbtn */
-.loginbtn {
-  width: 100px;
-  margin: 0px 5px 0px 5px;
-
-  a:hover {
-    text-decoration: none;
-  }
-}
-
-.guest-loginbtn {
-  @extend .loginbtn;
-  width: 150px;
-}
-
-
 /* list-common */
 %list-body-base {
   width: 100%;
 }
+
 
 /* events */
 .event-index-panel {
@@ -258,12 +282,6 @@
   width: 100%;
 }
 
-.eventList-follow {
-  font-size: .8rem;
-  border-radius: 40px;
-  width: 100%;
-}
-
 .event-container {
   background: #fff;
   display: flex;
@@ -312,7 +330,49 @@
   text-align: center;
 }
 
+
+/* participants */
+.participants-list {
+  width: 100%;
+  margin-top: 10px;
+
+  ul {
+    padding-left: 0;
+    list-style-type: none;
+    text-align: left;
+    height: 100%;
+    overflow: hidden;
+
+    li {
+      float: left;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: $light;
+    }
+  }
+}
+
+
+/* comment */
+.comment-form {
+  margin-top: 10px;
+}
+
+.comment-btn {
+  overflow: hidden;
+}
+
+#send-comment {
+  cursor: not-allowed;
+}
+
+
 /* users */
+.user-name {
+  text-overflow: ellipsis;
+}
+
 .user-index-panel {
   @extend %panel;
   width: 900px;
@@ -329,6 +389,11 @@
   padding: 10px 10px;
   margin-bottom: 20px;
   overflow: hidden;
+}
+
+.userList-card-mini {
+  background: $light;
+  padding: 10px 10px;
 }
 
 .userList-image {
@@ -437,7 +502,6 @@
 
 .search-box {
   padding: 10px 10px 10px 10px;
-  widows: 100px;
 }
 
 .search-title {

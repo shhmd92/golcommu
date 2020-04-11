@@ -1,4 +1,4 @@
 <%= form_with(model: object.likes.build) do |f| %>
   <%= hidden_field_tag :event_id, object.id %>
-  <%= f.submit "気になる", class: "btn eventList-follow bg-light text-info" %>
+  <%= f.submit "気になる", class: "btn base-btn bg-light text-info" %>
 <% end %>
