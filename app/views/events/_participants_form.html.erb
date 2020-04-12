@@ -1,7 +1,13 @@
 <div class="participants-list">
-  <ul>
-    <% object.participant_users.each do |user| %>
-      <li><%= render 'users/user_card_mini', user_card: user %></li>
-    <% end %>
-  </ul>
+  <% if object.participant_users.any? %>
+    <ul>
+      <% object.participant_users.each do |user| %>
+        <li><%= render 'users/user_card_mini', user_card: user %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="text-left">
+      参加者がいません
+    </div>
+  <% end %>
 </div>

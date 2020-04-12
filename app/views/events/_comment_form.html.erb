@@ -1,6 +1,6 @@
 <div class="comment-form">
   <div>
-    <%= form_with(model: [object, @comment], local: true) do |f| %>
+    <%= form_with(model: [object, @comment]) do |f| %>
       <%= hidden_field_tag :event_id, object.id %>
       <%= f.text_area :content, class: "base-textarea", id: "input-content-area",
         rows: 4,
@@ -16,13 +16,7 @@
     <% end %>
   </div>
 
-
-  <div>
-    <% @comments.each do |c| %>
-      <div>
-        <div class="user-username"><%= link_to c.user.username, user_path(c.user) %></div>
-        <%= simple_format(h(c.content)) %>
-      </div>
-    <% end %>
+  <div id="comment-body" class="text-left">
+    <%= render 'events/comment', comments: @comments %>
   </div>
 </div>

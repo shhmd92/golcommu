@@ -1,0 +1,28 @@
+<% if comments.any? %>
+  <% comments.each do |comment| %>
+    <div id="comment-<%= comment.id %>" class="comment-row">
+      <div class="user-username">
+        <%= link_to user_path(comment.user) do %>
+          <% if comment.user.avatar? %>
+            <%= image_tag comment.user.avatar, class: 'avatar-img-mini rounded-circle' %>
+          <% else %>
+            <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img-mini rounded-circle' %>
+          <% end %>
+        <% end %>
+        <%= link_to comment.user.username, user_path(comment.user) %>
+      </div>
+      <div class="">
+        <%= simple_format(h(comment.content), {}, wrapper_tag: "div") %>
+      </div>
+      <div>
+        <% if current_user?(@event.user) || current_user.admin? %>
+          <%= link_to icon('fas', 'trash-alt'), comment_path(comment),
+            method: :delete, remote: true, class: "text-danger" %>
+        <% end %>
+        <%= time_ago_in_words(comment.created_at) %>前
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <span id="no-comment">コメントがありません</span>
+<% end %>

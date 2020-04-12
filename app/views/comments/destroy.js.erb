@@ -1,0 +1,2 @@
+$('#comment-<%= @comment.id %>').remove()
+$('#comment-count').text('<%= @comment.event.comments.count.to_s(:delimited) %>')

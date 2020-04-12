@@ -1,0 +1,8 @@
+$('#comment-body').html('<%= j(render 'events/comment', { comments: @comments }) %>')
+$('#input-content-area').val('')
+sendBtnDisabled(true)
+$('#comment-count').text('<%= @comment.event.comments.count.to_s(:delimited) %>')
+var commentCount = Number('<%= @comment.event.comments.count.to_s(:delimited) %>')
+if (commentCount > 0) {
+  $('#no-comment').hide()
+}

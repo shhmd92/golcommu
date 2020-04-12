@@ -77,12 +77,12 @@
       <ul class="nav nav-tabs">
         <li class="nav-item w-50">
           <a href="#tab1" class="nav-link active" data-toggle="tab">
-            参加者(<%= @event.participants.count %>／<%= @event.participants.count %>)
+            参加者(<%= @event.participants.count.to_s(:delimited) %>／<%= @event.participants.count.to_s(:delimited) %>)
           </a>
         </li>
         <li class="nav-item w-50">
-          <a href="#tab2" class="nav-link" data-toggle="tab">
-            コメント(<%= @event.comments.count %>件)
+          <a href="#tab2" id="comment-tab" class="nav-link" data-toggle="tab">
+            コメント(<span id="comment-count"><%= @event.comments.count.to_s(:delimited) %></span>件)
           </a>
         </li>
       </ul>

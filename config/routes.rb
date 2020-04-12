@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :events, except: [:index], param: :url_token do
+  resources :events, except: [:index], param: :url_token, shallow: true do
     resources :comments, only: [:create, :destroy]
     collection do
       get :search
