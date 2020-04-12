@@ -65,6 +65,14 @@
   width: 150px;
 }
 
+.eventbtn {
+  width: 120px;
+
+  a:hover {
+    text-decoration: none;
+  }
+}
+
 
 /* textarea */
 .base-textarea {
@@ -94,6 +102,12 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  object-fit: cover;
+}
+
+.square-image img {
+  width: 300px;
+  height: 300px;
   object-fit: cover;
 }
 
@@ -174,11 +188,20 @@
 }
 
 /* form */
-.form-group {
+%form-group {
   text-align: left;
-  width: 350px;
   margin: auto;
   margin-bottom: 15px;
+}
+
+.user-form-group {
+  @extend %form-group;
+  width: 350px;
+}
+
+.event-form-group {
+  @extend %form-group;
+  width: 100%;
 }
 
 .control-label {
@@ -192,7 +215,7 @@
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.2;
   color: #555;
   background-color: #fff;
   background-image: none;

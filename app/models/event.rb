@@ -12,8 +12,8 @@ class Event < ApplicationRecord
 
   before_validation :generate_url_token, on: :create
 
-  validates :title, presence: true
-  validates :content, length: { maximum: 240 }
+  validates :title, presence: true, length: { maximum: 50 }
+  validates :content, presence: true, length: { maximum: 240 }
   validates :user_id, presence: true
   validates :url_token, presence: true, uniqueness: true
 

@@ -9,7 +9,7 @@
         <% if @event.image?%>
           <%= image_tag @event.image.url, class: 'event-img' %>
         <% else %>
-          <%= image_tag 'fallback/no_image.png', class: 'event-img' %>
+          <%= image_tag 'fallback/default_event_image.png', class: 'event-img' %>
         <% end %>
       </div>
 

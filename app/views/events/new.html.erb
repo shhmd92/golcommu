@@ -1,16 +1,53 @@
-<%= form_with(model: @event, local: true) do |f| %>
-<%= render 'shared/error_messages', object: f.object %>
-<div class="field">
-  <%= f.text_field :title, placeholder: "Compose new micropost..." %>
+<% provide(:title, "イベント作成") %>
+
+<div class="page">
+  <div class="mid-white-panel">
+    <h2>イベント作成</h2>
+    <%= form_with(model: @event, local: true) do |form| %>
+      <%= render 'shared/error_messages', object: form.object %>
+
+      <div class="event-form-group">
+        <%= form.label :title, "タイトル", class: 'control-label' %>
+        <%= form.text_field :title, class: 'form-control', autofocus: true %>
+      </div>
+
+      <div class="event-form-group">
+        <%= form.label :event_date, "日時", class: 'control-label' %>
+        <br/>
+        <%= form.date_field :event_date, class: 'form-control-select btn-light' %>
+        <%= form.time_field :start_time, class: 'form-control-select btn-light' %>
+        〜
+        <%= form.time_field :end_time, class: 'form-control-select btn-light' %>
+      </div>
+
+      <div class="event-form-group">
+        <%= form.label :content, "詳細", class: 'control-label' %>
+        <%= form.text_area :content, id: 'input-content-area', class: 'form-control', rows:10 %>
+      </div>
+
+      <div class="event-form-group">
+        <%= form.label :image, "イメージ", class: 'control-label' %>
+        <div class="square-image">
+          <%= image_tag 'fallback/default_event_image.png', id: :img_prev %>
+          <%= form.hidden_field :image_cache %>
+          <div class="mt-1">
+            <label for="event_img">
+              <span class="btn btn-outline-secondary">
+                画像登録
+              </span>
+              <%= form.file_field :image, id: :event_img, class: "d-none" %>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-form-group">
+        <%= form.submit "更新", class: "btn btn-info btn-block text-white" %>
+      </div>
+
+    <% end %>
+  </div>
 </div>
-<div class="field">
-  <%= f.text_area :content, placeholder: "Compose new micropost..." %>
-</div>
-<%= f.submit "Post", class: "btn btn-primary" %>
-<span class="image">
-  <%= f.file_field :image, accept: 'image/jpeg,image/gif,image/png'  %>
-</span>
-<% end %>
 
 <script type="text/javascript">
   $('#event_image').bind('change', function () {

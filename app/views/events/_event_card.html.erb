@@ -4,7 +4,7 @@
       <% if event_card.image?%>
         <%= image_tag event_card.image.url, class: 'event-img-card' %>
       <% else %>
-        <%= image_tag 'fallback/no_image.png', class: 'event-img-card' %>
+        <%= image_tag 'fallback/default_event_image.png', class: 'event-img-card' %>
       <% end %>
     <% end %>
   </div>

@@ -1,15 +1,13 @@
 $(function () {
-  $(function () {
-    $("#input-content-area")
-      .on("change keyup keydown paste cut", function () {
-        if ($(this).outerHeight() > this.scrollHeight) {
-          $(this).height(60)
-        }
-        while ($(this).outerHeight() < this.scrollHeight) {
-          $(this).height($(this).height() + 1)
-        }
-      });
-  });
+  $("#input-content-area")
+    .on("change keyup keydown paste cut", function () {
+      if ($(this).outerHeight() > this.scrollHeight) {
+        $(this).height(60)
+      }
+      while ($(this).outerHeight() < this.scrollHeight) {
+        $(this).height($(this).height() + 1)
+      }
+    });
 
   $("#input-content-area")
     .on("keydown keyup keypress change", function () {

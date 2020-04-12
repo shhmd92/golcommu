@@ -27,6 +27,14 @@
             <% end %>
           </button>
           <div class="dropdown-menu dropdown-menu-right dropdown-font">
+            <%= link_to user_path(current_user), class: "dropdown-item d-flex align-items-center" do %>
+              <i class="fas fa-address-card"></i>
+              <div style="width: 100%">&nbsp;マイページ</div>
+            <% end %>
+            <%= link_to new_event_path, class: "dropdown-item d-flex align-items-center" do %>
+              <i class="fas fa-plus-square"></i>
+              <div style="width: 100%">&nbsp;イベント作成</div>
+            <% end %>
             <%= link_to edit_user_registration_path, class: "dropdown-item d-flex align-items-center" do %>
               <i class="fas fa-edit"></i>
               <div style="width: 100%">&nbsp;プロフィール編集</div>
