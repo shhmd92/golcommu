@@ -14,10 +14,12 @@
       <div class="event-form-group">
         <%= form.label :event_date, "日時", class: 'control-label' %>
         <br/>
-        <%= form.date_field :event_date, class: 'form-control-select btn-light' %>
-        <%= form.time_field :start_time, class: 'form-control-select btn-light' %>
+        <%= form.date_field :event_date, class: 'form-control-select' %>
+        <%= form.time_select :start_time, {include_blank: true, start_hour: 00, end_hour: 24, minute_step: 15},
+          {class: 'form-control-select btn-light'} %>
         〜
-        <%= form.time_field :end_time, class: 'form-control-select btn-light' %>
+        <%= form.time_select :end_time, {include_blank: true, start_hour: 00, end_hour: 24, minute_step: 15},
+          {class: 'form-control-select btn-light'} %>
       </div>
 
       <div class="event-form-group">

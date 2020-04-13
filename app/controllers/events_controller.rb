@@ -16,7 +16,7 @@ class EventsController < ApplicationController
   def create
     @event = current_user.events.build(event_params)
     if @event.save
-      flash[:success] = '投稿が送信されました'
+      flash[:success] = 'イベントを作成しました'
       redirect_to user_path(current_user)
     else
       render 'events/new'
@@ -32,7 +32,7 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:title, :content, :image)
+    params.require(:event).permit(:title, :content, :image, :event_date, :start_time, :end_time)
   end
 
   def correct_user

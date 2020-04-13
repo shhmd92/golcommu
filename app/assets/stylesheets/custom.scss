@@ -236,7 +236,12 @@
 
 .form-control-select {
   @extend %form-control-base;
-  width: 25%;
+  width: auto;
+}
+
+.time-box {
+  width: auto;
+  background-color: $info;
 }
 
 

@@ -16,6 +16,7 @@ class Event < ApplicationRecord
   validates :content, presence: true, length: { maximum: 240 }
   validates :user_id, presence: true
   validates :url_token, presence: true, uniqueness: true
+  validate :start_end_check
 
   def to_param
     url_token
@@ -33,5 +34,9 @@ class Event < ApplicationRecord
 
   def generate_url_token
     self.url_token = SecureRandom.urlsafe_base64
+  end
+
+  def start_end_check
+    errors.add(:end_time, 'が不正です') if start_time > end_time
   end
 end
