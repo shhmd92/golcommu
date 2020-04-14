@@ -29,6 +29,10 @@ class EventsController < ApplicationController
     redirect_to request.referer || root_url
   end
 
+  def edit
+    @event = Event.find_by(url_token: params[:url_token])
+  end
+
   private
 
   def event_params

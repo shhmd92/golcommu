@@ -1,34 +1,42 @@
+<% provide(:title, title) %>
+
 <div class="page">
   <div class="mid-white-panel">
     <h2><%= title %></h2>
     <%= form_with(model: object, local: true) do |form| %>
-      
+    <%= render "shared/error_messages", error_messages: form.object %>
 
       <div class="event-form-group">
-        <%= form.label :title, "タイトル", class: 'control-label' %>
-        <%= form.text_field :title, class: 'form-control', autofocus: true %>
+        <%= form.label :title, "タイトル", class: "control-label" %>
+        <%= form.text_field :title, class: "form-control", autofocus: true %>
       </div>
 
       <div class="event-form-group">
-        <%= form.label :event_date, "日時", class: 'control-label' %>
+        <%= form.label :event_date, "日時", class: "control-label" %>
         <br/>
-        <%= form.date_field :event_date, class: 'form-control-select' %>
-        <%= form.time_select :start_time, {default: Date.today + 7.hour, start_hour: 00, end_hour: 23, minute_step: 15},
-          {class: 'form-control-select btn-light'} %>
+        <%= form.date_field :event_date, class: "form-control-select" %>
+        <%= form.time_select :start_time, {default: Date.today + 7.hour,
+          start_hour: 00, end_hour: 23, minute_step: 15},
+          {class: "form-control-select btn-light"} %>
         〜
-        <%= form.time_select :end_time, {default: Date.today + 17.hour, start_hour: 00, end_hour: 23, minute_step: 15},
-          {class: 'form-control-select btn-light'} %>
+        <%= form.time_select :end_time, {default: Date.today + 17.hour,
+          start_hour: 00, end_hour: 23, minute_step: 15},
+          {class: "form-control-select btn-light"} %>
       </div>
 
       <div class="event-form-group">
-        <%= form.label :content, "詳細", class: 'control-label' %>
-        <%= form.text_area :content, id: 'input-content-area', class: 'form-control', rows:10 %>
+        <%= form.label :content, "詳細", class: "control-label" %>
+        <%= form.text_area :content, id: "input-content-area", class: "form-control", rows:10 %>
       </div>
 
       <div class="event-form-group">
-        <%= form.label :image, "イメージ", class: 'control-label' %>
+        <%= form.label :image, "イメージ", class: "control-label" %>
         <div class="square-image">
-          <%= image_tag 'fallback/default_event_image.png', id: :img_prev %>
+          <% if object.image? %>
+            <%= image_tag object.image.to_s, id: :img_prev %>
+          <% else %>
+            <%= image_tag "fallback/default_event_image.png", id: :img_prev %>
+          <% end %>
           <%= form.hidden_field :image_cache %>
           <div class="mt-1">
             <label for="event_img">
