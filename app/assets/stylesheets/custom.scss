@@ -40,6 +40,10 @@
   padding: 50px;
 }
 
+.field_with_errors {
+  display: contents;
+}
+
 /* button */
 .btn-field {
   width: 110px;
@@ -237,11 +241,7 @@
 .form-control-select {
   @extend %form-control-base;
   width: auto;
-}
-
-.time-box {
-  width: auto;
-  background-color: $info;
+  padding: 5px;
 }
 
 
@@ -338,12 +338,6 @@
   float: right;
   margin-left: 10px;
   width: 100px;
-}
-
-.event-delete {
-  font-size: .8rem;
-  border-radius: 40px;
-  width: 100%;
 }
 
 .event-h-td {

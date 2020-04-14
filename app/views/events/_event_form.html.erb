@@ -1,0 +1,50 @@
+<div class="page">
+  <div class="mid-white-panel">
+    <h2><%= title %></h2>
+    <%= form_with(model: object, local: true) do |form| %>
+      
+
+      <div class="event-form-group">
+        <%= form.label :title, "タイトル", class: 'control-label' %>
+        <%= form.text_field :title, class: 'form-control', autofocus: true %>
+      </div>
+
+      <div class="event-form-group">
+        <%= form.label :event_date, "日時", class: 'control-label' %>
+        <br/>
+        <%= form.date_field :event_date, class: 'form-control-select' %>
+        <%= form.time_select :start_time, {default: Date.today + 7.hour, start_hour: 00, end_hour: 23, minute_step: 15},
+          {class: 'form-control-select btn-light'} %>
+        〜
+        <%= form.time_select :end_time, {default: Date.today + 17.hour, start_hour: 00, end_hour: 23, minute_step: 15},
+          {class: 'form-control-select btn-light'} %>
+      </div>
+
+      <div class="event-form-group">
+        <%= form.label :content, "詳細", class: 'control-label' %>
+        <%= form.text_area :content, id: 'input-content-area', class: 'form-control', rows:10 %>
+      </div>
+
+      <div class="event-form-group">
+        <%= form.label :image, "イメージ", class: 'control-label' %>
+        <div class="square-image">
+          <%= image_tag 'fallback/default_event_image.png', id: :img_prev %>
+          <%= form.hidden_field :image_cache %>
+          <div class="mt-1">
+            <label for="event_img">
+              <span class="btn btn-outline-secondary">
+                画像登録
+              </span>
+              <%= form.file_field :image, id: :event_img, class: "d-none" %>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-form-group">
+        <%= form.submit "更新", class: "btn btn-info btn-block text-white" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

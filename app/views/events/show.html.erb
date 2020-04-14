@@ -22,15 +22,20 @@
                   <%= render 'events/like_form', object: @event %>
                 <% end %>
               </div>
-              <div class="event-body-btn">
-                <% if current_user?(@event.user) || current_user.admin? %>
-                  <a class="btn event-delete bg-danger text-white" data-toggle="modal"
-                    data-target="#modal-<%= ApplicationHelper::DELETE_EVENT_MODAL_MODE %>">
-                    削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>
-                  </a>
-                <% end %>
-                <%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_EVENT_MODAL_MODE, object: @event} %>
-              </div>
+              <% if current_user?(@event.user) || current_user.admin? %>
+                <div class="event-body-btn">
+                    <a class="btn base-btn bg-danger text-white" data-toggle="modal"
+                      data-target="#modal-<%= ApplicationHelper::DELETE_EVENT_MODAL_MODE %>">
+                      削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                  <%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_EVENT_MODAL_MODE, object: @event} %>
+                </div>
+                <div class="event-body-btn">
+                  <button type="button" class="btn btn-secondary base-btn">
+                    <%= link_to '編集', edit_event_path(@event), class: "text-white" %>
+                  </button>
+                </div>
+              <% end %>
             </td>
           </tr>
           <tr>
