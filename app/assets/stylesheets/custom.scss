@@ -102,6 +102,11 @@
   height: 80px;
 }
 
+.avatar-img-big {
+  width: 200;
+  height: 200px;
+}
+
 .circle-avatar img {
   width: 100px;
   height: 100px;
@@ -261,6 +266,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-column-gap: 20px;
+  padding-left: 0px;
 }
 
 .eventList-card {
@@ -302,13 +308,6 @@
   width: 120px;
   font-size: 0.8rem;
   padding-left: 20px;
-}
-
-.eventList-delete {
-  margin-top: 10px;
-  font-size: .8rem;
-  border-radius: 40px;
-  width: 100%;
 }
 
 .event-container {
@@ -397,6 +396,42 @@
 
 
 /* users */
+.user-page {
+  display: flex;
+  width: 1200px;
+  margin: 0 auto;
+  padding: 22px 0;
+  flex-wrap: wrap;
+}
+
+.user-detail-panel {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.user-detail {
+  width: 290px;
+  margin-right: 30px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.event-box {
+  box-sizing: border-box;
+  flex: 1;
+}
+
+.event-box-title {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .user-name {
   text-overflow: ellipsis;
 }
@@ -478,6 +513,26 @@
   border-radius: 40px;
   width: 100%;
 }
+
+.user-profile {
+  background-color: white;
+  padding: 10px;
+}
+
+.user-profile-image {
+  text-align: center;
+}
+
+.user-profile-contents {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: $secondary
+}
+
+.user-profile-item {
+  margin-top: 10px;
+}
+
 
 /* pagination */
 .page-nav {

@@ -1,23 +1,85 @@
 <% provide(:title, @user.username) %>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-        <%= @user.username %>
-      </h1>
-      フォロー
-      <div class="status-value" id="following_<%= @user.id %>"><%= @user.following.count.to_s(:delimited) %></div>
-      フォロワー
-      <div class="status-value" id="followed_<%= @user.id %>"><%= @user.followers.count.to_s(:delimited) %></div>
-    </section>
-  </aside>
-  <div class="col-md-8">
-    <% if @user.events.any? %>
-    <h3>Microposts (<%= @user.events.count %>)</h3>
-    <ol class="events">
-      <%= render partial: 'events/event_card', collection: @events %>
-    </ol>
-    <%= paginate(@events) %>
-    <% end %>
+
+<div class="user-page">
+  <div class="user-detail-panel">
+    <div class="user-detail">
+      <div class="user-profile">
+        <h3 class="text-secondary">プロフィール</h3>
+        <div class="user-profile-image">
+          <% if @user.avatar?%>
+            <%= image_tag @user.avatar.url, class: 'avatar-img-big rounded-circle' %>
+          <% else %>
+            <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img-big rounded-circle' %>
+          <% end %>
+        </div>
+        <div class="user-profile-contents">
+          <div class="user-profile-item">
+            <span class="text-info">ユーザー名</span>
+            <br>
+            <p class="pl-2">
+              <%= @user.username %>
+            </p>
+          </div>
+          <div class="user-profile-item">
+            <span class="text-info">エリア</span>
+            <br>
+            <p class="pl-2">
+              <%= @user.prefecture %>
+            </p>
+          </div>
+          <div class="user-profile-item">
+            <span class="text-info">年代</span>
+            <br>
+            <p class="pl-2">
+              <%= @user.get_ages %>
+            </p>
+          </div>
+          <div class="user-profile-item">
+            <span class="text-info">性別</span>
+            <br>
+            <p class="pl-2">
+              <%= @user.sex %>
+            </p>
+          </div>
+          <div class="user-profile-item">
+            <span class="text-info">プレータイプ</span>
+            <br>
+            <p class="pl-2">
+              <%= @user.play_type %>
+            </p>
+          </div>
+          <div class="user-profile-item">
+            <span class="text-info">アベレージスコア</span>
+            <br>
+            <p class="pl-2">
+              <%= @user.average_score %>
+            </p>
+          </div>
+          <div class="user-profile-item">
+            <span class="text-info">コメント</span>
+            <br>
+            <p class="pl-2">
+              <%= @user.introduction %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event-box">
+      <div class="event-box-title">
+        <h3 class ="bg-white text-secondary p-2">イベント一覧 (<%= @user.events.count %>)</h3>
+      </div>
+      <% if @user.events.any? %>
+        <%= paginate(@events) %>
+        <ul class="events">
+          <%= render partial: 'events/event_card', collection: @events %>
+        </ul>
+        <%= paginate(@events) %>
+      <% else %>
+        イベントがありません
+      <% end %>
+    </div>
+    
   </div>
 </div>
