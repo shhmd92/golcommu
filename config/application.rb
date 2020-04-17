@@ -24,8 +24,15 @@ module GolfMenta
 
     config.i18n.default_locale = :ja
 
-    # Don't generate system test files.
-    config.generators.system_tests = nil
+    config.generators do |g|
+      g.javascripts false
+      g.stylesheets false
+      g.test_framework :rspec, 
+            view_specs: false, 
+            helper_specs: false, 
+            controller_specs: false, 
+            routing_specs: false
+    end
 
     # 認証トークンをremoteフォームに埋め込む
     config.action_view.embed_authenticity_token_in_remote_forms = true

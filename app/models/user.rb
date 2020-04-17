@@ -18,7 +18,14 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
-  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
+  before_validation :generate_url_token, on: :create
+
+  validates :username, presence: true, length: { maximum: 50 }
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
+  validates :email, presence: true, uniqueness: { case_sensitive: false },
+                    length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }
+  validates :url_token, presence: true, uniqueness: true
+  validates :introduction, length: { maximum: 240 }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -26,10 +33,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
 
   enum sex: { 未設定: 0, 男性: 1, 女性: 2 }
-
-  # enum ages: {
-  #   '10代以下': 1, '20代': 2, '30代': 3, '40代': 4, '50代': 5, '60代以上': 6
-  # }
 
   enum prefecture: {
     北海道: 1, 青森県: 2, 岩手県: 3, 宮城県: 4, 秋田県: 5, 山形県: 6, 福島県: 7,
@@ -53,7 +56,7 @@ class User < ApplicationRecord
   }
 
   def to_param
-    username
+    url_token
   end
 
   def follow(other_user)
@@ -66,14 +69,6 @@ class User < ApplicationRecord
 
   def following?(other_user)
     following.include?(other_user)
-  end
-
-  def already_liked?(event)
-    likes.exists?(event_id: event.id)
-  end
-
-  def already_participated?(event)
-    participants.exists?(event_id: event.id)
   end
 
   def update_without_current_password(params, *options)
@@ -107,12 +102,15 @@ class User < ApplicationRecord
       User.ages.each_value do |value|
         min = value[:min].to_i
         max = value[:max].to_i
-        if age.between?(min, max)
-          ages_name
-          ages_name = value[:name]
-        end
+        ages_name = value[:name] if age.between?(min, max)
       end
     end
     ages_name
+  end
+
+  private
+
+  def generate_url_token
+    self.url_token = SecureRandom.urlsafe_base64
   end
 end

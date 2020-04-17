@@ -7,7 +7,7 @@ class Event < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
   has_many :participants
-  has_many :participant_users, through: :participants, source: :user
+  has_many :participated_users, through: :participants, source: :user
   has_many :comments, dependent: :destroy
 
   before_validation :generate_url_token, on: :create
@@ -30,6 +30,14 @@ class Event < ApplicationRecord
     likes.find_by(user_id: user.id).destroy
   end
 
+  def already_liked?(user)
+    liked_users.include?(user)
+  end
+
+  def already_participated?(user)
+    participated_users.include?(user)
+  end
+
   private
 
   def generate_url_token
@@ -37,6 +45,7 @@ class Event < ApplicationRecord
   end
 
   def start_end_check
-    errors.add(:end_time, 'が不正です') if start_time > end_time
+    late_time = [start_time, end_time].compact.max
+    errors.add(:end_time, 'が不正です') if !late_time.nil? && late_time == start_time
   end
 end

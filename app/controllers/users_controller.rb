@@ -41,12 +41,12 @@ class UsersController < ApplicationController
     @users = Kaminari.paginate_array(@users).page(params[:page]).per(20)
 
     @search_item_hash = { prefecture: prefecture, ages: ages, age_min: age_min, age_max: age_max,
-      sex: sex, play_type: play_type }
+                          sex: sex, play_type: play_type }
     render action: :index
   end
 
   def show
-    @user = User.find_by!(username: params[:id])
+    @user = User.find_by!(url_token: params[:url_token])
 
     @events = @user.events.page(params[:page]).per(20)
 
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    User.find_by!(url_token: params[:url_token]).destroy
     flash[:success] = 'ユーザーは正常に削除されました'
     redirect_to users_url
   end

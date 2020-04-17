@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
-  resources :users do
+  resources :users, param: :url_token do
     collection do
       get :following, :followers, :search
     end

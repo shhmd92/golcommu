@@ -70,7 +70,7 @@
 
     <% if !current_user?(@event.user) %>
       <div class="btn-field mb-2">
-        <% if current_user.already_participated?(@event) %>
+        <% if @event.already_participated?(current_user) %>
           <%= render 'events/stop_participate', object: @event %>
         <% else %>
           <%= render 'events/participate', object: @event %>
