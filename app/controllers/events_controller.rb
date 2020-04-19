@@ -36,7 +36,8 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:title, :content, :image, :event_date, :start_time, :end_time)
+    params.require(:event).permit(:title, :content, :maximum_participants, :image,
+                                  :event_date, :start_time, :end_time)
   end
 
   def correct_user

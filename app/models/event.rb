@@ -6,7 +6,7 @@ class Event < ApplicationRecord
 
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
-  has_many :participants
+  has_many :participants, dependent: :destroy
   has_many :participated_users, through: :participants, source: :user
   has_many :comments, dependent: :destroy
 
@@ -14,6 +14,8 @@ class Event < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 50 }
   validates :content, presence: true, length: { maximum: 240 }
+  validates :maximum_participants, presence: true, numericality: { only_integer: true }
+  validate :maximum_participants_check
   validates :user_id, presence: true
   validates :url_token, presence: true, uniqueness: true
   validate :start_end_check
@@ -44,8 +46,17 @@ class Event < ApplicationRecord
     self.url_token = SecureRandom.urlsafe_base64
   end
 
+  def maximum_participants_check
+    unless maximum_participants.between?(1, 50)
+      errors.add(:maximum_participants,
+                 :greater_than_or_equal_to_less_than_or_equal_to, { minimum: 1, maximum: 50 })
+    end
+  end
+
   def start_end_check
     late_time = [start_time, end_time].compact.max
-    errors.add(:end_time, 'が不正です') if !late_time.nil? && late_time == start_time
+    if !late_time.nil? && late_time == start_time
+      errors.add(:end_time, :after_than_start_time)
+    end
   end
 end

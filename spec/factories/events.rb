@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :event do
-    title { 'タイトル' }
-    content { '詳細' }
+    title { 'title' }
+    content { 'content' }
     maximum_participants { 5 }
     event_date { Date.today }
     start_time { Time.zone.now }
@@ -25,6 +25,16 @@ FactoryBot.define do
 
       after(:create) do |event, evaluator|
         create_list(:comment, evaluator.comments_count, { event: event, user: event.user })
+      end
+    end
+
+    trait :with_likes do
+      transient do
+        likes_count { 5 }
+      end
+
+      after(:create) do |event, evaluator|
+        create_list(:like, evaluator.likes_count, { event: event, user: event.user })
       end
     end
   end
