@@ -6,7 +6,13 @@ RSpec.describe User, type: :model do
 
   describe '検証' do
     describe '存在性の検証' do
-      example 'username、email、passwordが設定されていれば有効であること' do
+      example '入力必須項目が設定されていれば有効であること' do
+        user = User.new(
+          username: 'sampleUser',
+          email: 'sample@example.com',
+          password: 'password',
+          url_token: SecureRandom.urlsafe_base64
+        )
         expect(user).to be_valid
       end
 
