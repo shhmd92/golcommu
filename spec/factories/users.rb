@@ -10,5 +10,12 @@ FactoryBot.define do
     average_score { 6 }
     introduction { 'はじめまして。初心者ゴルファーです。' }
     confirmed_at { Date.today }
+
+    trait :guest do
+      username { 'guest' }
+      email    { 'guest@example.com' }
+      password { 'guestpassword' }
+      guest    { true }
+    end
   end
 end

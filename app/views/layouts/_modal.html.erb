@@ -18,13 +18,13 @@
         <% end %>
         <br/><br/>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer", id="modal-btn">
         <button type="button" class="btn btn-sm" data-dismiss="modal">キャンセル</button>
         <% if(mode == ApplicationHelper::EASY_LOGIN_MODAL_MODE) %>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <%= f.hidden_field :email, {value: 'guest@example.com'} %>
             <%= f.hidden_field :password, value: "guestpassword" %>
-            <%= f.submit "ログイン", class: "btn text-info btn-sm"%>
+            <%= f.submit "ログイン", class: "btn text-info btn-sm" %>
           <% end %>
         <% elsif (mode == ApplicationHelper::DELETE_USER_MODAL_MODE || mode == ApplicationHelper::DELETE_EVENT_MODAL_MODE) %>
           <%= link_to "削除", object, class: "btn", style: "color: #f90e43;", method: :delete %>

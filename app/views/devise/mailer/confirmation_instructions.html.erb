@@ -1,5 +1,12 @@
-<p>Welcome <%= @email %>!</p>
+<p>
+  <%= @resource.username %>さん。<br>
+  このたびは<%= ApplicationHelper::WEBSITE_NAME %>にご登録いただきありがとうございます。
+</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>
+  下記ページアドレス（URL）をクリックすることで、本登録が完了となります。
+</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p>
+  <%= link_to "こちらをクリック", confirmation_url(@resource, confirmation_token: @token) %>
+</p>

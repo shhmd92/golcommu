@@ -3,14 +3,14 @@
 </div>
 
 <% if controller_name == 'registrations' %>
-  <div class="user-form-group">
+  <div class="user-form-group" id="username-form">
     <%= form.label :username, "ユーザネーム", class: 'control-label' %>
     <%= form.text_field :username, class: 'form-control', autofocus: true %>
   </div>
 <% end %>
 
 <% if controller_name == 'confirmations' %>
-  <div class="user-form-group">
+  <div class="user-form-group" id="email-form">
     <%= form.label :email, "Eメール", class: 'control-label' %>
     <%= form.email_field :email, class: 'form-control',
       :placeholder => "abc1234@example.com",
@@ -18,7 +18,7 @@
       value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
   </div>
 <% else %>
-  <div class="user-form-group">
+  <div class="user-form-group" id="email-form">
     <%= form.label :email, "Eメール", class: 'control-label' %>
     <%= form.email_field :email, class: 'form-control',
       :placeholder => "abc1234@example.com",
@@ -27,7 +27,7 @@
 <% end %>
 
 <% if controller_name == 'registrations' || controller_name == 'sessions' %>
-  <div class="user-form-group">
+  <div class="user-form-group" id="password-form">
     <%= form.label :password, "パスワード", class: 'control-label' %>
     <%= form.password_field :password, class: 'form-control',
       autocomplete: "new-password" %>
@@ -38,14 +38,14 @@
 <% end %>
 
 <% if controller_name == 'registrations' %>
-  <div class="user-form-group">
+  <div class="user-form-group" id="password_confirmation-form">
     <%= form.label :password_confirmation, "パスワードの再入力", class: 'control-label' %><br />
     <%= form.password_field :password_confirmation, class: 'form-control',
       autocomplete: "new-password" %>
   </div>
 <% end %>
 
-<div class="user-form-group">
+<div class="user-form-group" id="loginbtn-form">
   <% button_name = "" %>
   <% if controller_name == 'registrations' %>
     <% button_name = "新規登録" %>
