@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.feature 'ユーザー登録', type: :feature do
-  scenario 'ユーザーを登録する' do
+RSpec.describe 'ユーザー登録', type: :system do
+  it 'ユーザーを登録する' do
     visit new_user_registration_path
 
     within('#username-form') do

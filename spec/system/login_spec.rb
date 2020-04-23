@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.feature 'ログインとログアウト', type: :feature do
+RSpec.describe 'ログインとログアウト', type: :system do
   background do
     create(:user, :guest)
   end
 
-  scenario '通常ログインをする' do
+  it '通常ログインをする' do
     # login
     visit new_user_session_path
 
