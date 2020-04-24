@@ -1,4 +1,4 @@
-<div class="eventList-card">
+<div class="eventList-card" id="eventList-card-<%= event_card.id %>">
   <div class="eventList-image">
     <%= link_to event_path(event_card) do %>
       <% if event_card.image?%>
@@ -10,7 +10,7 @@
   </div>
 
   <div class="eventList-body">
-    <div class="eventList-body-title">
+    <div class="eventList-body-title" id="eventList-body-title-<%= event_card.id %>">
       <%= link_to event_path(event_card) do %>
         <%= event_card.title %>
       <% end %>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="eventList-body-item">
-      参加人数：<%= event_card.participants.count %>／<%= event_card.participants.count %>
+      参加人数：<%= event_card.participants.count %>／<%= event_card.maximum_participants %>
     </div>
 
     <div class="eventList-body-item">
@@ -36,7 +36,7 @@
     </div>
   </div>
 
-  <div class="eventList-btn">
+  <div class="eventList-btn" id="eventList-btn-<%= event_card.id %>">
     <% if user_signed_in? %>
       <%= render 'events/like_form', object: event_card %>
     <% end %>
@@ -53,5 +53,5 @@
       </a>
     <% end %>
   </div>
+  <%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_EVENT_MODAL_MODE, object: event_card} %>
 </div>
-<%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_EVENT_MODAL_MODE, object: event_card} %>

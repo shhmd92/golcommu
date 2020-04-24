@@ -6,6 +6,7 @@ FactoryBot.define do
     event_date { Date.today }
     start_time { Time.zone.now }
     end_time { Time.zone.now + 360 }
+    image { "#{Rails.root}/spec/fixtures/test.png" }
     association :user
 
     trait :with_participants do

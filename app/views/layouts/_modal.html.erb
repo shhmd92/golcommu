@@ -18,7 +18,11 @@
         <% end %>
         <br/><br/>
       </div>
+      <% if object.nil? %>
       <div class="modal-footer", id="modal-btn">
+      <% else %>
+      <div class="modal-footer", id="modal-btn-<%= object.id %>">
+      <% end %>
         <button type="button" class="btn btn-sm" data-dismiss="modal">キャンセル</button>
         <% if(mode == ApplicationHelper::EASY_LOGIN_MODAL_MODE) %>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>

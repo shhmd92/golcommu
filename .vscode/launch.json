@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [{
+    "name": "Debug Rails",
+    "type": "Ruby",
+    "request": "launch",
+    "cwd": "${workspaceRoot}",
+    "program": "${workspaceRoot}/bin/rails",
+    "pathToRDebugIDE": "/home/trantan/.rbenv/versions/2.7.0/bin/rdebug-ide",
+    "args": [
+      "server"
+    ]
+  }]
+}

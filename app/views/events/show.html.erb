@@ -23,14 +23,14 @@
                 <% end %>
               </div>
               <% if current_user?(@event.user) || current_user.admin? %>
-                <div class="event-body-btn">
+                <div class="event-body-btn" id="event-delete-btn">
                     <a class="btn base-btn bg-danger text-white" data-toggle="modal"
                       data-target="#modal-<%= ApplicationHelper::DELETE_EVENT_MODAL_MODE %>">
                       削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>
                     </a>
                   <%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_EVENT_MODAL_MODE, object: @event} %>
                 </div>
-                <div class="event-body-btn">
+                <div class="event-body-btn" id="event-edit-btn">
                   <%= link_to edit_event_path(@event), class: "btn btn-secondary base-btn text-white" do %>
                     編集&nbsp;<i class="fa fa-edit"></i>
                   <% end %>
@@ -82,7 +82,7 @@
       <ul class="nav nav-tabs">
         <li class="nav-item w-50">
           <a href="#tab1" class="nav-link active" data-toggle="tab">
-            参加者(<%= @event.participants.count.to_s(:delimited) %>／<%= @event.participants.count.to_s(:delimited) %>)
+            参加者(<%= @event.participants.count %>／<%= @event.maximum_participants %>)
           </a>
         </li>
         <li class="nav-item w-50">
