@@ -17,5 +17,12 @@ FactoryBot.define do
       password { 'guestpassword' }
       guest    { true }
     end
+
+    trait :admin do
+      username { 'admin' }
+      email    { 'admin@example.com' }
+      password { 'adminpassword' }
+      admin    { true }
+    end
   end
 end

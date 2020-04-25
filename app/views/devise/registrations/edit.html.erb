@@ -13,17 +13,16 @@
     <% if !current_user.admin? %>
       <p>退会する場合は以下から</p>
         <div class="user-form-group">
+          <% if current_user.guest? %>
           <div id="delete" data-toggle="tooltip" title="このユーザは削除できません">
-            <% if current_user.guest? %>
-              <button type="button" class="btn btn-danger btn-block"
-                data-toggle="modal"
-                data-target="#modal-<%= ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE %>"
-                style="pointer-events: none;" disabled>
-            <% else %>
-              <button type="button" class="btn btn-danger btn-block"
-                data-toggle="modal"
-                data-target="#modal-<%= ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE %>">
-            <% end %>
+            <button type="button" class="btn btn-danger btn-block"
+              style="pointer-events: none;" disabled>
+          <% else %>
+          <div>
+            <button type="button" class="btn btn-danger btn-block"
+              data-toggle="modal"
+              data-target="#modal-<%= ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE %>">
+          <% end %>
               アカウントを削除する
             </button>
           </div>
@@ -31,5 +30,5 @@
       
     <% end %>
   </div>
-  <%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE, object: nil} %>
+  <%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE, object: current_user} %>
 </div>

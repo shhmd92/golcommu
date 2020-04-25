@@ -1,4 +1,8 @@
 $(function () {
+  $('#update').tooltip()
+});
+
+$(function () {
   $('#delete').tooltip()
 });
 

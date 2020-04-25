@@ -6,7 +6,7 @@
     "request": "launch",
     "cwd": "${workspaceRoot}",
     "program": "${workspaceRoot}/bin/rails",
-    "pathToRDebugIDE": "/home/trantan/.rbenv/versions/2.7.0/bin/rdebug-ide",
+    "pathToRDebugIDE": "/home/trantan/.rbenv/versions/2.5.1/bin/rdebug-ide",
     "args": [
       "server"
     ]

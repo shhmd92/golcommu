@@ -103,5 +103,14 @@
   <% if controller_name == 'registrations' %>
     <% button_name = "更新する" %>
   <% end %>
-  <%= form.submit "#{button_name}", class: "btn btn-info btn-block text-white" %>
+    <% if current_user.guest? %>
+      <div id="update" data-toggle="tooltip" title="このユーザは更新できません">
+        <button type="button" class="btn btn-info btn-block text-white"
+          style="pointer-events: none;" disabled>
+          <%= button_name %>
+        </button>
+      </div>
+    <% else %>
+      <%= form.submit "#{button_name}", class: "btn btn-info btn-block text-white" %>
+    <% end %>
 </div>
