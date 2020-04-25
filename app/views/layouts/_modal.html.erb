@@ -40,7 +40,7 @@
             <%= button_tag(class: "btn like-sm rounded-pill d-flex d-sm-none align-items-center justify-content-center px-3") do %>
               <i class="far fa-thumbs-up" style="font-size: 1.1rem;"></i>
             <% end %>
-            <%= f.submit "参加する",
+            <%= f.submit "参加する", id:"participates-event-btn",
               class: "btn text-info rounded-pill d-none d-sm-flex align-items-center justify-content-center px-3" %>
           <% end %>
         <% elsif (mode == ApplicationHelper::STOP_PARTICIPATE_EVENT_MODAL_MODE) %>
@@ -49,7 +49,7 @@
               <%= button_tag(class: "btn unlike-sm rounded-pill d-flex d-sm-none align-items-center justify-content-center px-3") do %>
                 <i class="fas fa-check" style="font-size: 1.1rem; position: relative; top: 1px;"></i>
               <% end %>
-            <%= f.submit "参加をやめる",
+            <%= f.submit "参加をやめる", id:"stop-participates-event-btn",
               class: "btn text-danger rounded-pill d-none d-sm-flex align-items-center justify-content-center px-3" %>
           <% end %>
         <% elsif(mode == ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE) %>

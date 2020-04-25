@@ -17,7 +17,7 @@
       <div>
         <% if current_user?(@event.user) || current_user.admin? %>
           <%= link_to icon('fas', 'trash-alt'), comment_path(comment),
-            method: :delete, remote: true, class: "text-danger" %>
+            method: :delete, remote: true, id:"delete-comment-#{comment.id}", class: "text-danger" %>
         <% end %>
         <%= time_ago_in_words(comment.created_at) %>前
       </div>
