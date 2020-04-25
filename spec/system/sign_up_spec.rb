@@ -61,9 +61,11 @@ RSpec.describe 'ユーザー登録', type: :system do
         click_button '新規登録'
       end
 
-      expect(page).to have_content 'ユーザーネームを入力してください'
-      expect(page).to have_content 'Eメールを入力してください'
-      expect(page).to have_content 'パスワードを入力してください'
+      aggregate_failures do
+        expect(page).to have_content 'ユーザーネームを入力してください'
+        expect(page).to have_content 'Eメールを入力してください'
+        expect(page).to have_content 'パスワードを入力してください'
+      end
 
       within('#password-form') do
         fill_in 'user[password]', with: 'password'

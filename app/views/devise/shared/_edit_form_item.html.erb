@@ -80,10 +80,12 @@
   </div>
 <% end %>
 
-<% if controller_name == 'registrations' %>
+<% if controller_name == 'registrations' || controller_name == 'passwords' %>
   <div class="user-form-group">
     <%= form.label :password, "パスワード", class: 'control-label' %>
-    <em>(変更する場合のみ入力してください)</em>
+    <% if controller_name == 'registrations' %>
+      <em>(変更する場合のみ入力してください)</em>
+    <% end %>
     <%= form.password_field :password, class: 'form-control',
       autocomplete: "new-password" %>
     <% if @minimum_password_length %>
@@ -101,9 +103,11 @@
 <div class="user-form-group">
   <% button_name = "" %>
   <% if controller_name == 'registrations' %>
-    <% button_name = "更新する" %>
+    <% button_name = "更新" %>
+  <% elsif controller_name == 'passwords' %>
+    <% button_name = "変更" %>
   <% end %>
-    <% if current_user.guest? %>
+    <% if !current_user.nil? && current_user.guest? %>
       <div id="update" data-toggle="tooltip" title="このユーザは更新できません">
         <button type="button" class="btn btn-info btn-block text-white"
           style="pointer-events: none;" disabled>

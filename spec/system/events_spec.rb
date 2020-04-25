@@ -85,11 +85,13 @@ RSpec.describe 'Events', type: :system do
       attach_file 'event[image]', "#{Rails.root}/spec/fixtures/test.png", make_visible: true
 
       click_button '更新'
-      expect(page).to have_content 'タイトルを入力してください'
-      expect(page).to have_content '詳細を入力してください'
-      expect(page).to have_content '最大参加可能人数を入力してください'
-      expect(page).to have_content '最大参加可能人数は数値で入力してください'
-      expect(page).to have_content '最大参加可能人数は1以上50以下の値にしてください'
+      aggregate_failures do
+        expect(page).to have_content 'タイトルを入力してください'
+        expect(page).to have_content '詳細を入力してください'
+        expect(page).to have_content '最大参加可能人数を入力してください'
+        expect(page).to have_content '最大参加可能人数は数値で入力してください'
+        expect(page).to have_content '最大参加可能人数は1以上50以下の値にしてください'
+      end
     end
 
     example 'トップ画面からイベントの編集が失敗すること' do
