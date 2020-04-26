@@ -1,9 +1,11 @@
-<% unless object.user.id == current_user.id %>
-  <div class="like-form event-<%= object.id %>" style="width: 100%;">
-    <% if object.already_liked?(current_user) %>
-      <%= render 'events/unlike', object: object %>
-    <% else %>
-      <%= render 'events/like', object: object %>
-    <% end %>
-  </div>
+<% if user_signed_in? %>
+  <% unless object.user.id == current_user.id %>
+    <div class="like-form event-<%= object.id %>" style="width: 100%;">
+      <% if object.already_liked?(current_user) %>
+        <%= render 'events/unlike', object: object %>
+      <% else %>
+        <%= render 'events/like', object: object %>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>

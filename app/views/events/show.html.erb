@@ -22,19 +22,21 @@
                   <%= render 'events/like_form', object: @event %>
                 <% end %>
               </div>
-              <% if current_user?(@event.user) || current_user.admin? %>
-                <div class="event-body-btn" id="event-delete-btn">
-                    <a class="btn base-btn bg-danger text-white" data-toggle="modal"
-                      data-target="#modal-<%= ApplicationHelper::DELETE_EVENT_MODAL_MODE %>">
-                      削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>
-                    </a>
-                  <%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_EVENT_MODAL_MODE, object: @event} %>
-                </div>
-                <div class="event-body-btn" id="event-edit-btn">
-                  <%= link_to edit_event_path(@event), class: "btn btn-secondary base-btn text-white" do %>
-                    編集&nbsp;<i class="fa fa-edit"></i>
-                  <% end %>
-                </div>
+              <% if user_signed_in? %>
+                <% if current_user?(@event.user) || current_user.admin? %>
+                  <div class="event-body-btn" id="event-delete-btn">
+                      <a class="btn base-btn bg-danger text-white" data-toggle="modal"
+                        data-target="#modal-<%= ApplicationHelper::DELETE_EVENT_MODAL_MODE %>">
+                        削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>
+                      </a>
+                    <%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_EVENT_MODAL_MODE, object: @event} %>
+                  </div>
+                  <div class="event-body-btn" id="event-edit-btn">
+                    <%= link_to edit_event_path(@event), class: "btn btn-secondary base-btn text-white" do %>
+                      編集&nbsp;<i class="fa fa-edit"></i>
+                    <% end %>
+                  </div>
+                <% end %>
               <% end %>
             </td>
           </tr>
@@ -68,14 +70,16 @@
       </div>
     </div>
 
-    <% if !current_user?(@event.user) %>
-      <div class="btn-field mb-2">
-        <% if @event.already_participated?(current_user) %>
-          <%= render 'events/stop_participate', object: @event %>
-        <% else %>
-          <%= render 'events/participate', object: @event %>
-        <% end %>
-      </div>
+    <% if user_signed_in? %>
+      <% if !current_user?(@event.user) %>
+        <div class="btn-field mb-2">
+          <% if @event.already_participated?(current_user) %>
+            <%= render 'events/stop_participate', object: @event %>
+          <% else %>
+            <%= render 'events/participate', object: @event %>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
 
     <div>

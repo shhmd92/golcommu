@@ -9,17 +9,13 @@
 
 
   <body class="bg-light">
-    <% if user_signed_in? %>
-      <div class="logged-in-container">
-    <% else %>
-      <div>
-    <% end %>
-    <div class="bg-mask">
-      <%= render 'layouts/header' %>
-      <%= render 'layouts/toast' %>
+    <div class="main-container">
+      <div class="bg-mask">
+        <%= render 'layouts/header' %>
+        <%= render 'layouts/toast' %>
 
-      <%= yield %>
-      <%= render 'layouts/footer' %>
+        <%= yield %>
+        <%= render 'layouts/footer' %>
       </div>
     </div>
 </body>

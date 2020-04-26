@@ -1,20 +1,22 @@
 <div class="comment-form">
-  <div id="comment-content">
-    <%= form_with(model: [object, @comment]) do |f| %>
-      <%= hidden_field_tag :event_id, object.id %>
-      <%= f.text_area :content, class: "base-textarea", id: "input-content-area",
-        rows: 4,
-        placeholder: "コメントする..." %>
-      <div class="comment-btn" id="comment-btn">
-        <p class="float-left text-danger" id="content-counter"></p>
-        <%= button_tag(id: "send-comment", class: "btn float-right pt-0",
-          style: "font-size:1em;",
-          disabled: true) do %>
-          <i class="fa fa-paper-plane" aria-hidden="true"></i>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+  <% if user_signed_in? %>
+    <div id="comment-content">
+      <%= form_with(model: [object, @comment]) do |f| %>
+        <%= hidden_field_tag :event_id, object.id %>
+        <%= f.text_area :content, class: "base-textarea", id: "input-content-area",
+          rows: 4,
+          placeholder: "コメントする..." %>
+        <div class="comment-btn" id="comment-btn">
+          <p class="float-left text-danger" id="content-counter"></p>
+          <%= button_tag(id: "send-comment", class: "btn float-right pt-0",
+            style: "font-size:1em;",
+            disabled: true) do %>
+            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
   <div id="comment-body" class="text-left">
     <%= render 'events/comment', comments: @comments %>

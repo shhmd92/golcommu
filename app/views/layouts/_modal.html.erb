@@ -53,7 +53,7 @@
               class: "btn text-danger rounded-pill d-none d-sm-flex align-items-center justify-content-center px-3" %>
           <% end %>
         <% elsif(mode == ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE) %>
-          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= form_with(model: object, url: user_registration_path, id: 'delete_user', class: 'delete_user', method: :delete, local: true) do |f| %>
             <%= f.submit "削除", class: "btn text-danger btn-sm"%>
           <% end %>
         <% end %>

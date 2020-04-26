@@ -4,7 +4,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.string :title
       t.text :content
       t.string :image
-      t.integer :maximum_participants
+      t.integer :maximum_participants, default: 0
       t.references :user, foreign_key: false
 
       t.timestamps
