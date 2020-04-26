@@ -20,9 +20,8 @@ User.create!(username: "guest",
 
 # 一般ユーザ作成
 60.times do |n|
-  username = "user#{n+1}"
-  name = Faker::Name.unique.name
-  email = "test#{n+1}@example.com"
+  username = Faker::Japanese::Name.name
+  email = "sample#{n+1}@example.com"
   password = "password"
   sex = rand(0..2)
   s1 = Date.parse("1950/01/01")

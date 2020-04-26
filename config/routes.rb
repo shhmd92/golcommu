@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
-  resources :users do
+  resources :users, param: :url_token do
     collection do
       get :following, :followers, :search
     end
@@ -24,8 +24,6 @@ Rails.application.routes.draw do
   resources :relationships, only: [:create, :destroy]
   resources :likes, only: [:create, :destroy]
   resources :participants, only: [:create, :destroy]
-
-  resources :users, path: '/', only: [:show, :edit, :update, :destroy], constraints: { id: /[^\/]+/ }
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

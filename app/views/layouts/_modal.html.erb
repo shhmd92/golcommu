@@ -18,13 +18,17 @@
         <% end %>
         <br/><br/>
       </div>
-      <div class="modal-footer">
+      <% if object.nil? %>
+      <div class="modal-footer", id="modal-btn">
+      <% else %>
+      <div class="modal-footer", id="modal-btn-<%= object.id %>">
+      <% end %>
         <button type="button" class="btn btn-sm" data-dismiss="modal">キャンセル</button>
         <% if(mode == ApplicationHelper::EASY_LOGIN_MODAL_MODE) %>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <%= f.hidden_field :email, {value: 'guest@example.com'} %>
             <%= f.hidden_field :password, value: "guestpassword" %>
-            <%= f.submit "ログイン", class: "btn text-info btn-sm"%>
+            <%= f.submit "ログイン", class: "btn text-info btn-sm" %>
           <% end %>
         <% elsif (mode == ApplicationHelper::DELETE_USER_MODAL_MODE || mode == ApplicationHelper::DELETE_EVENT_MODAL_MODE) %>
           <%= link_to "削除", object, class: "btn", style: "color: #f90e43;", method: :delete %>
@@ -36,7 +40,7 @@
             <%= button_tag(class: "btn like-sm rounded-pill d-flex d-sm-none align-items-center justify-content-center px-3") do %>
               <i class="far fa-thumbs-up" style="font-size: 1.1rem;"></i>
             <% end %>
-            <%= f.submit "参加する",
+            <%= f.submit "参加する", id:"participates-event-btn",
               class: "btn text-info rounded-pill d-none d-sm-flex align-items-center justify-content-center px-3" %>
           <% end %>
         <% elsif (mode == ApplicationHelper::STOP_PARTICIPATE_EVENT_MODAL_MODE) %>
@@ -45,11 +49,11 @@
               <%= button_tag(class: "btn unlike-sm rounded-pill d-flex d-sm-none align-items-center justify-content-center px-3") do %>
                 <i class="fas fa-check" style="font-size: 1.1rem; position: relative; top: 1px;"></i>
               <% end %>
-            <%= f.submit "参加をやめる",
+            <%= f.submit "参加をやめる", id:"stop-participates-event-btn",
               class: "btn text-danger rounded-pill d-none d-sm-flex align-items-center justify-content-center px-3" %>
           <% end %>
         <% elsif(mode == ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE) %>
-          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= form_with(model: object, url: user_registration_path, id: 'delete_user', class: 'delete_user', method: :delete, local: true) do |f| %>
             <%= f.submit "削除", class: "btn text-danger btn-sm"%>
           <% end %>
         <% end %>

@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_060104) do
     t.string "title"
     t.text "content"
     t.string "image"
+    t.integer "maximum_participants"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_060104) do
 
   create_table "users", force: :cascade do |t|
     t.string "username", default: "", null: false
+    t.string "url_token"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -96,11 +98,4 @@ ActiveRecord::Schema.define(version: 2020_03_20_060104) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "comments", "events"
-  add_foreign_key "comments", "users"
-  add_foreign_key "events", "users"
-  add_foreign_key "likes", "events"
-  add_foreign_key "likes", "users"
-  add_foreign_key "participants", "events"
-  add_foreign_key "participants", "users"
 end
