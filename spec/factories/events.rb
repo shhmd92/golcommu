@@ -7,6 +7,7 @@ FactoryBot.define do
     start_time { Time.zone.now }
     end_time { Time.zone.now + 360 }
     image { "#{Rails.root}/spec/fixtures/test.png" }
+    url_token { SecureRandom.urlsafe_base64 }
     association :user
 
     trait :with_participants do
@@ -37,6 +38,14 @@ FactoryBot.define do
       after(:create) do |event, evaluator|
         create_list(:like, evaluator.likes_count, { event: event, user: event.user })
       end
+    end
+
+    trait :invalid do
+      title nil
+    end
+
+    trait :update_title do
+      title { 'update title' }
     end
   end
 end
