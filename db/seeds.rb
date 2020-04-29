@@ -63,7 +63,8 @@ users = User.order(:created_at).take(6)
   title = Faker::Sports::Basketball.player
   content = Faker::Lorem.sentence(5)
   users.each { |user| user.events.create!(title: title,
-                                         content: content) }
+                                         content: content,
+                                         maximum_participants: 1) }
 end
 
 # イベント参加者

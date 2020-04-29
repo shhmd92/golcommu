@@ -12,10 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2020_03_20_060104) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "comments", force: :cascade do |t|
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "content"
     t.bigint "user_id"
     t.bigint "event_id"
@@ -25,11 +22,11 @@ ActiveRecord::Schema.define(version: 2020_03_20_060104) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "events", force: :cascade do |t|
+  create_table "events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "content"
     t.string "image"
-    t.integer "maximum_participants"
+    t.integer "maximum_participants", default: 0
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -41,7 +38,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_060104) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
-  create_table "likes", force: :cascade do |t|
+  create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "event_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -50,7 +47,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_060104) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
-  create_table "participants", force: :cascade do |t|
+  create_table "participants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "event_id"
     t.datetime "created_at", null: false
@@ -59,7 +56,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_060104) do
     t.index ["user_id"], name: "index_participants_on_user_id"
   end
 
-  create_table "relationships", force: :cascade do |t|
+  create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followed_id"
     t.datetime "created_at", null: false
@@ -69,7 +66,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_060104) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "username", default: "", null: false
     t.string "url_token"
     t.string "email", default: "", null: false
