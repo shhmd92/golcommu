@@ -28,3 +28,8 @@
 
 # アップロードされたテスト画像を無視する
 /public/uploads
+
+# dotenv
+/.env
+
+/.DS_Store
