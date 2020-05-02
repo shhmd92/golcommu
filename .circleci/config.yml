@@ -4,10 +4,12 @@ jobs:
     docker:
     - image: circleci/ruby:2.7.0
       environment:
+        - BUNDLER_VERSION: 2.0.2
         - RAILS_ENV: 'test'
     - image: circleci/mysql:5.7.28
       environment:
-        MYSQL_ALLOW_EMPTY_PASSWORD: true
+        - MYSQL_ALLOW_EMPTY_PASSWORD: true
+        - MYSQL_ROOT_HOST: '127.0.0.1'
     working_directory: ~/golcommu
     steps:
     - checkout
@@ -37,8 +39,15 @@ jobs:
         name: Run rspec
         command: |
           mkdir /tmp/test-results
-          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-          bundle exec rspec --format progress --color --format documentation
+          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
+            circleci tests split --split-by=timings)"
+
+          bundle exec rspec \
+            --format progress \
+            --format RspecJunitFormatter \
+            --out /tmp/test-results/rspec.xml \
+            --format progress \
+            $TEST_FILES
 
     # collect reports
     - store_test_results:
