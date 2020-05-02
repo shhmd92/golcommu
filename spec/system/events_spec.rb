@@ -88,8 +88,6 @@ RSpec.describe 'Events', type: :system do
       aggregate_failures do
         expect(page).to have_content 'タイトルを入力してください'
         expect(page).to have_content '詳細を入力してください'
-        expect(page).to have_content '最大参加可能人数を入力してください'
-        expect(page).to have_content '最大参加可能人数は数値で入力してください'
         expect(page).to have_content '最大参加可能人数は1以上50以下の値にしてください'
       end
     end

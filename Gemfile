@@ -49,6 +49,7 @@ end
 group :test do
   gem 'capybara', '~> 2.15.2'
   gem 'launchy', '~> 2.5.0'
+  gem 'rspec_junit_formatter'
   gem 'webdrivers'
 end
 
