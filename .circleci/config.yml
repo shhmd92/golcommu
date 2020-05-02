@@ -1,59 +1,50 @@
 version: 2.1
-orbs:
-  ruby: circleci/ruby@0.1.2 
-
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.7.0
-        environment:
-          - RAILS_ENV: 'test'
-
-      - image: circleci/mysql:5.7.28
-        environment:
-          MYSQL_DATABASE: golcommu_test
+    - image: circleci/ruby:2.7.0
+      environment:
+        - RAILS_ENV: 'test'
+    - image: circleci/mysql:5.7.28
+      environment:
+        MYSQL_DATABASE: golcommu_test
         MYSQL_ALLOW_EMPTY_PASSWORD: true
         MYSQL_ROOT_HOST: '%'
         MYSQL_USER: root
-
     working_directory: ~/golcommu
-
     steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          - v1-dependencies-
-      
-      - run:
+    - checkout
+    - restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "Gemfile.lock" }}
+        - v1-dependencies-
+    - run:
         name: install dependencies
         command: |
           gem install bundler -v 2.0.1
           bundle install --jobs=4 --retry=3 --path vendor/bundle
-
-      - save_cache:
+    - save_cache:
         paths:
         - ./vendor/bundle
         key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-      # Database setup
-      - run:
-          name: Prepare db
-          command: |
-            bundle exec rails db:schema:load --trace
+    # Database setup
+    - run:
+        name: Prepare db
+        command: |
+          bundle exec rails db:schema:load --trace
 
-      # run tests!
-      - run:
-          name: Run rspec
-          command: |
-            mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-            bundle exec rspec --format progress --color --format documentation
+    # run tests!
+    - run:
+        name: Run rspec
+        command: |
+          mkdir /tmp/test-results
+          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+          bundle exec rspec --format progress --color --format documentation
 
-      # collect reports
-      - store_test_results:
-          path: /tmp/test-results
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+    # collect reports
+    - store_test_results:
+        path: /tmp/test-results
+    - store_artifacts:
+        path: /tmp/test-results
+        destination: test-results
