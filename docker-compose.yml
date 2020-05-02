@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/golcommu
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    tty: true
+  
+  db:
+    image: mysql:5.7.28
+    volumes:
+      - ./tmp/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: root
+    ports:
+      - "4306:3306"
