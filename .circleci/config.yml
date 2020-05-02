@@ -7,10 +7,7 @@ jobs:
         - RAILS_ENV: 'test'
     - image: circleci/mysql:5.7.28
       environment:
-        MYSQL_DATABASE: golcommu_test
         MYSQL_ALLOW_EMPTY_PASSWORD: true
-        MYSQL_ROOT_HOST: '%'
-        MYSQL_USER: root
     working_directory: ~/golcommu
     steps:
     - checkout
@@ -21,7 +18,7 @@ jobs:
     - run:
         name: install dependencies
         command: |
-          gem install bundler -v 2.0.1
+          gem install bundler -v 2.0.2
           bundle install --jobs=4 --retry=3 --path vendor/bundle
     - save_cache:
         paths:
@@ -30,9 +27,10 @@ jobs:
 
     # Database setup
     - run:
-        name: Prepare db
+        name: Databasesetup
         command: |
-          bundle exec rails db:schema:load --trace
+          bundle exec rails db:create
+          bundle exec rails db:schema:load
 
     # run tests!
     - run:
