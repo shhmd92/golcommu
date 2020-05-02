@@ -11,10 +11,8 @@ jobs:
 
       - image: circleci/mysql:5.7.28
         environment:
-          MYSQL_DATABASE: golcommu_test
-        MYSQL_ALLOW_EMPTY_PASSWORD: true
-        MYSQL_ROOT_HOST: '%'
-        MYSQL_USER: root
+          - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+          - MYSQL_ROOT_HOST: '127.0.0.1'
 
     working_directory: ~/golcommu
 
@@ -22,14 +20,14 @@ jobs:
       - checkout
 
       - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          - v1-dependencies-
+        keys:
+        - v1-dependencies-{{ checksum "Gemfile.lock" }}
+        - v1-dependencies-
       
       - run:
         name: install dependencies
         command: |
-          gem install bundler -v 2.0.1
+          gem install bundler -v 2.0.2
           bundle install --jobs=4 --retry=3 --path vendor/bundle
 
       - save_cache:
@@ -37,23 +35,30 @@ jobs:
         - ./vendor/bundle
         key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-      # Database setup
-      - run:
-          name: Prepare db
-          command: |
-            bundle exec rails db:schema:load --trace
+      - run: mv ./config/database.yml.ci ./config/database.yml
 
-      # run tests!
       - run:
-          name: Run rspec
-          command: |
-            mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-            bundle exec rspec --format progress --color --format documentation
+        name: Databasesetup
+        command: |
+            bundle exec rails db:create
+            bundle exec rails db:schema:load
 
-      # collect reports
+      - run:
+        name: Run rspec
+        command: |
+          mkdir /tmp/test-results
+          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
+            circleci tests split --split-by=timings)"
+
+          bundle exec rspec \
+            --format progress \
+            --format RspecJunitFormatter \
+            --out /tmp/test-results/rspec.xml \
+            --format progress \
+            $TEST_FILES
+
       - store_test_results:
-          path: /tmp/test-results
+        path: /tmp/test-results
       - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+        path: /tmp/test-results
+        destination: test-results
