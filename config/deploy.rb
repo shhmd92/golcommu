@@ -18,7 +18,8 @@ set :linked_dirs, fetch(:linked_dirs, []).push(
 )
 
 set :linked_files, fetch(:linked_files, []).push(
-  'config/master.key'
+  'config/master.key',
+  '.env'
 )
 
 set :rbenv_type, :user
@@ -39,7 +40,6 @@ set :bundle_flags,      '--quiet'
 set :bundle_path,       nil
 set :bundle_without,    nil
 
-after 'deploy:publishing', 'deploy:restart'
 namespace :deploy do
   desc 'Config bundler'
   task :config_bundler do
@@ -56,12 +56,17 @@ namespace :deploy do
     invoke 'unicorn:restart'
   end
 
-  desc 'upload master.key'
+  desc 'upload config'
   task :upload do
     on roles(:app) do |_host|
       execute "mkdir -p #{shared_path}/config" if test "[ ! -d #{shared_path}/config ]"
+
+      %w[.env].each do |f|
+        upload! "#{f}", "#{shared_path}/#{f}"
+      end
     end
   end
   before :starting, 'deploy:upload'
   after :finishing, 'deploy:cleanup'
 end
+after 'deploy:publishing', 'deploy:restart'
