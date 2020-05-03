@@ -58,15 +58,3 @@ jobs:
         destination: test-results
     
     - run: mv config/database.yml.org config/database.yml
-
-    - add_ssh_keys:
-          fingerprints:
-            - "9a:58:8f:9e:84:fe:a8:de:ef:94:09:52:57:cf:a3:50"
-
-    - deploy:
-        name: Capistrano deploy
-        command: |
-          if [ "${CIRCLE_BRANCH}" != "master" ]; then
-            exit 0
-          fi
-          bundle exec cap production deploy
