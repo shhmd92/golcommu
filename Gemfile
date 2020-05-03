@@ -28,16 +28,13 @@ gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
-group :production, :staging do
-  gem 'unicorn'
-end
-
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capistrano'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
+  gem 'capistrano3-unicorn'
   gem 'factory_bot_rails', '~> 4.10.0'
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 4.0.0'
@@ -59,6 +56,10 @@ group :test do
   gem 'launchy', '~> 2.5.0'
   gem 'rspec_junit_formatter'
   gem 'webdrivers'
+end
+
+group :production do
+  gem 'unicorn'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

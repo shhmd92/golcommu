@@ -27,7 +27,9 @@ jobs:
         - ./vendor/bundle
         key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-    - run: mv ./config/database.yml.ci ./config/database.yml
+    - run:
+        name: Wait for DB
+        command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
 
     # Database setup
     - run:
@@ -53,3 +55,15 @@ jobs:
     - store_artifacts:
         path: /tmp/test-results
         destination: test-results
+
+    - add_ssh_keys:
+          fingerprints:
+            - "9a:58:8f:9e:84:fe:a8:de:ef:94:09:52:57:cf:a3:50"
+
+    - deploy:
+        name: Capistrano deploy
+        command: |
+          if [ "${CIRCLE_BRANCH}" != "master" ]; then
+            exit 0
+          fi
+          bundle exec cap production deploy
