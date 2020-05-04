@@ -12,61 +12,82 @@ jobs:
         - MYSQL_ROOT_HOST: '%'
     working_directory: ~/golcommu
     steps:
-    - checkout
-    - restore_cache:
-        keys:
-        - v1-dependencies-{{ checksum "Gemfile.lock" }}
-        - v1-dependencies-
-    - run:
-        name: install dependencies
-        command: |
-          gem install bundler -v 2.1.4
-          bundle install --jobs=4 --retry=3 --path vendor/bundle
-    - save_cache:
-        paths:
-        - ./vendor/bundle
-        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          - v1-dependencies-
+      - run:
+          name: install dependencies
+          command: |
+            gem install bundler -v 2.1.4
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - save_cache:
+          paths:
+          - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-    - run: mv config/database.yml config/database.yml.org
+      - run: mv config/database.yml config/database.yml.org
 
-    - run: mv config/database.yml.ci config/database.yml
+      - run: mv config/database.yml.ci config/database.yml
 
-    # Database setup
-    - run:
-        name: Databasesetup
-        command: |
-          bundle exec rails db:create
-          bundle exec rails db:migrate
+      # Database setup
+      - run:
+          name: Databasesetup
+          command: |
+            bundle exec rails db:create
+            bundle exec rails db:migrate
 
 
-    # run tests!
-    - run:
-        name: Run rspec
-        command: |
-          mkdir /tmp/test-results
-          bundle exec rspec --profile 10 \
-                            --format RspecJunitFormatter \
-                            --out test_results/rspec.xml \
-                            --format progress \
-                            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      # run tests!
+      - run:
+          name: Run rspec
+          command: |
+            mkdir /tmp/test-results
+            bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
-    # collect reports
-    - store_test_results:
-        path: /tmp/test-results
-    - store_artifacts:
-        path: /tmp/test-results
-        destination: test-results
-    
-    - run: mv config/database.yml.org config/database.yml
+      # collect reports
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+      
+      - run: mv config/database.yml.org config/database.yml
 
-    - add_ssh_keys:
-        fingerprints:
-          - "9a:58:8f:9e:84:fe:a8:de:ef:94:09:52:57:cf:a3:50"
+      - run: sudo apt-get update && sudo apt-get install python3-pip groff-base
+      - run: sudo pip3 install awscli --ignore-installed six
 
-    - deploy:
-        name: Capistrano deploy
-        command: |
-          if [ "${CIRCLE_BRANCH}" != "master" ]; then
-            exit 0
-          fi
-          bundle exec cap production deploy
+      - run:
+          name: authorize-security-group-ingress
+          command: |
+            IP=`curl -s ifconfig.me`
+            echo "#!/bin/bash" > ./sg.sh
+            echo "aws configure set region ap-northeast-1" >> ./sg.sh
+            echo "aws ec2 authorize-security-group-ingress --group-id sg-0b7b75705c9108568 --protocol tcp --port 22 --cidr ${IP}/32" >> ./sg.sh
+            bash ./sg.sh
+
+      - add_ssh_keys:
+          fingerprints:
+            - "9a:58:8f:9e:84:fe:a8:de:ef:94:09:52:57:cf:a3:50"
+
+      - deploy:
+          name: Capistrano deploy
+          command: |
+            if [ "${CIRCLE_BRANCH}" != "master" ]; then
+              exit 0
+            fi
+            bundle exec cap production deploy
+
+      - run:
+          name: revoke-security-group-ingress
+          command: |
+            IP=`curl -s ifconfig.me`
+            echo "#!/bin/bash" > ./sg.sh
+            echo "aws configure set region ap-northeast-1" >> ./sg.sh
+            echo "aws ec2 revoke-security-group-ingress --group-id sg-0b7b75705c9108568 --protocol tcp --port 22 --cidr ${IP}/32" >> ./sg.sh
+            bash ./sg.sh
