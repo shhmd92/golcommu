@@ -1,9 +1,11 @@
+set :branch, 'master'
+
 server '18.178.138.177', 
-  user: 'sho', 
-  roles: %w{app db web},
+  user: 'sho',
+  roles: %w[web app db],
+  port: 22,
   ssh_options: {
-    keys: [File.expand_path('~/.ssh/id_rsa_9a588f9e84fea8deef94095257cfa350')],
+    user: 'sho',
+    keys: [File.expand_path('~/.ssh/golcommu_key_rsa')],
     forward_agent: true,
-    auth_methods: %w(publickey),
-    port: 22
   }
