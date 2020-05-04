@@ -2,7 +2,7 @@ server '18.178.138.177',
   user: 'sho', 
   roles: %w{app db web},
   ssh_options: {
-    keys: [File.expand_path('~/.ssh/golcommu_key_rsa')],
+    keys: ["#{ENV['PRODUCTION_SSH_KEY']}"], 
     forward_agent: true,
     auth_methods: %w(publickey),
     port: 22
