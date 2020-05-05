@@ -60,10 +60,6 @@ namespace :deploy do
   task :upload do
     on roles(:app) do |_host|
       execute "mkdir -p #{shared_path}/config" if test "[ ! -d #{shared_path}/config ]"
-
-      %w[.env].each do |f|
-        upload! "#{f}", "#{shared_path}/#{f}"
-      end
     end
   end
   before :starting, 'deploy:upload'

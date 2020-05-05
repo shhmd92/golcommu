@@ -1,4 +1,4 @@
-app_path = File.expand_path('../../../../', __FILE__)
+app_path = "/var/www/rails/golcommu"
 
 worker_processes 1
 
