@@ -60,7 +60,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by!(url_token: params[:url_token])
 
-    @events = @user.events.page(params[:page]).per(20)
+    @events = @user.events.order(event_date: :desc).page(params[:page]).per(20)
+    @participated_events = @user.participated_events.order(event_date: :desc).page(params[:page]).per(20)
+    @liked_events = @user.liked_events.order(event_date: :desc).page(params[:page]).per(20)
 
     @following = @user.following.page(params[:page]).per(20)
     @followers = @user.followers.page(params[:page]).per(20)

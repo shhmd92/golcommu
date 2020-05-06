@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_events, through: :likes, source: :event
   has_many :participants, dependent: :destroy
-  has_many :participant_events, through: :participants, source: :event
+  has_many :participated_events, through: :participants, source: :event
   has_many :comments, dependent: :destroy
   has_many :active_relationships,  class_name: 'Relationship',
                                    foreign_key: 'follower_id',
