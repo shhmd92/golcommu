@@ -9,6 +9,8 @@ RUN gem install bundler
 
 RUN mkdir /golcommu
 
+ENV DATABASE_HOST db
+
 ENV APP_ROOT /golcommu 
 WORKDIR $APP_ROOT
 

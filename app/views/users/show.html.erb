@@ -67,18 +67,62 @@
     </div>
 
     <div class="event-box">
-      <div class="event-box-title">
-        <h3 class ="bg-white text-secondary p-2">イベント一覧 (<%= @user.events.count %>)</h3>
+      <ul class="nav nav-tabs" id="profile-tablist" role="tablist">
+        <li class="nav-item profile-tabitem">
+          <a href="#tab1" id="event-tab" class="nav-link" data-toggle="tab" aria-selected="true">
+            イベント一覧(<%= @user.events.count %>)
+          </a>
+        </li>
+        <li class="nav-item profile-tabitem">
+          <a href="#tab2" id="participated-event-tab" class="nav-link" data-toggle="tab" aria-selected="true">
+            参加イベント(<%= @user.participated_events.count %>)
+          </a>
+        </li>
+        <% if current_user?(@user) %>
+        <li class="nav-item profile-tabitem">
+          <a href="#tab3" id="liked-event-tab" class="nav-link" data-toggle="tab" aria-selected="true">
+            気になるイベント(<%= @user.liked_events.count %>)
+          </a>
+        </li>
+        <% end %>
+      </ul>
+      <div class="tab-content mt-3" id="profile-tabContent">
+        <div id="tab1" class="tab-pane" aria-labelledby="event-tab">
+          <% if @events.any? %>
+            <%= paginate(@events) %>
+            <ul class="events jscroll">
+              <%= render partial: 'events/event_card', collection: @events %>
+            </ul>
+            <%= paginate(@events) %>
+          <% else %>
+            <span class="text-white">イベントはありません</span>
+          <% end %>
+        </div>
+        <div id="tab2" class="tab-pane" ia-labelledby="participated-event-tab">
+          <% if @participated_events.any? %>
+            <%= paginate(@participated_events) %>
+            <ul class="events">
+              <%= render partial: 'events/event_card', collection: @participated_events %>
+            </ul>
+            <%= paginate(@participated_events) %>
+          <% else %>
+            <span class="text-white">参加イベントはありません</span>
+          <% end %>
+        </div>
+        <% if current_user?(@user) %>
+        <div id="tab3" class="tab-pane" ia-labelledby="liked-event-tab">
+          <% if @liked_events.any? %>
+            <%= paginate(@liked_events) %>
+            <ul class="events">
+              <%= render partial: 'events/event_card', collection: @liked_events %>
+            </ul>
+            <%= paginate(@liked_events) %>
+          <% else %>
+            <span class="text-white">気になるイベントはありません</span>
+          <% end %>
+        </div>
+        <% end %>
       </div>
-      <% if @user.events.any? %>
-        <%= paginate(@events) %>
-        <ul class="events">
-          <%= render partial: 'events/event_card', collection: @events %>
-        </ul>
-        <%= paginate(@events) %>
-      <% else %>
-        イベントがありません
-      <% end %>
     </div>
     
   </div>
