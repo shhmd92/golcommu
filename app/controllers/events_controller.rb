@@ -26,7 +26,14 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     flash[:notice] = 'イベントを削除しました'
-    redirect_to root_path
+    before_uri = URI.parse(request.referer)
+    path = Rails.application.routes.recognize_path(before_uri.path)
+
+    if path[:controller] == 'events'
+      redirect_to root_path
+    else
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def edit

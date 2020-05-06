@@ -1,17 +1,19 @@
 class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
 
+  MAX_PAGE = 20
+
   def index
     @search_item_hash = { prefecture: 0, ages: 0, age_min: 0, age_max: 0, sex: 0, play_type: 0 }
     if user_signed_in?
-      @users = User.where.not(admin: true, id: current_user.id).page(params[:page]).per(20)
+      @users = User.where.not(admin: true, id: current_user.id).page(params[:page]).per(MAX_PAGE)
     else
-      @users = User.where.not(admin: true).page(params[:page]).per(20)
+      @users = User.where.not(admin: true).page(params[:page]).per(MAX_PAGE)
     end
   end
 
   def search
-    # search conditions
+    # Get search conditions.
     prefecture = params[:prefecture].nil? ? params[:search_item_hash][:prefecture] : params[:prefecture]
     ages = params[:ages].nil? ? params[:search_item_hash][:ages] : params[:ages]
     age_min = params[:age_min].nil? ? params[:search_item_hash][:age_min] : params[:age_min]
@@ -49,27 +51,36 @@ class UsersController < ApplicationController
     end
 
     @users = User.find_by_sql([query, query_hash])
-    @users = Kaminari.paginate_array(@users).page(params[:page]).per(20)
+    @users = Kaminari.paginate_array(@users).page(params[:page]).per(MAX_PAGE)
 
-    # Refresh screen search conditions.
+    # Refresh search conditions.
     @search_item_hash = { prefecture: prefecture, ages: ages, age_min: age_min, age_max: age_max,
                           sex: sex, play_type: play_type }
     render action: :index
   end
 
   def show
-    @user = User.find_by!(url_token: params[:url_token])
+    find_user
 
-    @events = @user.events.order(event_date: :desc).page(params[:page]).per(20)
-    @participated_events = @user.participated_events.order(event_date: :desc).page(params[:page]).per(20)
-    @liked_events = @user.liked_events.order(event_date: :desc).page(params[:page]).per(20)
+    @events = @user.events.order(event_date: :desc).page(params[:event_page]).per(MAX_PAGE)
+    @participated_events = @user.participated_events.order(event_date: :desc).page(params[:participated_event_page]).per(MAX_PAGE)
+    @liked_events = @user.liked_events.order(event_date: :desc).page(params[:liked_event_page]).per(MAX_PAGE)
+  end
 
-    @following = @user.following.page(params[:page]).per(20)
-    @followers = @user.followers.page(params[:page]).per(20)
+  def following
+    find_user
+
+    @following = @user.following.page(params[:page]).per(MAX_PAGE)
+  end
+
+  def followers
+    find_user
+
+    @followers = @user.followers.page(params[:page]).per(MAX_PAGE)
   end
 
   def destroy
-    User.find_by!(url_token: params[:url_token]).destroy
+    find_user.destroy
     flash[:notice] = 'ユーザーは正常に削除されました'
     redirect_to users_path
   end
@@ -78,5 +89,9 @@ class UsersController < ApplicationController
 
   def admin_user
     redirect_to(root_path) unless current_user.admin?
+  end
+
+  def find_user
+    @user = User.find_by!(url_token: params[:url_token])
   end
 end
