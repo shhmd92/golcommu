@@ -1,0 +1,3 @@
+<% provide(:title, 'フォロー') %>
+
+<%= render partial: 'users/followlist', locals: { user: @user, following: @following, followers: nil } %>

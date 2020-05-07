@@ -1,0 +1,33 @@
+<div class="page">
+  <div class="user-index-panel">
+    <div class="text-white text-left">
+      <h4>
+        フォローリスト
+      </h4>
+    </div>
+    <div class="followlist-tab">
+      <ul class="nav nav-tabs">
+        <% following_tab_active = "active" unless following.nil? %>
+        <% followers_tab_active = "active" unless followers.nil? %>
+        <li class="nav-item followlist-tabitem">
+          <%= link_to following_user_path(user),
+            class: "nav-link #{following_tab_active}" do %>
+            フォロー(<%= user.following.count.to_s(:delimited) %>)
+          <% end %>
+        </li>
+        <li class="nav-item followlist-tabitem">
+          <%= link_to followers_user_path(user),
+            class: "nav-link #{followers_tab_active}" do %>
+            フォロワー(<%= user.followers.count.to_s(:delimited) %>)
+          <% end %>
+        </li>
+      </ul>
+    </div>
+
+    <% if !following.nil? %>
+      <%= render partial: 'users/userlist', locals: { users: following } %>
+    <% elsif !followers.nil? %>
+      <%= render partial: 'users/userlist', locals: { users: followers } %>
+    <% end %>
+  </div>
+</div>

@@ -43,6 +43,30 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
+  describe 'GET #following' do
+    example 'リクエストが成功すること' do
+      get following_user_path(user)
+      expect(response).to have_http_status 200
+    end
+
+    example 'フォローリストにレンダーすること' do
+      get following_user_path(user)
+      expect(response).to render_template :following
+    end
+  end
+
+  describe 'GET #followers' do
+    example 'リクエストが成功すること' do
+      get followers_user_path(user)
+      expect(response).to have_http_status 200
+    end
+
+    example 'フォローリストにレンダーすること' do
+      get followers_user_path(user)
+      expect(response).to render_template :followers
+    end
+  end
+
   describe 'DELETE #destroy' do
     context '管理者ユーザの場合' do
       example 'リクエストが成功すること' do

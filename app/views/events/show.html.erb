@@ -29,7 +29,9 @@
                         data-target="#modal-<%= ApplicationHelper::DELETE_EVENT_MODAL_MODE %>">
                         削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>
                       </a>
-                    <%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_EVENT_MODAL_MODE, object: @event} %>
+                    <%= render 'layouts/modal',
+                      {modal_id: ApplicationHelper::DELETE_EVENT_MODAL_MODE,
+                      mode: ApplicationHelper::DELETE_EVENT_MODAL_MODE, object: @event} %>
                   </div>
                   <div class="event-body-btn" id="event-edit-btn">
                     <%= link_to edit_event_path(@event), class: "btn btn-secondary base-btn text-white" do %>

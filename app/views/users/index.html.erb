@@ -6,16 +6,6 @@
       <%= render partial: 'users/search_form' %>
     </div>
 
-    <div>
-      <%= paginate(@users) %>
-    </div>
-
-    <div class="users">
-      <%= render partial: 'users/user_card', collection: @users, as: :user_card %>
-    </div>
-
-    <div class="users-footer">
-      <%= paginate(@users) %>
-    </div>
+    <%= render partial: 'users/userlist', locals: { users: @users } %>
   </div>
 </div>

@@ -85,6 +85,8 @@ RSpec.describe 'Events', type: :request do
       delete event_path(event)
       expect(response).to redirect_to(root_path)
     end
+
+    # TODO: ユーザー詳細画面からイベントを削除したときのテストも必要
   end
 
   describe 'GET #edit' do

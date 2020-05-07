@@ -47,7 +47,9 @@
           </div>
         </div>
       <% else %>
-        <%= render 'layouts/modal', {mode: ApplicationHelper::EASY_LOGIN_MODAL_MODE, object: nil} %>
+        <%= render 'layouts/modal',
+          {modal_id: ApplicationHelper::EASY_LOGIN_MODAL_MODE,
+          mode: ApplicationHelper::EASY_LOGIN_MODAL_MODE, object: nil} %>
         <div class="guest-loginbtn">
           <button type="button" class="btn btn-outline-secondary rounded-pill btn-block"
             data-toggle="modal" data-target="#modal-<%= ApplicationHelper::EASY_LOGIN_MODAL_MODE %>">

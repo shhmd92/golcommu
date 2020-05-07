@@ -1,0 +1,11 @@
+<div class="text-left">
+  <%= paginate(users) %>
+</div>
+
+<div class="users">
+  <%= render partial: 'users/user_card', collection: users, as: :user_card %>
+</div>
+
+<div class="text-left">
+  <%= paginate(users) %>
+</div>
