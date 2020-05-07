@@ -30,5 +30,7 @@
       
     <% end %>
   </div>
-  <%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE, object: current_user} %>
+  <%= render 'layouts/modal',
+    {modal_id: ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE,
+    mode: ApplicationHelper::DELETE_ACCOUNT_MODAL_MODE, object: current_user} %>
 </div>

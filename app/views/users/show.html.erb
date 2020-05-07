@@ -109,7 +109,8 @@
           <% if @events.any? %>
             <%= paginate(@events, :param_name => "event_page") %>
             <ul class="events">
-              <%= render partial: "events/event_card", collection: @events %>
+              <%= render partial: "events/event_card", collection: @events, as: :event_card,
+                locals: { event_card_mode: ApplicationHelper::NORMAL_EVENT_CARD_MODE } %>
             </ul>
             <%= paginate(@events, :param_name => "event_page") %>
           <% else %>
@@ -120,7 +121,8 @@
           <% if @participated_events.any? %>
             <%= paginate(@participated_events, :param_name => "participated_event_page") %>
             <ul class="events">
-              <%= render partial: "events/event_card", collection: @participated_events %>
+              <%= render partial: "events/event_card", collection: @participated_events, as: :event_card,
+                locals: { event_card_mode: ApplicationHelper::PARTICIPATED_EVENT_CARD_MODE }%>
             </ul>
             <%= paginate(@participated_events, :param_name => "participated_event_page") %>
           <% else %>
@@ -132,7 +134,8 @@
           <% if @liked_events.any? %>
             <%= paginate(@liked_events, :param_name => "liked_event_page") %>
             <ul class="events">
-              <%= render partial: "events/event_card", collection: @liked_events %>
+              <%= render partial: "events/event_card", collection: @liked_events, as: :event_card,
+                locals: { event_card_mode: ApplicationHelper::LIKED_EVENT_CARD_MODE }%>
             </ul>
             <%= paginate(@liked_events, :param_name => "liked_event_page") %>
           <% else %>

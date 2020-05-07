@@ -26,8 +26,7 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     flash[:notice] = 'イベントを削除しました'
-    before_uri = URI.parse(request.referer)
-    path = Rails.application.routes.recognize_path(before_uri.path)
+    path = Rails.application.routes.recognize_path(request.referer)
 
     if path[:controller] == 'events'
       redirect_to root_path
@@ -59,6 +58,9 @@ class EventsController < ApplicationController
 
   def correct_user
     @event = current_user.events.find_by(url_token: params[:url_token])
-    redirect_to root_url if @event.nil?
+    if @event.nil? && current_user.admin?
+      @event = Event.find_by(url_token: params[:url_token])
     end
+    redirect_to root_url if @event.nil?
+  end
 end

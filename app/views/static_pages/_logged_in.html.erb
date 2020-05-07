@@ -14,7 +14,8 @@
     </div>
 
     <div class="events">
-      <%= render partial: 'events/event_card', collection: @events, as: :event_card %>
+      <%= render partial: 'events/event_card', collection: @events, as: :event_card,
+        locals: { event_card_mode: ApplicationHelper::NORMAL_EVENT_CARD_MODE } %>
     </div>
 
     <div>
