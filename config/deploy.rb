@@ -40,6 +40,7 @@ set :bundle_flags,      '--quiet'
 set :bundle_path,       nil
 set :bundle_without,    nil
 
+before :starting, 'deploy:upload'
 namespace :deploy do
   desc 'Config bundler'
   task :config_bundler do
@@ -51,10 +52,6 @@ namespace :deploy do
       end
     end
   end
-  
-  task :restart do
-    invoke 'unicorn:restart'
-  end
 
   desc 'upload config'
   task :upload do
@@ -62,7 +59,13 @@ namespace :deploy do
       execute "mkdir -p #{shared_path}/config" if test "[ ! -d #{shared_path}/config ]"
     end
   end
-  before :starting, 'deploy:upload'
-  after :finishing, 'deploy:cleanup'
+
+  desc 'Restart application'
+  task :restart do
+    on roles(:app) do
+      invoke 'unicorn:restart'
+    end
+  end
 end
-after 'deploy:publishing', 'deploy:restart'
+after :finishing, 'deploy:cleanup'
+after :publishing, :restart
