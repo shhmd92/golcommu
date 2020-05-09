@@ -1,6 +1,6 @@
 <div class="search-box bg-white">
   <div class="text-info search-title">
-    ゴル友を探す
+    ゴル友を探す(<%= user_count %>)
   </div>
   <table class="search-table">
     <tr class="search-tr">
@@ -17,7 +17,7 @@
                 selected: "#{@search_item_hash[:prefecture_id].to_i }" },
               { class: 'search-item-select btn btn-info btn-block' } %>
             <%= f.hidden_field :search_item_hash, value: @search_item_hash.to_json %>
-            <%= f.submit class: 'search-item-btn' %>
+            <%= f.submit class: 'search-item-btn-none' %>
           <% end %>
         </div>
       </td>

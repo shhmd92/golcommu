@@ -1,7 +1,7 @@
 class StaticPagesController < ApplicationController
-  MAX_PAGE = 20
+  include CommonActions
 
   def home
-    @events = Event.page(params[:page]).per(MAX_PAGE)
+    search_events
   end
 end

@@ -1,0 +1,37 @@
+<div class="page">
+  <div class="event-index-panel">
+
+    <div class="mb-2">
+      <%= render 'events/new_event_form' %>
+    </div>
+
+    <div class="search-form">
+      <%= render partial: 'events/search_form', locals: { event_count: event_count } %>
+    </div>
+
+    <div class="bg-white p-2 mb-2" style="overflow:hidden;">
+      <div class="float-left mr-2">
+        [並び替え]
+      </div>
+      <div class="float-left mr-2">
+        <%= sort_link(@q, :event_date, "開催日") %>
+      </div>
+      <div class="float-left">
+        <%= sort_link(@q, :created_at, "登録順") %>
+      </div>
+    </div>
+
+    <div class="text-left">
+      <%= paginate(events) %>
+    </div>
+
+    <div class="events">
+      <%= render partial: 'events/event_card', collection: events, as: :event_card,
+        locals: { event_card_mode: ApplicationHelper::NORMAL_EVENT_CARD_MODE } %>
+    </div>
+
+    <div class="text-left">
+      <%= paginate(events) %>
+    </div>
+  </div>
+</div>

@@ -3,7 +3,7 @@
 <div class="page">
   <div class="user-index-panel">
     <div class="search-form">
-      <%= render partial: 'users/search_form' %>
+      <%= render partial: 'users/search_form', locals: { user_count: @user_count } %>
     </div>
 
     <%= render partial: 'users/userlist', locals: { users: @users } %>
