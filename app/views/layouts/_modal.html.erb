@@ -25,7 +25,8 @@
       <% end %>
         <button type="button" class="btn btn-sm" data-dismiss="modal">キャンセル</button>
         <% if(mode == ApplicationHelper::EASY_LOGIN_MODAL_MODE) %>
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= form_with(model: resource, as: resource_name, url: session_path(resource_name),
+            html: { method: :post }, local: true) do |f| %>
             <%= f.hidden_field :email, {value: 'guest@example.com'} %>
             <%= f.hidden_field :password, value: "guestpassword" %>
             <%= f.submit "ログイン", class: "btn text-info btn-sm" %>

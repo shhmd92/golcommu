@@ -1,6 +1,6 @@
 Faker::Config.locale = :en
 
-# 管理ユーザー作成
+# admin user
 admin = User.create!(username: "admin",
                      email: "admin@example.com",
                      password:              "adminpassword",
@@ -9,7 +9,7 @@ admin = User.create!(username: "admin",
                      confirmation_sent_at: Time.zone.now,
                      admin: true)
 
-# ゲストユーザー作成
+# guest user
 User.create!(username: "guest",
              email: "guest@example.com",
              password:              "guestpassword",
@@ -18,7 +18,7 @@ User.create!(username: "guest",
              confirmation_sent_at: Time.zone.now,
              guest: true)
 
-# 一般ユーザ作成
+# general user
 60.times do |n|
   username = Faker::Japanese::Name.name
   email = "sample#{n+1}@example.com"
@@ -49,7 +49,7 @@ User.create!(username: "guest",
                )
 end
 
-# リレーションシップ
+# relationship
 users = User.all
 user  = users.first
 following = users[2..50]
@@ -57,14 +57,19 @@ followers = users[3..40]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
 
-# 投稿
+# event
 users = User.order(:created_at).take(6)
 50.times do
   title = Faker::Sports::Basketball.player
   content = Faker::Lorem.sentence(5)
+  s1 = Date.parse("2020/04/01")
+  s2 = Date.parse("2020/06/30")
+  event_date = Random.rand(s1 .. s2)
+  maximum_participants = 4 * rand(1..5)
   users.each { |user| user.events.create!(title: title,
                                          content: content,
-                                         maximum_participants: 1) }
+                                         event_date: event_date,
+                                         maximum_participants: maximum_participants) }
 end
 
-# イベント参加者
+# participant

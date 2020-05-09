@@ -1,13 +1,22 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
   <div class="container">
     <div class="header-logo">
-      <%= link_to ApplicationHelper::WEBSITE_NAME, root_path, class: "navbar-brand font-weight-bold" %>
+      <% if user_signed_in? %>
+        <%= link_to ApplicationHelper::WEBSITE_NAME, events_path, class: "navbar-brand font-weight-bold" %>
+      <% else %>
+        <%= link_to ApplicationHelper::WEBSITE_NAME, root_path, class: "navbar-brand font-weight-bold" %>
+      <% end %>
     </div>
     <div class="header-menu">
       <ul>
+        <li class="mr-3">
+          <%= link_to events_path, class: "text-info" do %>
+            <i class="fas fa-golf-ball mr-1"></i>イベントを探す
+          <% end %>
+        </li>
         <li>
           <%= link_to users_path, class: "text-info" do %>
-            <i class="fas fa-search"></i>ゴル友を探す
+            <i class="fas fa-user-friends mr-1"></i>ゴル友を探す
           <% end %>
         </li>
       </ul>

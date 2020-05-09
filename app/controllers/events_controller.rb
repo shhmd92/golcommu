@@ -1,6 +1,14 @@
 class EventsController < ApplicationController
+  include CommonActions
+
   before_action :authenticate_user!, only: %i[create destroy]
   before_action :correct_user, only: :destroy
+
+  MAX_PAGE = 20
+
+  def index
+    search_events
+  end
 
   def new
     @event = current_user.events.build if user_signed_in?
@@ -47,6 +55,12 @@ class EventsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def search
+    search_events
+
+    render action: :index
   end
 
   private

@@ -57,7 +57,9 @@
               <div class="event-item">日時</div>
             </td>
             <td>
-              <%= @event.event_date %>
+              <%= date_wday(@event.event_date) %>&nbsp;&nbsp;
+              <%= @event.start_time %>〜
+              <%= @event.end_time %>
             </td>
           </tr>
           <tr valign="top">

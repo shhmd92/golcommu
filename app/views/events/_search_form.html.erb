@@ -1,0 +1,65 @@
+<div class="search-box bg-white">
+  <div class="text-info search-title">
+    イベントを探す(<%= event_count %>)
+  </div>
+  <%= search_form_for @q do |f| %>
+    <table class="search-table">
+      <tr class="search-tr">
+        <td class="search-item-head">
+          <div>
+            エリア
+          </div>
+        </td>
+        <td class="search-item-body">
+          <div>
+            
+          </div>
+        </td>
+      </tr>
+      <tr class="search-tr">
+        <td class="search-item-head">
+          <div>
+            開催日
+          </div>
+        </td>
+        <td class="search-item-body">
+          <div>
+            <%= f.date_field :event_date_gteq, class: "search-item-select" %>〜
+            <%= f.date_field :event_date_lteq, class: "search-item-select" %>
+          </div>
+        </td>
+      </tr>
+      <tr class="search-tr">
+        <td class="search-item-head">
+          <div>
+            ゴルフ場名
+          </div>
+        </td>
+        <td class="search-item-body">
+          <div>
+            
+          </div>
+        </td>
+      </tr>
+      <tr class="search-tr">
+        <td class="search-item-head">
+          <div>
+            参加可能人数
+          </div>
+        </td>
+        <td class="search-item-body">
+          <div>
+            <%= f.number_field :maximum_participants_gteq, min: 1, class: "search-item-select" %>人以上〜
+            <%= f.number_field :maximum_participants_lteq, min: 1, class: "search-item-select" %>人以下
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="pt-2">
+          <%= f.submit "検索", class: "btn btn-info search-item-btn" %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+</div>

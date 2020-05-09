@@ -81,6 +81,7 @@ RSpec.describe 'Events', type: :system do
       # new event
       click_link 'イベント作成'
 
+      fill_in 'event[maximum_participants]', with: 0
       # imageの設定がないとエラーが発生するため一旦設定する
       attach_file 'event[image]', "#{Rails.root}/spec/fixtures/test.png", make_visible: true
 

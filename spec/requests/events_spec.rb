@@ -5,6 +5,14 @@ RSpec.describe 'Events', type: :request do
   let!(:event) { create(:event, user: user) }
   let!(:uncreate_event) { build(:event, user: user) }
 
+  describe 'GET #index' do
+    example 'リクエストが成功すること' do
+      sign_in(user)
+      get events_path
+      expect(response).to have_http_status 200
+    end
+  end
+
   describe 'GET #new' do
     example 'リクエストが成功すること' do
       sign_in(user)
@@ -131,6 +139,14 @@ RSpec.describe 'Events', type: :request do
         put event_path(event), params: { event: attributes_for(:event, :invalid, user: user) }
         expect(assigns(:event).errors.any?).to be_truthy
       end
+    end
+  end
+
+  describe 'GET #search' do
+    example 'リクエストが成功すること' do
+      sign_in(user)
+      get search_events_path
+      expect(response).to have_http_status 200
     end
   end
 end
