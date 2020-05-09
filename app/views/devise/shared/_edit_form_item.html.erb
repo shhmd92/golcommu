@@ -51,8 +51,8 @@
   <div class="user-form-group">
     <div class="field">
       <%= form.label :都道府県, class: 'control-label' %><br>
-      <%= form.select :prefecture, User.prefectures.keys,{prompt: '選択してください'},
-        class: 'form-control btn btn-info btn-block' %>
+      <%= form.collection_select :prefecture_id, Prefecture.all, :id, :name,
+        { prompt: '選択してください' }, { class: 'form-control btn btn-info btn-block' } %>
     </div>
   </div>
 

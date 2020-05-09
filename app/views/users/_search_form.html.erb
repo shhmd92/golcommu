@@ -11,19 +11,15 @@
       </td>
       <td class="search-item-body">
         <div>
-          <%= link_to search_users_path(:prefecture => 0, :search_item_hash => @search_item_hash),
-            class: "text-info #{@search_item_hash[:prefecture].to_i == 0 ? 'search-item-selected' : ''}" do %>
-            指定なし
+          <%= form_with(url: search_users_path, method: :get, local: true, id:'prefecture_select_form') do |f| %>
+            <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name,
+              { include_blank: '指定なし', prompt: '指定なし',
+                selected: "#{@search_item_hash[:prefecture_id].to_i }" },
+              { class: 'search-item-select btn btn-info btn-block' } %>
+            <%= f.hidden_field :search_item_hash, value: @search_item_hash.to_json %>
+            <%= f.submit class: 'search-item-btn' %>
           <% end %>
         </div>
-        <% User.prefectures.each do |prefecture| %>
-          <div>
-            <%= link_to search_users_path(:prefecture => prefecture[1], :search_item_hash => @search_item_hash),
-              class: "text-info #{@search_item_hash[:prefecture].to_i == prefecture[1].to_i ? 'search-item-selected' : ''}" do %>
-              <%= prefecture[0] %>
-            <% end %>
-          </div>
-        <% end %>
       </td>
     </tr>
     <tr class="search-tr">
@@ -100,3 +96,11 @@
     </tr>
   </table>
 </div>
+
+<script>
+$(document).ready(function(){
+  $("#prefecture_id").change(function(){
+    $('#prefecture_select_form').submit();
+  });
+});
+</script>

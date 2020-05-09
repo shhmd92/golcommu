@@ -27,7 +27,7 @@ User.create!(username: "guest",
   s1 = Date.parse("1950/01/01")
   s2 = Date.parse("2010/12/31")
   birth_date = Random.rand(s1 .. s2)
-  prefecture = rand(1..47)
+  prefecture_id = rand(1..47)
   play_type = rand(1..3)
   if (play_type == 3)
     average_score = rand(5..6)
@@ -42,7 +42,7 @@ User.create!(username: "guest",
                confirmation_sent_at: Time.zone.now,
                sex: sex,
                birth_date: birth_date,
-               prefecture: prefecture,
+               prefecture_id: prefecture_id,
                introduction: "紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文",
                play_type: play_type,
                average_score: average_score,

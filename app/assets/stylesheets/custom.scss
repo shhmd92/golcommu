@@ -644,3 +644,15 @@
   color: white !important;
   pointer-events: none;
 }
+
+.search-item-btn {
+  display: none;
+}
+
+.search-item-select {
+  @extend %form-control-base;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  font-size: 0.8rem;
+}

@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_060104) do
     t.string "avatar"
     t.integer "sex", default: 0
     t.date "birth_date"
-    t.integer "prefecture"
+    t.integer "prefecture_id"
     t.text "introduction"
     t.integer "play_type"
     t.integer "average_score"
