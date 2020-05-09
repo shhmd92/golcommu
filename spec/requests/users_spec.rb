@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe 'Users', type: :request do
   let!(:user) { create(:user) }
   let!(:admin_user) { create(:user, :admin) }
+  let!(:search_item_hash) do
+    { search_item_hash: { prefecture_id: 1, ages: 1, age_min: 1, age_max: 19,
+                          sex: 1, play_type: 1 } }
+  end
 
   describe 'GET #index' do
     example 'リクエストが成功すること' do
@@ -13,18 +17,13 @@ RSpec.describe 'Users', type: :request do
   end
 
   describe 'GET #search' do
-    before do
-      @search_item_hash = { prefecture: 1, ages: 1, age_min: 1, age_max: 19,
-                            sex: 1, play_type: 1 }
-    end
-
     example 'リクエストが成功すること' do
-      get search_users_path(@search_item_hash)
+      get search_users_path(search_item_hash)
       expect(response).to have_http_status 200
     end
 
     example 'ユーザー一覧にレンダーすること' do
-      get search_users_path(@search_item_hash)
+      get search_users_path(search_item_hash)
       expect(response).to render_template :index
     end
   end
