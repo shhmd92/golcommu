@@ -10,7 +10,10 @@ Rails.application.routes.draw do
 
   resources :users, param: :url_token do
     collection do
-      get :following, :followers, :search
+      get :search
+    end
+    member do
+      get :following, :followers
     end
   end
 

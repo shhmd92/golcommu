@@ -1,23 +1,24 @@
 <div class="page">
   <div class="event-index-panel">
 
-    <div class="">
+    <div class="mb-2">
       <%= render 'events/new_event_form' %>
     </div>
 
     <div class="search-form">
-      
+      <%= render partial: 'events/search_form' %>
     </div>
 
-    <div>
+    <div class="text-left">
       <%= paginate(@events) %>
     </div>
 
     <div class="events">
-      <%= render partial: 'events/event_card', collection: @events, as: :event_card %>
+      <%= render partial: 'events/event_card', collection: @events, as: :event_card,
+        locals: { event_card_mode: ApplicationHelper::NORMAL_EVENT_CARD_MODE } %>
     </div>
 
-    <div>
+    <div class="text-left">
       <%= paginate(@events) %>
     </div>
   </div>

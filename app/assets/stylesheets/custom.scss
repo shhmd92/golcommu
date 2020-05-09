@@ -415,8 +415,13 @@
 .user-detail {
   width: 290px;
   margin-right: 30px;
-  box-sizing: border-box;
-  text-align: left;
+  position: sticky;
+  top: 70px;
+  z-index: 1;
+  align-self: flex-start;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 80vh;
 }
 
 .event-box {
@@ -538,6 +543,15 @@
   width: 25%;
 }
 
+.followlist-tab {
+  margin-bottom: 10px;
+}
+
+.followlist-tabitem {
+  background-color: lightgray;
+  width: 50%;
+}
+
 
 /* pagination */
 .page-nav {
@@ -629,4 +643,16 @@
   background-color: $info;
   color: white !important;
   pointer-events: none;
+}
+
+.search-item-btn {
+  display: none;
+}
+
+.search-item-select {
+  @extend %form-control-base;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  font-size: 0.8rem;
 }

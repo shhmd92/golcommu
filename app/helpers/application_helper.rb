@@ -1,17 +1,20 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  # Webサイト名
+  # WebsiteName
   WEBSITE_NAME = 'ゴルコミュ'
-  # モーダルモード
+  # ModalMode
   EASY_LOGIN_MODAL_MODE = '1'
   DELETE_USER_MODAL_MODE = '2'
   PARTICIPATE_EVENT_MODAL_MODE = '3'
   STOP_PARTICIPATE_EVENT_MODAL_MODE = '4'
   DELETE_ACCOUNT_MODAL_MODE = '5'
   DELETE_EVENT_MODAL_MODE = '6'
+  # EventCardMode
+  NORMAL_EVENT_CARD_MODE = '1'
+  PARTICIPATED_EVENT_CARD_MODE = '2'
+  LIKED_EVENT_CARD_MODE = '3'
 
-  # ページごとの完全なタイトルを返します
   def full_title(page_title = '')
     base_title = WEBSITE_NAME
     if page_title.empty?

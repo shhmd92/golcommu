@@ -21,7 +21,7 @@
       <% end %>
     </div>
     <div class="userList-body-detail">
-      エリア：<%= user_card.prefecture %>
+      エリア：<%= user_card.prefecture.name %>
     </div>
     <div class="userList-body-detail">
       年代：<%= user_card.get_ages %>&emsp;
@@ -40,11 +40,13 @@
       <%= render 'users/follow_form', object: user_card %>
       <% if current_user.admin? && user_card != current_user %>
         <a class="btn userList-delete bg-danger text-white" data-toggle="modal"
-          data-target="#modal-<%= ApplicationHelper::DELETE_USER_MODAL_MODE %>">
+          data-target="#modal-<%= ApplicationHelper::DELETE_USER_MODAL_MODE + user_card.id.to_s %>">
           削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>
         </a>
       <% end %>
     <% end %>
   </div>
 </div>
-<%= render 'layouts/modal', {mode: ApplicationHelper::DELETE_USER_MODAL_MODE, object: user_card} %>
+<%= render 'layouts/modal',
+  {modal_id: ApplicationHelper::DELETE_USER_MODAL_MODE + user_card.id.to_s,
+  mode: ApplicationHelper::DELETE_USER_MODAL_MODE, object: user_card} %>
