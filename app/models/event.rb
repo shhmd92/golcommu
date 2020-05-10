@@ -14,6 +14,7 @@ class Event < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 50 }
   validates :content, presence: true, length: { maximum: 240 }
+  validates :place, presence: true, length: { maximum: 100 }
   validates :maximum_participants, presence: true, numericality: { only_integer: true }
   validate :maximum_participants_check
   validates :user_id, presence: true

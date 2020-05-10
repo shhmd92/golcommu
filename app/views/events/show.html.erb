@@ -58,8 +58,16 @@
             </td>
             <td>
               <%= date_wday(@event.event_date) %>&nbsp;&nbsp;
-              <%= @event.start_time %>〜
-              <%= @event.end_time %>
+              <%= format_time(@event.start_time) %>〜
+              <%= format_time(@event.end_time) %>
+            </td>
+          </tr>
+          <tr>
+            <td class="event-h-td">
+              <div class="event-item">ゴルフ場</div>
+            </td>
+            <td>
+              <%= @event.place %>
             </td>
           </tr>
           <tr valign="top">

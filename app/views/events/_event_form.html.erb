@@ -28,14 +28,27 @@
       </div>
 
       <div class="event-form-group">
+        <%= form.label :place, "ゴルフ場", class: "control-label" %>
+        <%= form.text_field :place, id: :place_id, placeholder: "入力に応じて候補が表示されます",
+          class: "form-control" %>
+        <%= form.hidden_field :course_id, id: :course_id %>
+      </div>
+
+      <div class="event-form-group">
+        <%= form.label :address, "住所(任意)", class: "control-label" %>
+        <%= form.text_field :address, id: :address_field, class: "form-control" %>
+      </div>
+
+      <div class="event-form-group">
         <%= form.label :maximum_participants, "最大参加可能人数", class: "control-label" %>
         <br>
         <%= form.number_field :maximum_participants, class: "form-control-select", value: 1, min:1 %>
       </div>
 
       <div class="event-form-group">
+      <p class="float-left text-danger" id="content-counter"></p>
         <%= form.label :content, "詳細", class: "control-label" %>
-        <%= form.text_area :content, id: "input-content-area", class: "form-control", rows:10 %>
+        <%= form.text_area :content, class: "form-control", id: "input-content-area", rows:10 %>
       </div>
 
       <div class="event-form-group">
@@ -53,13 +66,15 @@
                 画像登録
               </span>
               <%= form.file_field :image, id: :event_img, class: "d-none" %>
+              <%= form.hidden_field :remote_image_url %>
             </label>
           </div>
         </div>
       </div>
 
       <div class="event-form-group">
-        <%= form.submit "更新", class: "btn btn-info btn-block text-white" %>
+        <%= form.submit "更新", type: "button", onclick: "submit();",
+          class: "btn btn-info btn-block text-white" %>
       </div>
 
     <% end %>
