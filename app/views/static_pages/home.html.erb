@@ -1,5 +1,1 @@
-<% if user_signed_in? %>
-  <%= render 'static_pages/logged_in' %>
-<% else %>
-  <%= render 'static_pages/not_logged_in' %>
-<% end %>
+<%= render partial: 'events/eventlist', locals: { events: @events, event_count: @event_count } %>
