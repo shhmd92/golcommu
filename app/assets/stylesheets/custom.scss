@@ -23,7 +23,7 @@
 %panel {
   margin: 0 auto;
   color: #878787;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .mid-white-panel {
@@ -650,7 +650,15 @@
 .search-item-select {
   @extend %form-control-base;
   width: auto;
-  height: auto;
+  height: 34px;
+  padding: 5px;
+  font-size: 0.8rem;
+}
+
+.search-item-text {
+  @extend %form-control-base;
+  width: 90%;
+  height: 34px;
   padding: 5px;
   font-size: 0.8rem;
 }

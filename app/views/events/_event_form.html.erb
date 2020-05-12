@@ -47,9 +47,9 @@
       </div>
 
       <div class="event-form-group">
-      <p class="float-left text-danger" id="content-counter"></p>
         <%= form.label :content, "詳細", class: "control-label" %>
-        <%= form.text_area :content, class: "form-control", id: "input-content-area", rows:10 %>
+        <%= form.text_area :content, class: "form-control", id: "input-detail-area", rows:15 %>
+        <p class="float-left text-danger float-right" id="detail-counter"></p>
       </div>
 
       <div class="event-form-group">
@@ -64,7 +64,7 @@
           <div class="mt-1">
             <label for="event_img">
               <span class="btn btn-outline-secondary">
-                画像登録
+                画像変更
               </span>
               <%= form.file_field :image, id: :event_img, class: "d-none" %>
               <%= form.hidden_field :remote_image_url %>

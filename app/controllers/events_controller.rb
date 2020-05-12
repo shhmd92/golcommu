@@ -19,6 +19,16 @@ class EventsController < ApplicationController
     @like = Like.new
     @comments = @event.comments.order(created_at: :desc)
     @comment = Comment.new
+
+    course_info = RakutenWebService::Gora::CourseDetail.search(golfCourseId: @event.course_id)
+    begin
+      unless course_info.nil?
+        course_info_first = course_info.first
+        @route_map_url = course_info_first['routeMapUrl']
+      end
+    rescue StandardError => e
+      # do nothing
+    end
   end
 
   def create
@@ -85,12 +95,10 @@ class EventsController < ApplicationController
       course_info_first = course_info.first
       address = course_info_first['address']
       golf_course_image_url = course_info_first['golfCourseImageUrl1']
-      route_map_url = course_info_first['routeMapUrl']
       respond_to do |format|
         format.json do
           render json: { address: address,
-                         golf_course_image_url: golf_course_image_url,
-                         route_map_url: route_map_url }, status: :ok
+                         golf_course_image_url: golf_course_image_url }, status: :ok
         end
       end
     end

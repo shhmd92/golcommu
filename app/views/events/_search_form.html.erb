@@ -1,3 +1,5 @@
+<%= javascript_include_tag 'events.js' %>
+
 <div class="search-box bg-white">
   <div class="text-info search-title">
     イベントを探す(<%= event_count %>)
@@ -12,7 +14,10 @@
         </td>
         <td class="search-item-body">
           <div>
-            
+            <%= f.collection_select :address_cont, Prefecture.all,
+              :name, :name,
+              { include_blank: '指定なし' },
+              { class: 'search-item-select btn btn-info btn-block' } %>
           </div>
         </td>
       </tr>
@@ -24,7 +29,9 @@
         </td>
         <td class="search-item-body">
           <div>
-            <%= f.date_field :event_date_gteq, class: "search-item-select" %>〜
+            <%= f.date_field :event_date_gteq, class: "search-item-select",
+              value: ( f.object.event_date_gteq || Date.today) %>
+            〜
             <%= f.date_field :event_date_lteq, class: "search-item-select" %>
           </div>
         </td>
@@ -36,8 +43,10 @@
           </div>
         </td>
         <td class="search-item-body">
-          <div>
-            
+          <div class="w-100">
+            <%= f.search_field :place_cont, id: :place_id, placeholder: "入力に応じて候補が表示されます",
+              class: "search-item-text" %>
+            <%= f.hidden_field :course_id, id: :course_id %>
           </div>
         </td>
       </tr>
@@ -49,7 +58,9 @@
         </td>
         <td class="search-item-body">
           <div>
-            <%= f.number_field :maximum_participants_gteq, min: 1, class: "search-item-select" %>人以上〜
+            <%= f.number_field :maximum_participants_gteq, min: 1,
+              class: "search-item-select",
+              value: ( f.object.maximum_participants_gteq || 1) %>人以上〜
             <%= f.number_field :maximum_participants_lteq, min: 1, class: "search-item-select" %>人以下
           </div>
         </td>
@@ -57,7 +68,12 @@
       <tr>
         <td></td>
         <td class="pt-2">
+          <div class="float-left">
           <%= f.submit "検索", class: "btn btn-info search-item-btn" %>
+          </div>
+          <div class="float-right">
+          <input id="clear-btn" type="button" class="btn btn-secondary search-item-btn" value="クリア"/>
+          </div>
         </td>
       </tr>
     </table>

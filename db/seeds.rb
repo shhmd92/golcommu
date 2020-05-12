@@ -65,10 +65,16 @@ users = User.order(:created_at).take(6)
   s1 = Date.parse("2020/04/01")
   s2 = Date.parse("2020/06/30")
   event_date = Random.rand(s1 .. s2)
+  place = "ゴルコミュカントリー"
+  start_time = Time.local(2020, 6, 1, 7, 0, 0, 0)
+  end_time = Time.local(2020, 6, 1, 17, 0, 0, 0)
   maximum_participants = 4 * rand(1..5)
   users.each { |user| user.events.create!(title: title,
                                          content: content,
+                                         place: place,
                                          event_date: event_date,
+                                         start_time: start_time,
+                                         end_time: end_time,
                                          maximum_participants: maximum_participants) }
 end
 

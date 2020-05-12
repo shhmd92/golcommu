@@ -13,8 +13,10 @@ class Event < ApplicationRecord
   before_validation :generate_url_token, on: :create
 
   validates :title, presence: true, length: { maximum: 50 }
-  validates :content, presence: true, length: { maximum: 240 }
+  validates :content, presence: true, length: { maximum: 1000 }
   validates :place, presence: true, length: { maximum: 100 }
+  validates :start_time, presence: true
+  validates :end_time, presence: true
   validates :maximum_participants, presence: true, numericality: { only_integer: true }
   validate :maximum_participants_check
   validates :user_id, presence: true

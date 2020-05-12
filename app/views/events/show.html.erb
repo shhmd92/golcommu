@@ -68,7 +68,19 @@
               <div class="event-item">ゴルフ場</div>
             </td>
             <td>
-              <%= @event.place %>
+              <% if @route_map_url.nil? %>
+                <%= @event.place %>
+              <% else %>
+                <%= link_to(@event.place, @route_map_url, :target=>["_blank"]) %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td class="event-h-td">
+              <div class="event-item">住所</div>
+            </td>
+            <td>
+              <%= @event.address %>
             </td>
           </tr>
           <tr valign="top">
