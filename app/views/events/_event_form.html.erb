@@ -1,4 +1,5 @@
 <% provide(:title, title) %>
+<%= javascript_include_tag 'events.js' %>
 
 <div class="page">
   <div class="mid-white-panel">
@@ -28,14 +29,27 @@
       </div>
 
       <div class="event-form-group">
+        <%= form.label :place, "ゴルフ場", class: "control-label" %>
+        <%= form.text_field :place, id: :place_id, placeholder: "入力に応じて候補が表示されます",
+          class: "form-control" %>
+        <%= form.hidden_field :course_id, id: :course_id %>
+      </div>
+
+      <div class="event-form-group">
+        <%= form.label :address, "住所(任意)", class: "control-label" %>
+        <%= form.text_field :address, id: :address_field, class: "form-control" %>
+      </div>
+
+      <div class="event-form-group">
         <%= form.label :maximum_participants, "最大参加可能人数", class: "control-label" %>
         <br>
-        <%= form.number_field :maximum_participants, class: "form-control-select", value: 1, min:1 %>
+        <%= form.number_field :maximum_participants, class: "form-control-select", value: 2, min:2 %>
       </div>
 
       <div class="event-form-group">
         <%= form.label :content, "詳細", class: "control-label" %>
-        <%= form.text_area :content, id: "input-content-area", class: "form-control", rows:10 %>
+        <%= form.text_area :content, class: "form-control", id: "input-detail-area", rows:15 %>
+        <p class="float-left text-danger float-right" id="detail-counter"></p>
       </div>
 
       <div class="event-form-group">
@@ -50,9 +64,10 @@
           <div class="mt-1">
             <label for="event_img">
               <span class="btn btn-outline-secondary">
-                画像登録
+                画像変更
               </span>
               <%= form.file_field :image, id: :event_img, class: "d-none" %>
+              <%= form.hidden_field :remote_image_url %>
             </label>
           </div>
         </div>

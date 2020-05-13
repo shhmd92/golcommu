@@ -2,6 +2,9 @@ FactoryBot.define do
   factory :event do
     title { 'title' }
     content { 'content' }
+    place { 'place' }
+    address { 'address' }
+    course_id { 12_345 }
     maximum_participants { 5 }
     event_date { Date.today }
     start_time { Time.zone.now }

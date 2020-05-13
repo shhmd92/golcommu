@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :events, param: :url_token, shallow: true do
     resources :comments, only: [:create, :destroy]
     collection do
-      get :search
+      get :search, :autocomplete_search, :golf_course_info
     end
   end
 

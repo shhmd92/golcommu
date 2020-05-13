@@ -23,7 +23,7 @@
 %panel {
   margin: 0 auto;
   color: #878787;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .mid-white-panel {
@@ -186,15 +186,6 @@
   background: rgba(255, 255, 255, 0.5);
 }
 
-
-/* not_logged_in */
-.not-logged-in-container {
-  background-image: image-url('lp_image.png');
-  background-size: cover;
-  height: 800px;
-  opacity: 0.7;
-  padding: 50px 0px 0px 50px;
-}
 
 /* form */
 %form-group {
@@ -656,10 +647,24 @@
   display: none;
 }
 
-.search-item-select {
+%search-item-base {
   @extend %form-control-base;
   width: auto;
-  height: auto;
+  height: 34px;
   padding: 5px;
   font-size: 0.8rem;
+}
+
+.search-item-select {
+  @extend %search-item-base;
+}
+
+.search-item-date {
+  @extend %search-item-base;
+  width: 50px;
+}
+
+.search-item-text {
+  @extend %search-item-base;
+  width: 90%;
 }

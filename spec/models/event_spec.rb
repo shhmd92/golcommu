@@ -11,7 +11,11 @@ RSpec.describe Event, type: :model do
         event = Event.new(
           title: 'title',
           content: 'content',
+          place: 'place',
           maximum_participants: 5,
+          event_date: Date.today,
+          start_time: Time.zone.now,
+          end_time: Time.zone.now + 360,
           user: user,
           url_token: SecureRandom.urlsafe_base64
         )
@@ -30,6 +34,12 @@ RSpec.describe Event, type: :model do
         expect(event.errors).to be_added(:content, :blank)
       end
 
+      example 'placeが設定されていなければ無効であること' do
+        event.place = nil
+        event.valid?
+        expect(event.errors).to be_added(:place, :blank)
+      end
+
       example 'url_tokenが設定されていなければ無効であること' do
         event.url_token = nil
         event.valid?
@@ -46,26 +56,26 @@ RSpec.describe Event, type: :model do
     end
 
     describe '文字数の検証' do
-      example 'titleが50文字以下なら有効であること' do
-        event.title = 'a' * 50
+      example 'titleが100文字以下なら有効であること' do
+        event.title = 'a' * 100
         expect(event).to be_valid
       end
 
-      example 'titleが50文字を超えるなら無効であること' do
-        event.title = 'a' * 51
+      example 'titleが100文字を超えるなら無効であること' do
+        event.title = 'a' * 101
         event.valid?
-        expect(event.errors).to be_added(:title, :too_long, count: 50)
+        expect(event.errors).to be_added(:title, :too_long, count: 100)
       end
 
-      example 'contentが240文字以下なら有効であること' do
-        event.content = 'a' * 240
+      example 'contentが1000文字以下なら有効であること' do
+        event.content = 'a' * 1000
         expect(event).to be_valid
       end
 
-      example 'contentが240文字を超えるなら無効であること' do
-        event.content = 'a' * 241
+      example 'contentが1000文字を超えるなら無効であること' do
+        event.content = 'a' * 1001
         event.valid?
-        expect(event.errors).to be_added(:content, :too_long, count: 240)
+        expect(event.errors).to be_added(:content, :too_long, count: 1000)
       end
     end
 
@@ -79,14 +89,14 @@ RSpec.describe Event, type: :model do
         event.maximum_participants = 51
         event.valid?
         expect(event.errors).to be_added(:maximum_participants,
-                                         :greater_than_or_equal_to_less_than_or_equal_to, { minimum: 1, maximum: 50 })
+                                         :greater_than_or_equal_to_less_than_or_equal_to, { minimum: 2, maximum: 50 })
       end
 
-      example 'maximum_participantsが0人なら無効であること' do
-        event.maximum_participants = 0
+      example 'maximum_participantsが1人なら無効であること' do
+        event.maximum_participants = 1
         event.valid?
         expect(event.errors).to be_added(:maximum_participants,
-                                         :greater_than_or_equal_to_less_than_or_equal_to, { minimum: 1, maximum: 50 })
+                                         :greater_than_or_equal_to_less_than_or_equal_to, { minimum: 2, maximum: 50 })
       end
     end
 

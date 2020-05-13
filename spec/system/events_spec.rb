@@ -17,6 +17,8 @@ RSpec.describe 'Events', type: :system do
       select '30', from: 'event[start_time(5i)]'
       select '17', from: 'event[end_time(4i)]'
       select '30', from: 'event[end_time(5i)]'
+      fill_in 'event[place]', with: 'place'
+      fill_in 'event[address]', with: 'address'
       fill_in 'event[maximum_participants]', with: 10
       fill_in 'event[content]', with: 'content'
       attach_file 'event[image]', "#{Rails.root}/spec/fixtures/test.png", make_visible: true
@@ -35,6 +37,8 @@ RSpec.describe 'Events', type: :system do
       select '30', from: 'event[start_time(5i)]'
       select '17', from: 'event[end_time(4i)]'
       select '30', from: 'event[end_time(5i)]'
+      fill_in 'event[place]', with: 'place'
+      fill_in 'event[address]', with: 'address'
       fill_in 'event[maximum_participants]', with: 10
       fill_in 'event[content]', with: 'content'
       attach_file 'event[image]', "#{Rails.root}/spec/fixtures/test.png", make_visible: true
@@ -89,7 +93,8 @@ RSpec.describe 'Events', type: :system do
       aggregate_failures do
         expect(page).to have_content 'タイトルを入力してください'
         expect(page).to have_content '詳細を入力してください'
-        expect(page).to have_content '最大参加可能人数は1以上50以下の値にしてください'
+        expect(page).to have_content 'ゴルフ場を入力してください'
+        expect(page).to have_content '最大参加可能人数は2以上50以下の値にしてください'
       end
     end
 

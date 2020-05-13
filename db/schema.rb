@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_20_060104) do
+ActiveRecord::Schema.define(version: 2020_05_10_065852) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "content"
@@ -34,6 +34,9 @@ ActiveRecord::Schema.define(version: 2020_03_20_060104) do
     t.date "event_date"
     t.time "start_time"
     t.time "end_time"
+    t.string "place"
+    t.string "address"
+    t.integer "course_id"
     t.index ["user_id", "created_at"], name: "index_events_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_events_on_user_id"
   end

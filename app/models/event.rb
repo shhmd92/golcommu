@@ -12,8 +12,12 @@ class Event < ApplicationRecord
 
   before_validation :generate_url_token, on: :create
 
-  validates :title, presence: true, length: { maximum: 50 }
-  validates :content, presence: true, length: { maximum: 240 }
+  validates :title, presence: true, length: { maximum: 100 }
+  validates :content, presence: true, length: { maximum: 1000 }
+  validates :place, presence: true, length: { maximum: 100 }
+  validates :event_date, presence: true
+  validates :start_time, presence: true
+  validates :end_time, presence: true
   validates :maximum_participants, presence: true, numericality: { only_integer: true }
   validate :maximum_participants_check
   validates :user_id, presence: true
@@ -48,9 +52,9 @@ class Event < ApplicationRecord
 
   def maximum_participants_check
     if maximum_participants.nil? ||
-       !maximum_participants.between?(1, 50)
+       !maximum_participants.between?(2, 50)
       errors.add(:maximum_participants,
-                 :greater_than_or_equal_to_less_than_or_equal_to, { minimum: 1, maximum: 50 })
+                 :greater_than_or_equal_to_less_than_or_equal_to, { minimum: 2, maximum: 50 })
     end
   end
 

@@ -10,6 +10,7 @@ ja:
         event:
           title: タイトル
           content: 詳細
+          place: ゴルフ場
           maximum_participants: 最大参加可能人数
           start_time: 開始時刻
           end_time: 終了時刻

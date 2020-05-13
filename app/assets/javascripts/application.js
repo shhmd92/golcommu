@@ -15,6 +15,6 @@
 //= require jquery3
 //= require jquery_ujs
 //= require jquery.cookie.js
+//= require jquery-ui
 //= require popper
 //= require bootstrap-sprockets
-//= require_tree .
