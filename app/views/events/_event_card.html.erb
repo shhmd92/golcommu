@@ -17,22 +17,38 @@
     </div>
 
     <div class="eventList-body-item">
-      主催者：
+      主催者　：
       <%= link_to user_path(event_card.user) do %>
         <%= event_card.user.username %>
       <% end %>
     </div>
 
     <div class="eventList-body-item">
-      開催日：<%= date_wday(event_card.event_date) %>&nbsp;&nbsp;場所：<%= event_card.place %>
+      開催日　：<%= date_wday(event_card.event_date) %>
     </div>
 
     <div class="eventList-body-item">
-      参加人数：<%= event_card.participants.count %>／<%= event_card.maximum_participants %>
+      場所　　：<%= event_card.place %>
     </div>
 
     <div class="eventList-body-item">
-      <%= event_card.content %>
+      住所　　：
+      <% if event_card.address %>
+        <%= link_to(event_card.address,
+          "https://www.google.com/maps/search/?api=1&query=#{event_card.address}",
+          :target=>["_blank"]) %>
+      <% end %>
+    </div>
+
+    <div class="eventList-body-item">
+      参加人数：
+      <% if event_card.participants.count == event_card.maximum_participants %>
+      <span class="text-danger">
+      <% else %>
+      <span>
+      <% end %>
+        <%= event_card.participants.count %>／<%= event_card.maximum_participants %>
+      </span>
     </div>
   </div>
 

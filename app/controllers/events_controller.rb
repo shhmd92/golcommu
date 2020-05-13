@@ -34,6 +34,7 @@ class EventsController < ApplicationController
   def create
     @event = current_user.events.build(event_params)
     if @event.save
+      current_user.participants.create(event_id: @event.id)
       flash[:notice] = 'イベントを作成しました'
       redirect_to event_path(@event)
     else

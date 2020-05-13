@@ -74,7 +74,7 @@ $(function () {
       if (countNum > 1000) {
         $("#detail-counter").text("文字数オーバーです");
       } else {
-        $("#detail-counter").text("place_id");
+        $("#detail-counter").text("");
       }
     });
 });

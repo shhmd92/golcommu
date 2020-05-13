@@ -51,9 +51,9 @@ class Event < ApplicationRecord
 
   def maximum_participants_check
     if maximum_participants.nil? ||
-       !maximum_participants.between?(1, 50)
+       !maximum_participants.between?(2, 50)
       errors.add(:maximum_participants,
-                 :greater_than_or_equal_to_less_than_or_equal_to, { minimum: 1, maximum: 50 })
+                 :greater_than_or_equal_to_less_than_or_equal_to, { minimum: 2, maximum: 50 })
     end
   end
 

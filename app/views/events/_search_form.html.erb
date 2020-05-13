@@ -58,10 +58,10 @@
         </td>
         <td class="search-item-body">
           <div>
-            <%= f.number_field :maximum_participants_gteq, min: 1,
-              class: "search-item-select",
-              value: ( f.object.maximum_participants_gteq || 1) %>人以上〜
-            <%= f.number_field :maximum_participants_lteq, min: 1, class: "search-item-select" %>人以下
+            <%= f.number_field :maximum_participants_gteq, min: 2,
+              class: "search-item-date",
+              value: ( f.object.maximum_participants_gteq || 2) %>人以上〜
+            <%= f.number_field :maximum_participants_lteq, min: 2, class: "search-item-date" %>人以下
           </div>
         </td>
       </tr>

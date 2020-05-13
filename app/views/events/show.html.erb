@@ -34,11 +34,13 @@
                       {modal_id: ApplicationHelper::DELETE_EVENT_MODAL_MODE,
                       mode: ApplicationHelper::DELETE_EVENT_MODAL_MODE, object: @event} %>
                   </div>
-                  <div class="event-body-btn" id="event-edit-btn">
-                    <%= link_to edit_event_path(@event), class: "btn btn-secondary base-btn text-white" do %>
-                      編集&nbsp;<i class="fa fa-edit"></i>
-                    <% end %>
-                  </div>
+                  <% if current_user?(@event.user) %>
+                    <div class="event-body-btn" id="event-edit-btn">
+                      <%= link_to edit_event_path(@event), class: "btn btn-secondary base-btn text-white" do %>
+                        編集&nbsp;<i class="fa fa-edit"></i>
+                      <% end %>
+                    </div>
+                  <% end %>
                 <% end %>
               <% end %>
             </td>
@@ -80,7 +82,11 @@
               <div class="event-item">住所</div>
             </td>
             <td>
-              <%= @event.address %>
+              <% if @event.address %>
+                <%= link_to(@event.address,
+                  "https://www.google.com/maps/search/?api=1&query=#{@event.address}",
+                  :target=>["_blank"]) %>
+              <% end %>
             </td>
           </tr>
           <tr valign="top">
@@ -97,13 +103,19 @@
 
     <% if user_signed_in? %>
       <% if !current_user?(@event.user) %>
-        <div class="btn-field mb-2">
-          <% if @event.already_participated?(current_user) %>
-            <%= render 'events/stop_participate', object: @event %>
-          <% else %>
-            <%= render 'events/participate', object: @event %>
-          <% end %>
-        </div>
+        <% if @event.participants.count == @event.maximum_participants %>
+          <div class="w-100 text-left text-danger">
+            定員に達したため参加できません
+          </div>
+        <% else %>
+          <div class="btn-field mb-2">
+            <% if @event.already_participated?(current_user) %>
+              <%= render 'events/stop_participate', object: @event %>
+            <% else %>
+              <%= render 'events/participate', object: @event %>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
 

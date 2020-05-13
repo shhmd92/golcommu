@@ -647,7 +647,7 @@
   display: none;
 }
 
-.search-item-select {
+%search-item-base {
   @extend %form-control-base;
   width: auto;
   height: 34px;
@@ -655,10 +655,16 @@
   font-size: 0.8rem;
 }
 
+.search-item-select {
+  @extend %search-item-base;
+}
+
+.search-item-date {
+  @extend %search-item-base;
+  width: 50px;
+}
+
 .search-item-text {
-  @extend %form-control-base;
+  @extend %search-item-base;
   width: 90%;
-  height: 34px;
-  padding: 5px;
-  font-size: 0.8rem;
 }
