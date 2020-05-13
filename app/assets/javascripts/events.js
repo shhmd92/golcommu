@@ -90,3 +90,16 @@ $(function () {
     $("#q_maximum_participants_lteq").val("");
   });
 });
+
+$(function () {
+  $(".form-control").on("keydown", function (e) {
+    var id = $(this).attr("id");
+    if (id != "input-detail-area") {
+      if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  });
+});
