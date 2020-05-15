@@ -20,6 +20,12 @@ class User < ApplicationRecord
                                    dependent: :destroy
   has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+  has_many :active_notifications, class_name: 'Notification',
+                                  foreign_key: 'visitor_id',
+                                  dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification',
+                                    foreign_key: 'visited_id',
+                                    dependent: :destroy
 
   before_validation :generate_url_token, on: :create
 
@@ -73,6 +79,18 @@ class User < ApplicationRecord
     result = update(params, *options)
     clean_up_passwords
     result
+  end
+
+  def create_notification_follow!(current_user)
+    temp = Notification.where(['visitor_id = ? and visited_id = ? and action = ? ',
+                               current_user.id, id, 'follow'])
+    if temp.blank?
+      notification = current_user.active_notifications.new(
+        visited_id: id,
+        action: 'follow'
+      )
+      notification.save if notification.valid?
+    end
   end
 
   def self.ages

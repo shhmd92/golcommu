@@ -668,3 +668,21 @@
   @extend %search-item-base;
   width: 90%;
 }
+
+
+/* notification */
+.notification-of-comments {
+  margin-left: 3em;
+}
+
+.notification-sub-text {
+  font-size: 0.9em;
+}
+
+.n-circle {
+  position: absolute;
+  padding-left: 1rem;
+  padding-top: 1rem;
+  font-size: 0.8rem;
+  color: $danger;
+}

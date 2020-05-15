@@ -1,0 +1,21 @@
+<% visitor = notification.visitor %>
+<% visited = notification.visited %>
+
+<div class="text-left">
+  <div>
+    <%= link_to user_path(visitor) do %>
+      <% if visitor.avatar?%>
+        <%= image_tag visitor.avatar.url, class: 'avatar-img-mini rounded-circle' %>
+      <% else %>
+        <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img-mini rounded-circle' %>
+      <% end %>
+      <%== notification_form(notification) %>
+    <% end %>
+    <span class="notification-sub-text"><%= " (#{time_ago_in_words(notification.created_at)}前)" %></span>
+  </div>
+  <div class="notification-of-comments">
+    <% if !@comment.nil? %>
+      <p class="notification-sub-text"><%= @comment %></p>
+    <% end %>
+  </div>
+</div>
