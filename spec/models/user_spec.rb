@@ -151,6 +151,12 @@ RSpec.describe User, type: :model do
       expect(user.following?(other_user)).to be_falsey
     end
 
+    example 'フォローした際の通知が１件増加すること' do
+      expect do
+        other_user.create_notification_follow!(user)
+      end.to change(Notification, :count).by(1)
+    end
+
     example '年代が空白とならないこと' do
       expect(user.get_ages).not_to eq nil
       user.birth_date = nil
@@ -199,6 +205,13 @@ RSpec.describe User, type: :model do
       expect do
         user.destroy
       end.to change(other_user.following, :count).by(-1)
+    end
+
+    example 'フォロー後にユーザーを削除すると関連する通知も削除されること' do
+      other_user.create_notification_follow!(user)
+      expect do
+        user.destroy
+      end.to change(Notification, :count).by(-1)
     end
   end
 end

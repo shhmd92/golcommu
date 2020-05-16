@@ -41,15 +41,23 @@ class Event < ApplicationRecord
     liked_users.include?(user)
   end
 
+  def participate(user)
+    participants.create(user_id: user.id)
+  end
+
+  def stop_participate(user)
+    participants.find_by(user_id: user.id).destroy
+  end
+
   def already_participated?(user)
     participated_users.include?(user)
   end
 
   def create_notification_like!(current_user)
-    temp = Notification.where(['visitor_id = ? and visited_id = ? and event_id = ? and action = ? ',
-                               current_user.id, user_id, id, 'like'])
+    like_notification = Notification.where(['visitor_id = ? and visited_id = ? and event_id = ? and action = ? ',
+                                            current_user.id, user_id, id, 'like'])
 
-    if temp.blank?
+    if like_notification.blank?
       notification = current_user.active_notifications.new(
         visited_id: user_id,
         event_id: id,
@@ -62,12 +70,29 @@ class Event < ApplicationRecord
     end
   end
 
-  def create_notification_comment!(current_user, comment_id)
-    temp_ids = Comment.select(:user_id).where(event_id: id).where.not(user_id: current_user.id).distinct
-    temp_ids.each do |temp_id|
-      save_notification_comment!(current_user, comment_id, temp_id['user_id'])
+  def create_notification_participate!(current_user)
+    participant_notification = Notification.where(['visitor_id = ? and visited_id = ? and event_id = ? and action = ? ',
+                                                   current_user.id, user_id, id, 'participate'])
+
+    if participant_notification.blank?
+      notification = current_user.active_notifications.new(
+        visited_id: user_id,
+        event_id: id,
+        action: 'participate'
+      )
+      if notification.visitor_id == notification.visited_id
+        notification.checked = true
+      end
+      notification.save if notification.valid?
     end
-    if temp_ids.blank?
+  end
+
+  def create_notification_comment!(current_user, comment_id)
+    visited_ids = Comment.select(:user_id).where(event_id: id).where.not(user_id: current_user.id).distinct
+    visited_ids.each do |visited_id|
+      save_notification_comment!(current_user, comment_id, visited_id['user_id'])
+    end
+    if visited_ids.blank?
       save_notification_comment!(current_user, comment_id, user_id)
     end
   end

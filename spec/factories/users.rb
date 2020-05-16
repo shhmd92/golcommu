@@ -8,7 +8,7 @@ FactoryBot.define do
     prefecture_id { 1 }
     play_type { 3 }
     average_score { 6 }
-    introduction { 'はじめまして。初心者ゴルファーです。' }
+    introduction { 'introduction' }
     confirmed_at { Date.today }
 
     trait :guest do

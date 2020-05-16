@@ -5,9 +5,16 @@ module NotificationsHelper
     visitor = link_to(notification.visitor.username,
                       user_path(notification.visitor),
                       style: 'font-weight: bold;')
-    your_event = link_to('あなたのイベント',
-                          event_path(notification.event),
-                          style: 'font-weight: bold;')
+
+    event_name = ''
+    event_name = if notification.event.user_id == current_user.id
+                   'あなたのイベント'
+                 else
+                   notification.event.user.username + 'さんのイベント'
+                 end
+    your_event = link_to(event_name,
+                         event_path(notification.event),
+                         style: 'font-weight: bold;')
 
     case notification.action
     when 'follow'
