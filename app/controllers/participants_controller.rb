@@ -1,12 +1,16 @@
 class ParticipantsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
-    @participant = current_user.participants.create(event_id: params[:event_id])
+    @event = Event.find(params[:event_id])
+    @event.participate(current_user) unless @event.already_participated?(current_user)
+    @event.create_notification_participate!(current_user)
     redirect_back(fallback_location: root_path)
   end
 
   def destroy
-    @participant = Participant.find_by(event_id: params[:event_id], user_id: current_user.id)
-    @participant.destroy
+    @event = Participant.find(params[:id]).event
+    @event.stop_participate(current_user)
     redirect_back(fallback_location: root_path)
   end
 end

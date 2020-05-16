@@ -1,0 +1,11 @@
+<div class="page">
+  <div class="mid-white-panel">
+    <h2>通知一覧</h2>
+    <% if @notifications.exists? %>
+      <%= render partial: 'notifications/notification', collection: @notifications, as: :notification %>
+      <%= paginate(@notifications) %>
+    <% else %>
+      <p>通知はありません</p>
+    <% end %>
+  </div>
+</div>

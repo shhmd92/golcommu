@@ -7,7 +7,7 @@
 <% if controller_name == 'registrations' %>
   <div class="user-form-group">
     <%= form.label :username, "ユーザネーム", class: 'control-label' %>
-    <%= form.text_field :username, class: 'form-control', autofocus: true %>
+    <%= form.text_field :username, class: 'form-control', autofocus: true, maxlength: 50 %>
   </div>
 
   <div class="user-form-group">

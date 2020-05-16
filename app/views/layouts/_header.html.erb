@@ -23,6 +23,14 @@
     </div>
     <div class="header-right">
       <% if user_signed_in? %>
+        <%= link_to notifications_path, class: "text-secondary" do %>
+          <span class="fa-stack">
+            <i class="fas fa-bell fa-stack-2x pt-2"></i>
+            <% if unchecked_notifications.any? %>
+              <i class="fas fa-circle n-circle fa-stack-1x"></i>
+            <% end %>
+          </span>
+        <% end %>
         <%= link_to user_path(current_user), class: "avatar-user-name nav-link mr-3 p-0" do %>
         <% end %>
         <div class="dropdown">

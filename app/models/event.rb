@@ -9,6 +9,7 @@ class Event < ApplicationRecord
   has_many :participants, dependent: :destroy
   has_many :participated_users, through: :participants, source: :user
   has_many :comments, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   before_validation :generate_url_token, on: :create
 
@@ -40,8 +41,73 @@ class Event < ApplicationRecord
     liked_users.include?(user)
   end
 
+  def participate(user)
+    participants.create(user_id: user.id)
+  end
+
+  def stop_participate(user)
+    participants.find_by(user_id: user.id).destroy
+  end
+
   def already_participated?(user)
     participated_users.include?(user)
+  end
+
+  def create_notification_like!(current_user)
+    like_notification = Notification.where(['visitor_id = ? and visited_id = ? and event_id = ? and action = ? ',
+                                            current_user.id, user_id, id, 'like'])
+
+    if like_notification.blank?
+      notification = current_user.active_notifications.new(
+        visited_id: user_id,
+        event_id: id,
+        action: 'like'
+      )
+      if notification.visitor_id == notification.visited_id
+        notification.checked = true
+      end
+      notification.save if notification.valid?
+    end
+  end
+
+  def create_notification_participate!(current_user)
+    participant_notification = Notification.where(['visitor_id = ? and visited_id = ? and event_id = ? and action = ? ',
+                                                   current_user.id, user_id, id, 'participate'])
+
+    if participant_notification.blank?
+      notification = current_user.active_notifications.new(
+        visited_id: user_id,
+        event_id: id,
+        action: 'participate'
+      )
+      if notification.visitor_id == notification.visited_id
+        notification.checked = true
+      end
+      notification.save if notification.valid?
+    end
+  end
+
+  def create_notification_comment!(current_user, comment_id)
+    visited_ids = Comment.select(:user_id).where(event_id: id).where.not(user_id: current_user.id).distinct
+    visited_ids.each do |visited_id|
+      save_notification_comment!(current_user, comment_id, visited_id['user_id'])
+    end
+    if visited_ids.blank?
+      save_notification_comment!(current_user, comment_id, user_id)
+    end
+  end
+
+  def save_notification_comment!(current_user, comment_id, visited_id)
+    notification = current_user.active_notifications.new(
+      visited_id: visited_id,
+      event_id: id,
+      comment_id: comment_id,
+      action: 'comment'
+    )
+    if notification.visitor_id == notification.visited_id
+      notification.checked = true
+    end
+    notification.save if notification.valid?
   end
 
   private

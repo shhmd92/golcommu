@@ -4,6 +4,7 @@ class LikesController < ApplicationController
   def create
     @event = Event.find(params[:event_id])
     @event.like(current_user) unless @event.already_liked?(current_user)
+    @event.create_notification_like!(current_user)
     respond_to do |format|
       format.html { redirect_to request.referer || root_url }
       format.js
