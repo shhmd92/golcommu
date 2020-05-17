@@ -4,7 +4,7 @@
       <div class="user-username">
         <%= link_to user_path(comment.user) do %>
           <% if comment.user.avatar? %>
-            <%= image_tag comment.user.avatar, class: 'avatar-img-mini rounded-circle' %>
+            <%= image_tag comment.user.avatar.url, class: 'avatar-img-mini rounded-circle' %>
           <% else %>
             <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img-mini rounded-circle' %>
           <% end %>
@@ -15,9 +15,11 @@
         <%= simple_format(h(comment.content), {}, wrapper_tag: "div") %>
       </div>
       <div>
-        <% if current_user?(@event.user) || current_user.admin? %>
-          <%= link_to icon('fas', 'trash-alt'), comment_path(comment),
-            method: :delete, remote: true, id:"delete-comment-#{comment.id}", class: "text-danger" %>
+        <% if user_signed_in? %>
+          <% if current_user?(@event.user) || current_user.admin? %>
+            <%= link_to icon('fas', 'trash-alt'), comment_path(comment),
+              method: :delete, remote: true, id:"delete-comment-#{comment.id}", class: "text-danger" %>
+          <% end %>
         <% end %>
         <%= time_ago_in_words(comment.created_at) %>前
       </div>
