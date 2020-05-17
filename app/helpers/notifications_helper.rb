@@ -7,14 +7,16 @@ module NotificationsHelper
                       style: 'font-weight: bold;')
 
     event_name = ''
-    event_name = if notification.event.user_id == current_user.id
-                   'あなたのイベント'
-                 else
-                   notification.event.user.username + 'さんのイベント'
-                 end
-    your_event = link_to(event_name,
-                         event_path(notification.event),
-                         style: 'font-weight: bold;')
+    unless notification.event.nil?
+      event_name = if notification.event.user_id == current_user.id
+                    'あなたのイベント'
+                  else
+                    notification.event.user.username + 'さんのイベント'
+                  end
+      your_event = link_to(event_name,
+                          event_path(notification.event),
+                          style: 'font-weight: bold;')
+    end
 
     case notification.action
     when 'follow'
