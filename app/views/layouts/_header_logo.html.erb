@@ -1,0 +1,5 @@
+<% if user_signed_in? %>
+  <%= link_to ApplicationHelper::WEBSITE_NAME, events_path, class: "navbar-brand font-weight-bold" %>
+<% else %>
+  <%= link_to ApplicationHelper::WEBSITE_NAME, root_path, class: "navbar-brand font-weight-bold" %>
+<% end %>

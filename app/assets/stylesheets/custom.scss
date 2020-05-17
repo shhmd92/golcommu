@@ -6,9 +6,27 @@
   box-sizing: border-box;
 }
 
+@mixin sm {
+  @media (min-width: 576px) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: 992px) {
+    @content;
+  }
+}
+
 /* universal */
 .container {
-  // max-width: 960px;
+  max-width: auto;
 }
 
 .dropdown-font {
@@ -50,27 +68,27 @@
 }
 
 .base-btn {
-  font-size: .8rem;
+  font-size: 0.8rem;
   border-radius: 40px;
-  width: 100%;
+  width: auto;
 }
 
 .loginbtn {
-  width: 100px;
+  width: auto;
   margin: 0px 5px 0px 5px;
 
   a:hover {
     text-decoration: none;
   }
-}
 
-.guest-loginbtn {
-  @extend .loginbtn;
-  width: 150px;
+  button {
+    font-size: 0.8rem;
+    width: auto;
+  }
 }
 
 .eventbtn {
-  width: 120px;
+  width: auto;
 
   a:hover {
     text-decoration: none;
@@ -137,19 +155,25 @@
 }
 
 .header-logo {
-  width: 100px;
+  width: auto;
+  margin-top: 1rem;
+
+  a {
+    font-size: 1rem;
+  }
 }
 
 .header-menu {
-  display: flex;
-  justify-content: center;
-
   ul {
-    display: flex;
-    font-size: 1rem;
     font-weight: 700;
-    margin-top: 12px;
     list-style: none;
+    display: flex;
+    margin-top: 1.2rem;
+
+    li {
+      width: auto;
+      font-size: 1rem;
+    }
 
     a:hover {
       text-decoration: none;
@@ -158,12 +182,33 @@
 }
 
 .header-right {
-  margin-left: auto;
-  display: flex;
+  margin-top: 1rem;
+  float: right;
+
+  ul {
+    display: flex;
+    list-style: none;
+    margin-bottom: 0px;
+
+    li {
+      width: auto;
+    }
+  }
 }
 
+.header-right-login {
+  float: right;
 
-/* footer */
+  ul {
+    display: flex;
+    list-style: none;
+    margin-bottom: 0px;
+
+    li {
+      width: auto;
+    }
+  }
+}
 
 
 /* modal */
@@ -588,7 +633,7 @@
 /* search-form */
 .search-form {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 0.5rem;
   box-sizing: border-box;
   text-align: left;
 }
