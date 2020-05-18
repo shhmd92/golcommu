@@ -8,12 +8,21 @@
       <% end %>
     <% end %>
   </div>
-
-  <div class="float-left userList-body">
-    <div class="userList-body-name">
+  <div class="d-block d-lg-none float-left">
+    <div class="userList-body-name text-left pt-4 pl-3">
       <%= link_to user_path(user_card) do %>
         <%= user_card.username %>
       <% end %>
+    </div>
+  </div>
+
+  <div class="float-left userList-body">
+    <div class="d-none d-lg-block">
+      <div class="userList-body-name">
+        <%= link_to user_path(user_card) do %>
+          <%= user_card.username %>
+        <% end %>
+      </div>
     </div>
     <div class="userList-body-intro">
       <%= link_to user_path(user_card) do %>
@@ -35,8 +44,8 @@
     </div>
   </div>
 
-  <div class="float-left userList-btn">
-    <% if user_signed_in? %>
+  <% if user_signed_in? %>
+    <div class="float-left userList-btn mt-2">
       <%= render 'users/follow_form', object: user_card %>
       <% if current_user.admin? && user_card != current_user %>
         <a class="btn userList-delete bg-danger text-white" data-toggle="modal"
@@ -44,8 +53,8 @@
           削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>
         </a>
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
 <%= render 'layouts/modal',
   {modal_id: ApplicationHelper::DELETE_USER_MODAL_MODE + user_card.id.to_s,
