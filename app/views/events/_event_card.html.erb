@@ -52,23 +52,23 @@
     </div>
   </div>
 
-  <div class="eventList-btn" id="eventList-btn-<%= event_card.id %>">
-    <% if user_signed_in? %>
+  <% if user_signed_in? %>
+    <div class="eventList-btn" id="eventList-btn-<%= event_card.id %>">
       <%= render 'events/like_form', object: event_card %>
       <% if current_user?(event_card.user) || current_user.admin? %>
         <% if current_user?(event_card.user) %>
           <%= link_to edit_event_path(event_card),
             class: "btn base-btn mt-2 btn-secondary base-btn text-white" do %>
-            編集&nbsp;<i class="fa fa-edit"></i>
+            &nbsp;&nbsp;編集&nbsp;<i class="fa fa-edit"></i>&nbsp;
           <% end %>
         <% end %>
         <a class="btn base-btn mt-2 bg-danger text-white" data-toggle="modal"
           data-target="#modal-<%= event_card_mode.to_s + ApplicationHelper::DELETE_EVENT_MODAL_MODE + event_card.id.to_s %>">
-          削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>
+          &nbsp;&nbsp;削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
         </a>
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
 <%= render 'layouts/modal',
   {modal_id: event_card_mode.to_s + ApplicationHelper::DELETE_EVENT_MODAL_MODE + event_card.id.to_s,
