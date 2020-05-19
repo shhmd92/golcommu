@@ -187,7 +187,11 @@
 
 /* header */
 .navbar {
-  height: 55px;
+  height: auto;
+
+  @include lg {
+    height: 55px;
+  }
 }
 
 .header-logo {
@@ -353,6 +357,7 @@
   padding: 10px;
   flex-wrap: wrap;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 @media screen and (max-width: 767px) {
@@ -384,9 +389,16 @@
 .eventList-body {
   flex: 1;
   text-align: left;
-  display: flex;
   flex-wrap: wrap;
   align-items: center;
+
+  @include lg {
+    flex: 1;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
 }
 
 .eventList-body-title {
@@ -403,7 +415,6 @@
 }
 
 .eventList-btn {
-  width: 120px;
   font-size: 0.8rem;
   padding-left: 10px;
 }
@@ -496,35 +507,51 @@
 /* users */
 .user-page {
   display: flex;
-  width: 1200px;
   margin: 0 auto;
   padding: 22px 0;
   flex-wrap: wrap;
+
+  @include lg {
+    width: 100%;
+  }
 }
 
 .user-detail-panel {
-  max-width: 1200px;
   margin: 0 auto;
-  display: flex;
   flex-wrap: wrap;
   width: 100%;
+  flex-direction: row;
+  padding: 10px;
+
+  @include lg {
+    display: flex;
+    max-width: 1200px;
+  }
 }
 
 .user-detail {
-  width: 290px;
-  margin-right: 30px;
-  position: sticky;
+  margin-bottom: 20px;
   top: 70px;
-  z-index: 1;
-  align-self: flex-start;
-  overflow-x: hidden;
-  overflow-y: auto;
-  height: 80vh;
+
+  @include lg {
+    width: 290px;
+    margin-right: 30px;
+    position: sticky;
+    top: 70px;
+    z-index: 1;
+    align-self: flex-start;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 80vh;
+  }
 }
 
 .event-box {
   box-sizing: border-box;
-  flex: 1;
+
+  @include lg {
+    flex: 1;
+  }
 }
 
 .event-box-title {
@@ -648,7 +675,11 @@
 
 .profile-tabitem {
   background-color: lightgray;
-  width: 25%;
+  width: 50%;
+
+  @include lg {
+    width: 25%;
+  }
 }
 
 .followlist-tab {
@@ -658,6 +689,15 @@
 .followlist-tabitem {
   background-color: lightgray;
   width: 50%;
+}
+
+.user-profile-follow-form {
+  margin-bottom: 0.5rem;
+  width: 25%;
+
+  @include lg {
+    width: 50%;
+  }
 }
 
 

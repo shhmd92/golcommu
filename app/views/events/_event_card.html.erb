@@ -61,6 +61,9 @@
             class: "btn base-btn mt-2 btn-secondary base-btn text-white" do %>
             &nbsp;&nbsp;編集&nbsp;<i class="fa fa-edit"></i>&nbsp;
           <% end %>
+          <div class="d-none d-lg-block" style="height:0px;">
+            <br>
+          </div>
         <% end %>
         <a class="btn base-btn mt-2 bg-danger text-white" data-toggle="modal"
           data-target="#modal-<%= event_card_mode.to_s + ApplicationHelper::DELETE_EVENT_MODAL_MODE + event_card.id.to_s %>">
