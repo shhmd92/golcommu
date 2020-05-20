@@ -1,89 +1,140 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
   <div class="container">
-    <div class="header-logo">
-      <% if user_signed_in? %>
-        <%= link_to ApplicationHelper::WEBSITE_NAME, events_path, class: "navbar-brand font-weight-bold" %>
-      <% else %>
-        <%= link_to ApplicationHelper::WEBSITE_NAME, root_path, class: "navbar-brand font-weight-bold" %>
+    <div class="d-block d-lg-none">
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+        aria-expanded="false" aria-label="Toggle navigation" style="border-color: rgba(0,0,0,0);">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <%= render 'layouts/header_logo' %>
+      <div class="collapse navbar-collapse bg-light" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item p-2">
+            <%= link_to(events_path) do %>
+              イベントを探す
+            <% end %>
+          </li>
+          <li class="nav-item p-2">
+            <%= link_to(users_path) do %>
+              ゴル友を探す
+            <% end %>
+          </li>
+          <% unless user_signed_in? %>
+            <li class="nav-item p-2">
+              <a href="#" data-toggle="modal"
+                data-target="#modal-<%= ApplicationHelper::EASY_LOGIN_MODAL_MODE %>">
+                お試しログイン
+              </a>
+            </li>
+            <li class="nav-item p-2">
+              <%= link_to 'ログイン', new_user_session_path, class: "text-info" %>
+            </li>
+            <li class="nav-item p-2">
+              <%= link_to '会員登録', new_user_registration_path, class: "text-info" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="d-none d-lg-block w-100">
+      <div class="header-logo float-left">
+        <%= render 'layouts/header_logo' %>
+      </div>
+      <div class="header-menu float-left">
+        <ul>
+          <li class="mr-3">
+            <%= link_to events_path, class: "text-info" do %>
+              <i class="fas fa-golf-ball mr-1"></i>イベントを探す
+            <% end %>
+          </li>
+          <li>
+            <%= link_to users_path, class: "text-info" do %>
+              <i class="fas fa-user-friends mr-1"></i>ゴル友を探す
+            <% end %>
+          </li>
+        </ul>
+      </div>
+      <% unless user_signed_in? %>
+        <div class="header-right">
+          <ul>
+            <li>
+              <div class="loginbtn">
+                <button type="button" class="btn btn-outline-secondary rounded-pill btn-block"
+                  data-toggle="modal" data-target="#modal-<%= ApplicationHelper::EASY_LOGIN_MODAL_MODE %>">
+                  お試しログイン
+                </button>
+              </div>
+            </li>
+            <li>
+              <div class="loginbtn">
+                <button type="button" class="btn btn-outline-info rounded-pill btn-block">
+                  <%= link_to 'ログイン', new_user_session_path, class: "text-info" %>
+                </button>
+              </div>
+            </li>
+            <li>
+              <div class="loginbtn">
+                <button type="button" class="btn btn-info rounded-pill btn-block">
+                  <%= link_to '会員登録', new_user_registration_path, class: "text-white" %>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
       <% end %>
     </div>
-    <div class="header-menu">
-      <ul>
-        <li class="mr-3">
-          <%= link_to events_path, class: "text-info" do %>
-            <i class="fas fa-golf-ball mr-1"></i>イベントを探す
-          <% end %>
-        </li>
-        <li>
-          <%= link_to users_path, class: "text-info" do %>
-            <i class="fas fa-user-friends mr-1"></i>ゴル友を探す
-          <% end %>
-        </li>
-      </ul>
-    </div>
-    <div class="header-right">
-      <% if user_signed_in? %>
-        <%= link_to notifications_path, class: "text-secondary" do %>
-          <span class="fa-stack">
-            <i class="fas fa-bell fa-stack-2x pt-2"></i>
-            <% if unchecked_notifications.any? %>
-              <i class="fas fa-circle n-circle fa-stack-1x"></i>
+    <% if user_signed_in? %>
+      <div class="header-right-login">
+        <ul>
+          <li>
+            <%= link_to notifications_path, class: "text-secondary" do %>
+              <span class="fa-stack">
+                <i class="fas fa-bell pt-2" style="font-size:30px;"></i>
+                <% if unchecked_notifications.any? %>
+                  <i class="fas fa-circle n-circle fa-stack-1x"></i>
+                <% end %>
+              </span>
             <% end %>
-          </span>
-        <% end %>
-        <%= link_to user_path(current_user), class: "avatar-user-name nav-link mr-3 p-0" do %>
-        <% end %>
-        <div class="dropdown">
-          <button type="button" class="btn setting-btn py-0 px-1", data-toggle="dropdown",
-            data-offset="0,10", aria-haspopup="true", aria-expanded="false", style="box-shadow: none">
-            <% if current_user.avatar?%>
-              <%= image_tag current_user.avatar.url, class: 'avatar-img-mini rounded-circle' %>
-            <% else %>
-              <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img-mini rounded-circle',
-                :size =>'30x30' %>
+          </li>
+          <li>
+            <%= link_to user_path(current_user), class: "avatar-user-name nav-link mr-3 p-0" do %>
             <% end %>
-          </button>
-          <div class="dropdown-menu dropdown-menu-right dropdown-font">
-            <%= link_to user_path(current_user), class: "dropdown-item d-flex align-items-center" do %>
-              <i class="fas fa-address-card"></i>
-              <div style="width: 100%">&nbsp;マイページ</div>
-            <% end %>
-            <%= link_to new_event_path, class: "dropdown-item d-flex align-items-center" do %>
-              <i class="fas fa-plus-square"></i>
-              <div style="width: 100%">&nbsp;イベント作成</div>
-            <% end %>
-            <%= link_to edit_user_registration_path, class: "dropdown-item d-flex align-items-center" do %>
-              <i class="fas fa-edit"></i>
-              <div style="width: 100%">&nbsp;プロフィール編集</div>
-            <% end %>
-            <%= link_to destroy_user_session_path, class: "dropdown-item d-flex align-items-center",
-              method: :delete do %>
-              <i class="fas fa-sign-out-alt"></i>
-              <div style="width: 100%">&nbsp;ログアウト</div>
-            <% end %>
-          </div>
-        </div>
-      <% else %>
-        <%= render 'layouts/modal',
-          {modal_id: ApplicationHelper::EASY_LOGIN_MODAL_MODE,
-          mode: ApplicationHelper::EASY_LOGIN_MODAL_MODE, object: nil} %>
-        <div class="guest-loginbtn">
-          <button type="button" class="btn btn-outline-secondary rounded-pill btn-block"
-            data-toggle="modal" data-target="#modal-<%= ApplicationHelper::EASY_LOGIN_MODAL_MODE %>">
-            お試しログイン
-          </button>
-        </div>
-        <div class="loginbtn">
-          <button type="button" class="btn btn-outline-info rounded-pill btn-block">
-            <%= link_to 'ログイン', new_user_session_path, class: "text-info" %>
-          </button>
-        </div>
-        <div class="loginbtn">
-          <button type="button" class="btn btn-info rounded-pill btn-block">
-            <%= link_to '会員登録', new_user_registration_path, class: "text-white" %>
-          </button>
-        </div>
-      <% end %>
-    </div>
+            <div class="dropdown">
+              <button type="button" class="btn setting-btn py-0 px-1", data-toggle="dropdown",
+                data-offset="0,10", aria-haspopup="true", aria-expanded="false", style="box-shadow: none">
+                <% if current_user.avatar?%>
+                  <%= image_tag current_user.avatar.url, class: 'avatar-img-mini rounded-circle' %>
+                <% else %>
+                  <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img-mini rounded-circle',
+                    :size =>'30x30' %>
+                <% end %>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right dropdown-font">
+                <%= link_to user_path(current_user), class: "dropdown-item d-flex align-items-center" do %>
+                  <i class="fas fa-address-card"></i>
+                  <div style="width: 100%">&nbsp;マイページ</div>
+                <% end %>
+                <%= link_to new_event_path, class: "dropdown-item d-flex align-items-center" do %>
+                  <i class="fas fa-plus-square"></i>
+                  <div style="width: 100%">&nbsp;イベント作成</div>
+                <% end %>
+                <%= link_to edit_user_registration_path, class: "dropdown-item d-flex align-items-center" do %>
+                  <i class="fas fa-edit"></i>
+                  <div style="width: 100%">&nbsp;プロフィール編集</div>
+                <% end %>
+                <%= link_to destroy_user_session_path, class: "dropdown-item d-flex align-items-center",
+                  method: :delete do %>
+                  <i class="fas fa-sign-out-alt"></i>
+                  <div style="width: 100%">&nbsp;ログアウト</div>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    <% end %>
   </div>
+  <%= render 'layouts/modal',
+                {modal_id: ApplicationHelper::EASY_LOGIN_MODAL_MODE,
+                mode: ApplicationHelper::EASY_LOGIN_MODAL_MODE, object: nil} %>
 </nav>

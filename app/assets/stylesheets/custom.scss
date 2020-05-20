@@ -6,9 +6,27 @@
   box-sizing: border-box;
 }
 
+@mixin sm {
+  @media (min-width: 576px) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: 992px) {
+    @content;
+  }
+}
+
 /* universal */
 .container {
-  // max-width: 960px;
+  max-width: auto;
 }
 
 .dropdown-font {
@@ -29,15 +47,19 @@
 .mid-white-panel {
   @extend %panel;
   background: #fff;
-  width: 665px;
+  max-width: 665px;
   padding: 20px;
+
+  @include sm;
 }
 
 .wide-white-panel {
   @extend %panel;
   background: #fff;
-  width: 900px;
+  max-width: 900px;
   padding: 50px;
+
+  @include sm;
 }
 
 .field_with_errors {
@@ -50,30 +72,53 @@
 }
 
 .base-btn {
-  font-size: .8rem;
+  font-size: 0.8rem;
   border-radius: 40px;
-  width: 100%;
+  width: auto;
 }
 
 .loginbtn {
-  width: 100px;
+  width: auto;
   margin: 0px 5px 0px 5px;
 
   a:hover {
     text-decoration: none;
   }
-}
 
-.guest-loginbtn {
-  @extend .loginbtn;
-  width: 150px;
+  button {
+    font-size: 0.8rem;
+    width: auto;
+  }
 }
 
 .eventbtn {
-  width: 120px;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+}
+
+.event-circle-btn {
+  display: inline-block;
+  text-decoration: none;
+  background: $danger;
+  color: #FFF;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 50%;
+  text-align: center;
+  overflow: hidden;
+  transition: .4s;
 
   a:hover {
-    text-decoration: none;
+    background: $info;
+  }
+
+  @include lg {
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 2rem;
   }
 }
 
@@ -115,14 +160,23 @@
 }
 
 .square-image img {
-  width: 300px;
-  height: 300px;
+  max-width: 300px;
+  max-height: 300px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
 .event-img {
-  width: 300px;
-  height: 300px;
+  max-width: 300px;
+  max-height: 300px;
+  width: 100%;
+  height: 100%;
+
+  @include lg {
+    width: 300px;
+    height: 300px;
+  }
 }
 
 .event-img-card {
@@ -133,23 +187,33 @@
 
 /* header */
 .navbar {
-  height: 55px;
+  height: auto;
+
+  @include lg {
+    height: 55px;
+  }
 }
 
 .header-logo {
-  width: 100px;
+  width: auto;
+  margin-top: 1rem;
+
+  a {
+    font-size: 1rem;
+  }
 }
 
 .header-menu {
-  display: flex;
-  justify-content: center;
-
   ul {
-    display: flex;
-    font-size: 1rem;
     font-weight: 700;
-    margin-top: 12px;
     list-style: none;
+    display: flex;
+    margin-top: 1.2rem;
+
+    li {
+      width: auto;
+      font-size: 1rem;
+    }
 
     a:hover {
       text-decoration: none;
@@ -158,12 +222,34 @@
 }
 
 .header-right {
-  margin-left: auto;
-  display: flex;
+  margin-top: 1rem;
+  float: right;
+
+  ul {
+    display: flex;
+    list-style: none;
+    margin-bottom: 0px;
+
+    li {
+      width: auto;
+    }
+  }
 }
 
+.header-right-login {
+  float: right;
 
-/* footer */
+  ul {
+    display: flex;
+    list-style: none;
+    margin-bottom: 0px;
+    padding-left: 0px;
+
+    li {
+      width: auto;
+    }
+  }
+}
 
 
 /* modal */
@@ -196,7 +282,9 @@
 
 .user-form-group {
   @extend %form-group;
-  width: 350px;
+  max-width: 350px;
+
+  @include sm;
 }
 
 .event-form-group {
@@ -250,7 +338,9 @@
 /* events */
 .event-index-panel {
   @extend %panel;
-  width: 900px;
+  max-width: 900px;
+
+  @include sm;
 }
 
 .events {
@@ -267,6 +357,28 @@
   padding: 10px;
   flex-wrap: wrap;
   margin-bottom: 20px;
+  width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  .eventList-card {
+    display: block;
+  }
+
+  .eventList-card .eventList-image {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .eventList-card .eventList-body {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .eventList-card .eventList-btn {
+    width: 100%;
+    margin: 0 auto;
+  }
 }
 
 .eventList-image {
@@ -277,9 +389,16 @@
 .eventList-body {
   flex: 1;
   text-align: left;
-  display: flex;
   flex-wrap: wrap;
   align-items: center;
+
+  @include lg {
+    flex: 1;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
 }
 
 .eventList-body-title {
@@ -296,9 +415,8 @@
 }
 
 .eventList-btn {
-  width: 120px;
   font-size: 0.8rem;
-  padding-left: 20px;
+  padding-left: 10px;
 }
 
 .event-container {
@@ -389,35 +507,51 @@
 /* users */
 .user-page {
   display: flex;
-  width: 1200px;
   margin: 0 auto;
   padding: 22px 0;
   flex-wrap: wrap;
+
+  @include lg {
+    width: 100%;
+  }
 }
 
 .user-detail-panel {
-  max-width: 1200px;
   margin: 0 auto;
-  display: flex;
   flex-wrap: wrap;
   width: 100%;
+  flex-direction: row;
+  padding: 10px;
+
+  @include lg {
+    display: flex;
+    max-width: 1200px;
+  }
 }
 
 .user-detail {
-  width: 290px;
-  margin-right: 30px;
-  position: sticky;
+  margin-bottom: 20px;
   top: 70px;
-  z-index: 1;
-  align-self: flex-start;
-  overflow-x: hidden;
-  overflow-y: auto;
-  height: 80vh;
+
+  @include lg {
+    width: 290px;
+    margin-right: 30px;
+    position: sticky;
+    top: 70px;
+    z-index: 1;
+    align-self: flex-start;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 80vh;
+  }
 }
 
 .event-box {
   box-sizing: border-box;
-  flex: 1;
+
+  @include lg {
+    flex: 1;
+  }
 }
 
 .event-box-title {
@@ -434,13 +568,19 @@
 
 .user-index-panel {
   @extend %panel;
-  width: 900px;
+  max-width: 900px;
+
+  @include sm;
 }
 
 .users {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-column-gap: 20px;
+
+  @include sm {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .userList-card {
@@ -460,7 +600,7 @@
 }
 
 .userList-body {
-  width: 230px;
+  width: 100%;
   -webkit-box-flex: 1;
   flex: 1;
   text-align: left;
@@ -468,6 +608,10 @@
   flex-wrap: wrap;
   -webkit-box-align: center;
   align-items: center;
+
+  @include sm {
+    width: 230px;
+  }
 }
 
 .userList-body-name {
@@ -531,7 +675,8 @@
 
 .profile-tabitem {
   background-color: lightgray;
-  width: 25%;
+  width: auto;
+  font-size: smaller;
 }
 
 .followlist-tab {
@@ -541,6 +686,15 @@
 .followlist-tabitem {
   background-color: lightgray;
   width: 50%;
+}
+
+.user-profile-follow-form {
+  margin-bottom: 0.5rem;
+  width: 25%;
+
+  @include lg {
+    width: 50%;
+  }
 }
 
 
@@ -588,7 +742,7 @@
 /* search-form */
 .search-form {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 0.5rem;
   box-sizing: border-box;
   text-align: left;
 }
@@ -613,6 +767,7 @@
 
 .search-item-head {
   width: 12%;
+  min-width: 80px;
 
   div {
     margin: 5px 0px 5px 0px;
