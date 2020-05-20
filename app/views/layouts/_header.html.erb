@@ -3,7 +3,7 @@
     <div class="d-block d-lg-none">
       <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-        aria-expanded="false" aria-label="Toggle navigation">
+        aria-expanded="false" aria-label="Toggle navigation" style="border-color: rgba(0,0,0,0);">
         <span class="navbar-toggler-icon"></span>
       </button>
       <%= render 'layouts/header_logo' %>
@@ -19,18 +19,20 @@
               ゴル友を探す
             <% end %>
           </li>
-          <li class="nav-item p-2">
-            <a href="#" data-toggle="modal"
-              data-target="#modal-<%= ApplicationHelper::EASY_LOGIN_MODAL_MODE %>">
-              お試しログイン
-            </a>
-          </li>
-          <li class="nav-item p-2">
-            <%= link_to 'ログイン', new_user_session_path, class: "text-info" %>
-          </li>
-          <li class="nav-item p-2">
-            <%= link_to '会員登録', new_user_registration_path, class: "text-info" %>
-          </li>
+          <% unless user_signed_in? %>
+            <li class="nav-item p-2">
+              <a href="#" data-toggle="modal"
+                data-target="#modal-<%= ApplicationHelper::EASY_LOGIN_MODAL_MODE %>">
+                お試しログイン
+              </a>
+            </li>
+            <li class="nav-item p-2">
+              <%= link_to 'ログイン', new_user_session_path, class: "text-info" %>
+            </li>
+            <li class="nav-item p-2">
+              <%= link_to '会員登録', new_user_registration_path, class: "text-info" %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
@@ -87,7 +89,7 @@
           <li>
             <%= link_to notifications_path, class: "text-secondary" do %>
               <span class="fa-stack">
-                <i class="fas fa-bell fa-stack-2x pt-2"></i>
+                <i class="fas fa-bell pt-2" style="font-size:30px;"></i>
                 <% if unchecked_notifications.any? %>
                   <i class="fas fa-circle n-circle fa-stack-1x"></i>
                 <% end %>

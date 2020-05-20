@@ -675,11 +675,8 @@
 
 .profile-tabitem {
   background-color: lightgray;
-  width: 50%;
-
-  @include lg {
-    width: 25%;
-  }
+  width: auto;
+  font-size: smaller;
 }
 
 .followlist-tab {
