@@ -1,29 +1,34 @@
 app_path = "/var/www/rails/golcommu"
 
-worker_processes 1
+worker_processes 2
 
 working_directory "#{app_path}/current"
 
-pid "#{app_path}/shared/tmp/pids/unicorn.pid"
-
 listen "#{app_path}/shared/tmp/sockets/unicorn.sock"
-
-stderr_path "#{app_path}/shared/log/unicorn.stderr.log"
-
-stdout_path "#{app_path}/shared/log/unicorn.stdout.log"
 
 timeout 60
 
+pid "#{app_path}/shared/tmp/pids/unicorn.pid"
+
+stderr_path "#{app_path}/shared/log/unicorn.stderr.log"
+stdout_path "#{app_path}/shared/log/unicorn.stdout.log"
+
 preload_app true
-GC.respond_to?(:copy_on_write_friendly=) && GC.copy_on_write_friendly = true
+if GC.respond_to?(:copy_on_write_friendly=)
+  GC.copy_on_write_friendly = true
+end
 
 check_client_connection false
 
 run_once = true
 
+before_exec do |server|
+  ENV['BUNDLE_GEMFILE'] = "#{app_path}/current/Gemfile"
+end
+
 before_fork do |server, worker|
-  defined?(ActiveRecord::Base) &&
-    ActiveRecord::Base.connection.disconnect!
+  defined?(ActiveRecord::Base) and
+      ActiveRecord::Base.connection.disconnect!
 
   if run_once
     run_once = false

@@ -2,4 +2,6 @@
 
 require_relative 'config/environment'
 
+require 'unicorn/worker_killer'
+
 run Rails.application

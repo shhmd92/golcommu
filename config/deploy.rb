@@ -31,8 +31,8 @@ set :ssh_options, auth_methods: ['publickey'],
                   keys: ['~/.ssh/GolCommu-ssh-key.pem']
 
 set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
-
-set :unicorn_config_path, -> { "#{current_path}/config/unicorn.rb" }
+set :unicorn_config_path, "config/unicorn.rb"
+set :unicorn_rack_env, 'deployment'
 
 set :keep_releases, 5
 
@@ -61,7 +61,7 @@ namespace :deploy do
 
   desc 'Restart application'
   task :restart do
-    on roles(:app) do
+    on roles(:app), in: :sequence, wait: 5 do
       invoke 'unicorn:restart'
     end
   end
