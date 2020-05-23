@@ -23,6 +23,7 @@ class Event < ApplicationRecord
   validate :maximum_participants_check
   validates :user_id, presence: true
   validates :url_token, presence: true, uniqueness: true
+  validate :event_date_check
   validate :start_end_check
 
   def to_param
@@ -121,6 +122,12 @@ class Event < ApplicationRecord
        !maximum_participants.between?(2, 50)
       errors.add(:maximum_participants,
                  :greater_than_or_equal_to_less_than_or_equal_to, { minimum: 2, maximum: 50 })
+    end
+  end
+
+  def event_date_check
+    if event_date < Date.today
+      errors.add(:event_date, :after_than_today)
     end
   end
 

@@ -102,6 +102,20 @@ RSpec.describe Event, type: :model do
     end
 
     describe '整合性の検証' do
+      example 'event_dateがシステム日付以降なら有効であること' do
+        event.event_date = Date.today
+        expect(event).to be_valid
+
+        event.event_date = Date.today + 1
+        expect(event).to be_valid
+      end
+
+      example 'event_dateがシステム日付より前なら無効であること' do
+        event.event_date = Date.today - 1
+        event.valid?
+        expect(event.errors).to be_added(:event_date, :after_than_today)
+      end
+
       example 'end_timeがstart_timeより後なら有効であること' do
         event.start_time = Time.zone.now
         event.end_time = event.start_time + 60

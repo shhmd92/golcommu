@@ -18,9 +18,9 @@
       <div class="event-form-group">
         <%= form.label :event_date, "日時", class: "control-label" %>
         <br>
-        <%= form.date_field :event_date, class: "form-control-select",
-          value: Time.now.strftime("%Y-%m-%d") %>
-        <P class="mt-1">
+        <%= form.date_field :event_date, value: (form.object.event_date || Time.now.strftime("%Y-%m-%d")),
+          class: "form-control-select" %>
+        <p class="mb-1"></p>
           <%= form.time_select :start_time, {default: Date.today + 7.hour,
             start_hour: 00, end_hour: 23, minute_step: 15},
             {class: "form-control-select btn-light"} %>
@@ -28,7 +28,6 @@
           <%= form.time_select :end_time, {default: Date.today + 17.hour,
             start_hour: 00, end_hour: 23, minute_step: 15},
             {class: "form-control-select btn-light"} %>
-        </p>
       </div>
 
       <div class="event-form-group">
