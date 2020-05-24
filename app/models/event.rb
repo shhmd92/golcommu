@@ -2,7 +2,7 @@ class Event < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   belongs_to :user
-  default_scope -> { order(created_at: :desc) }
+  default_scope -> { order(event_date: :desc) }
 
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
@@ -126,9 +126,7 @@ class Event < ApplicationRecord
   end
 
   def event_date_check
-    if event_date < Date.today
-      errors.add(:event_date, :after_than_today)
-    end
+    errors.add(:event_date, :after_than_today) if event_date < Date.today
   end
 
   def start_end_check
