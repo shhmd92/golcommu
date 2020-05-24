@@ -101,20 +101,26 @@
       </div>
     </div>
 
-    <% if user_signed_in? %>
-      <% if !current_user?(@event.user) %>
-        <% if @event.participants.count == @event.maximum_participants %>
-          <div class="w-100 text-left text-danger">
-            定員に達したため参加できません
-          </div>
-        <% else %>
-          <div class="btn-field mb-2">
-            <% if @event.already_participated?(current_user) %>
-              <%= render 'events/stop_participate', object: @event %>
-            <% else %>
-              <%= render 'events/participate', object: @event %>
-            <% end %>
-          </div>
+    <% if @event.event_date < Date.today %>
+      <div class="w-100 text-left text-danger">
+        このイベントは終了しています。
+      </div>
+    <% else %>
+      <% if user_signed_in? %>
+        <% if !current_user?(@event.user) %>
+          <% if @event.participants.count == @event.maximum_participants %>
+            <div class="w-100 text-left text-danger">
+              定員に達したため参加できません
+            </div>
+          <% else %>
+            <div class="btn-field mb-2">
+              <% if @event.already_participated?(current_user) %>
+                <%= render 'events/stop_participate', object: @event %>
+              <% else %>
+                <%= render 'events/participate', object: @event %>
+              <% end %>
+            </div>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
