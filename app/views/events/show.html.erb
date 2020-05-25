@@ -108,18 +108,20 @@
     <% else %>
       <% if user_signed_in? %>
         <% if !current_user?(@event.user) %>
-          <% if @event.participants.count == @event.maximum_participants %>
-            <div class="w-100 text-left text-danger">
-              定員に達したため参加できません
+          <% if @event.already_participated?(current_user) %>
+            <div class="btn-field mb-2">
+              <%= render 'events/stop_participate', object: @event %>
             </div>
           <% else %>
-            <div class="btn-field mb-2">
-              <% if @event.already_participated?(current_user) %>
-                <%= render 'events/stop_participate', object: @event %>
-              <% else %>
+            <% if @event.participants.count == @event.maximum_participants %>
+              <div class="w-100 text-left text-danger">
+                定員に達したため参加できません
+              </div>
+            <% else %>
+              <div class="btn-field mb-2">
                 <%= render 'events/participate', object: @event %>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
