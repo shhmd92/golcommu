@@ -5,15 +5,12 @@ class UsersController < ApplicationController
 
   def index
     @search_item_hash = { prefecture_id: 0, ages: 0, age_min: 0, age_max: 0, sex: 0, play_type: 0 }
-    if user_signed_in?
-      @users = User.where.not(admin: true, id: current_user.id)
-      @user_count = @users.count
-      @users = @users.page(params[:page]).per(MAX_PAGE)
-    else
-      @users = User.where.not(admin: true)
-      @user_count = @users.count
-      @users = @users.page(params[:page]).per(MAX_PAGE)
-    end
+    @users = if user_signed_in?
+               User.where.not(admin: true, id: current_user.id)
+             else
+               User.where.not(admin: true)
+             end
+    paginate_users(@users)
   end
 
   def search
@@ -61,8 +58,7 @@ class UsersController < ApplicationController
     end
 
     @users = User.find_by_sql([query, query_hash])
-    @user_count = @users.count
-    @users = Kaminari.paginate_array(@users).page(params[:page]).per(MAX_PAGE)
+    paginate_users(@users)
 
     # Refresh search conditions.
     @search_item_hash = { prefecture_id: prefecture_id, ages: ages, age_min: age_min, age_max: age_max,
@@ -104,5 +100,10 @@ class UsersController < ApplicationController
 
   def find_user
     @user = User.find_by!(url_token: params[:url_token])
+  end
+
+  def paginate_users(users)
+    @user_count = users.count
+    @users = Kaminari.paginate_array(users).page(params[:page]).per(MAX_PAGE)
   end
 end
