@@ -24,8 +24,8 @@ class User < ApplicationRecord
                                   foreign_key: 'visitor_id',
                                   dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification',
-                                    foreign_key: 'visited_id',
-                                    dependent: :destroy
+                                   foreign_key: 'visited_id',
+                                   dependent: :destroy
 
   before_validation :generate_url_token, on: :create
 
@@ -82,9 +82,9 @@ class User < ApplicationRecord
   end
 
   def create_notification_follow!(current_user)
-    temp = Notification.where(['visitor_id = ? and visited_id = ? and action = ? ',
-                               current_user.id, id, 'follow'])
-    if temp.blank?
+    follow_notification = Notification.where(['visitor_id = ? and visited_id = ? and action = ? ',
+                                              current_user.id, id, 'follow'])
+    if follow_notification.blank?
       notification = current_user.active_notifications.new(
         visited_id: id,
         action: 'follow'
