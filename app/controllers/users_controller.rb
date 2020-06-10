@@ -21,12 +21,12 @@ class UsersController < ApplicationController
                        else
                          params[:search_item_hash].permit!.to_h
                        end
-    prefecture_id = params[:prefecture_id].nil? ? search_item_hash['prefecture_id'] : params[:prefecture_id]
-    ages = params[:ages].nil? ? search_item_hash['ages'] : params[:ages]
-    age_min = params[:age_min].nil? ? search_item_hash['age_min'] : params[:age_min]
-    age_max = params[:age_max].nil? ? search_item_hash['age_max'] : params[:age_max]
-    sex = params[:sex].nil? ? search_item_hash['sex'] : params[:sex]
-    play_type = params[:play_type].nil? ? search_item_hash['play_type'] : params[:play_type]
+    prefecture_id = params[:prefecture_id] || search_item_hash['prefecture_id']
+    ages = params[:ages] || search_item_hash['ages']
+    age_min = params[:age_min] || search_item_hash['age_min']
+    age_max = params[:age_max] || search_item_hash['age_max']
+    sex = params[:sex] || search_item_hash['sex']
+    play_type = params[:play_type] || search_item_hash['play_type']
 
     # Create SQL based on specified search conditions.
     if user_signed_in?
