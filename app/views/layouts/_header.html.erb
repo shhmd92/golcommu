@@ -67,20 +67,14 @@
             </li>
             <li>
               <div class="loginbtn">
-                <%= link_to(new_user_session_path, class: "text-info") do %>
-                  <button type="button" class="btn btn-outline-info rounded-pill btn-block">
-                    ログイン
-                  </button>
-                <% end %>
+                <%= link_to("ログイン", new_user_session_path,
+                  class: "btn btn-outline-info rounded-pill btn-block text-info") %>
               </div>
             </li>
             <li>
               <div class="loginbtn">
-                <%= link_to(new_user_registration_path, class: "text-white") do %>
-                  <button type="button" class="btn btn-info rounded-pill btn-block">
-                    会員登録
-                  </button>
-                <% end %>
+                <%= link_to("会員登録", new_user_registration_path,
+                  class: "btn btn btn-info rounded-pill btn-block") %>
               </div>
             </li>
           </ul>
