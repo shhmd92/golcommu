@@ -41,7 +41,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  enum sex: { 未設定: 0, 男性: 1, 女性: 2 }
+  enum sex: {
+    未設定: 0, 男性: 1, 女性: 2
+  }
 
   enum play_type: {
     アスリート系: 1, エンジョイ系: 2, 初心者: 3
