@@ -87,9 +87,11 @@
           <li>
             <%= link_to notifications_path, class: "text-secondary" do %>
               <span class="fa-stack">
-                <i class="fas fa-bell pt-2" style="font-size:30px;"></i>
                 <% if unchecked_notifications.any? %>
+                  <i class="fas fa-bell pt-2" style="font-size:30px;"></i>
                   <i class="fas fa-circle n-circle fa-stack-1x"></i>
+                <% else %>
+                  <i class="fas fa-bell pt-2" style="font-size:30px;color:lightgrey;"></i>
                 <% end %>
               </span>
             <% end %>
