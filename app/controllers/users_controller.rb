@@ -5,16 +5,17 @@ class UsersController < ApplicationController
 
   def index
     @search_item_hash = { prefecture_id: 0, ages: 0, age_min: 0, age_max: 0, sex: 0, play_type: 0 }
+    # ログインしている場合はログインユーザーを検索結果に含めない
     @users = if user_signed_in?
                User.where.not(admin: true, id: current_user.id)
              else
                User.where.not(admin: true)
              end
-    paginate_users(@users)
+    pagination_users(@users)
   end
 
   def search
-    # Get search conditions.
+    # 画面の各種検索条件を取得する
     search_item_hash = if params[:search_item_hash].is_a?(String)
                          # Convert to JSON if received in hidden_field
                          JSON.parse(params[:search_item_hash])
@@ -28,39 +29,37 @@ class UsersController < ApplicationController
     sex = params[:sex] || search_item_hash['sex']
     play_type = params[:play_type] || search_item_hash['play_type']
 
-    # Create SQL based on specified search conditions.
-    if user_signed_in?
-      query = 'SELECT * FROM users WHERE admin = :admin and id <> :user_id'
-      query_hash = { admin: false, user_id: current_user.id }
-    else
-      query = 'SELECT * FROM users WHERE admin = :admin'
-      query_hash = { admin: false }
-    end
+    # 検索条件の設定
+    users = base_users
+
+    # ログインユーザーは除外する
+    users = users.where.not(id: current_user.id) if user_signed_in?
+
+    # 都道府県
     if prefecture_id.to_i.between?(1, Prefecture.count)
-      query += ' AND prefecture_id = :prefecture_id'
-      query_hash[:prefecture_id] = prefecture_id
+      users = users.where(prefecture_id: prefecture_id)
     end
+
+    # 年代
     if ages.to_i.between?(1, User.ages.count)
       birth_date_start = Date.today.prev_year(age_max.to_i)
       birth_date_end = Date.today.prev_year(age_min.to_i)
 
-      query += ' AND birth_date >= :birth_date_start AND birth_date <= :birth_date_end'
-      query_hash[:birth_date_start] = birth_date_start
-      query_hash[:birth_date_end] = birth_date_end
+      users = users.where(birth_date: birth_date_start..birth_date_end)
     end
-    if sex.to_i.between?(1, User.sexes.count - 1)
-      query += ' AND sex = :sex'
-      query_hash[:sex] = sex
-    end
+
+    # 性別
+    users = users.where(sex: sex) if sex.to_i.between?(1, User.sexes.count - 1)
+
+    # プレータイプ
     if play_type.to_i.between?(1, User.play_types.count)
-      query += ' AND play_type = :play_type'
-      query_hash[:play_type] = play_type
+      users = users.where(play_type: play_type)
     end
 
-    @users = User.find_by_sql([query, query_hash])
-    paginate_users(@users)
+    @users = users
+    pagination_users(@users)
 
-    # Refresh search conditions.
+    # 画面の検索条件を更新する
     @search_item_hash = { prefecture_id: prefecture_id, ages: ages, age_min: age_min, age_max: age_max,
                           sex: sex, play_type: play_type }
     render action: :index
@@ -102,8 +101,14 @@ class UsersController < ApplicationController
     @user = User.find_by!(url_token: params[:url_token])
   end
 
-  def paginate_users(users)
+  def base_users
+    User.where(admin: false)
+  end
+
+  def pagination_users(users)
+    # 検索結果の件数を設定
     @user_count = users.count
+    # ページネーション
     @users = Kaminari.paginate_array(users).page(params[:page]).per(MAX_PAGE)
   end
 end
