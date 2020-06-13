@@ -17,7 +17,6 @@ class UsersController < ApplicationController
   def search
     # 画面の各種検索条件を取得する
     search_item_hash = if params[:search_item_hash].is_a?(String)
-                         # Convert to JSON if received in hidden_field
                          JSON.parse(params[:search_item_hash])
                        else
                          params[:search_item_hash].permit!.to_h
@@ -30,14 +29,15 @@ class UsersController < ApplicationController
     play_type = params[:play_type] || search_item_hash['play_type']
 
     # 検索条件の設定
-    users = base_users
-
-    # ログインユーザーは除外する
-    users = users.where.not(id: current_user.id) if user_signed_in?
+    conditions = [
+      { admin: false }
+    ]
 
     # 都道府県
     if prefecture_id.to_i.between?(1, Prefecture.count)
-      users = users.where(prefecture_id: prefecture_id)
+      conditions.push(
+        { prefecture_id: prefecture_id }
+      )
     end
 
     # 年代
@@ -45,18 +45,32 @@ class UsersController < ApplicationController
       birth_date_start = Date.today.prev_year(age_max.to_i)
       birth_date_end = Date.today.prev_year(age_min.to_i)
 
-      users = users.where(birth_date: birth_date_start..birth_date_end)
+      conditions.push(
+        { birth_date: birth_date_start..birth_date_end }
+      )
     end
 
     # 性別
-    users = users.where(sex: sex) if sex.to_i.between?(1, User.sexes.count - 1)
+    if sex.to_i.between?(1, User.sexes.count - 1)
+      conditions.push(
+        { sex: sex }
+      )
+    end
 
     # プレータイプ
     if play_type.to_i.between?(1, User.play_types.count)
-      users = users.where(play_type: play_type)
+      conditions.push(
+        { play_type: play_type }
+      )
     end
 
+    users = conditions.inject(User, &:where)
+
+    # ログインユーザーは除外する
+    users.where.not(id: current_user.id) if user_signed_in?
+
     @users = users
+
     pagination_users(@users)
 
     # 画面の検索条件を更新する
@@ -99,10 +113,6 @@ class UsersController < ApplicationController
 
   def find_user
     @user = User.find_by!(url_token: params[:url_token])
-  end
-
-  def base_users
-    User.where(admin: false)
   end
 
   def pagination_users(users)
