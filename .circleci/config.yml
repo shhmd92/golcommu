@@ -68,7 +68,7 @@ jobs:
             IP=`curl -s ifconfig.me`
             echo "#!/bin/bash" > ./sg.sh
             echo "aws configure set region ap-northeast-1" >> ./sg.sh
-            echo "aws ec2 authorize-security-group-ingress --group-id sg-0b7b75705c9108568 --protocol tcp --port 22 --cidr ${IP}/32" >> ./sg.sh
+            echo "aws ec2 authorize-security-group-ingress --group-id ${AWS_SG} --protocol tcp --port 22 --cidr ${IP}/32" >> ./sg.sh
             bash ./sg.sh
 
       - add_ssh_keys:
@@ -89,5 +89,11 @@ jobs:
             IP=`curl -s ifconfig.me`
             echo "#!/bin/bash" > ./sg.sh
             echo "aws configure set region ap-northeast-1" >> ./sg.sh
-            echo "aws ec2 revoke-security-group-ingress --group-id sg-0b7b75705c9108568 --protocol tcp --port 22 --cidr ${IP}/32" >> ./sg.sh
+            echo "aws ec2 revoke-security-group-ingress --group-id ${AWS_SG} --protocol tcp --port 22 --cidr ${IP}/32" >> ./sg.sh
             bash ./sg.sh
+
+workflows:
+  build:
+    jobs:
+      - build:
+          context: golcommu_context
