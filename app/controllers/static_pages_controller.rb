@@ -2,6 +2,6 @@ class StaticPagesController < ApplicationController
   include CommonActions
 
   def home
-    search_events
+    initial_search
   end
 end
