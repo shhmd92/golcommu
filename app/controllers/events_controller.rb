@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   MAX_PAGE = 20
 
   def index
-    search_events
+    initial_search
   end
 
   def new
