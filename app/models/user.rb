@@ -54,6 +54,8 @@ class User < ApplicationRecord
     まあまま（100台）: 4, まだまだ（110〜120台）: 5, ぜんぜん（130台〜）: 6
   }
 
+  FOLLOW_ACTION = 'follow'
+
   def to_param
     url_token
   end
@@ -85,11 +87,11 @@ class User < ApplicationRecord
 
   def create_notification_follow!(current_user)
     follow_notification = Notification.where(['visitor_id = ? and visited_id = ? and action = ? ',
-                                              current_user.id, id, 'follow'])
+                                              current_user.id, id, FOLLOW_ACTION])
     if follow_notification.blank?
       notification = current_user.active_notifications.new(
         visited_id: id,
-        action: 'follow'
+        action: FOLLOW_ACTION
       )
       notification.save if notification.valid?
     end
