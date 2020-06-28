@@ -26,6 +26,10 @@ class Event < ApplicationRecord
   validate :event_date_check
   validate :start_end_check
 
+  LIKE_ACTION = 'like'.freeze
+  PARTICIPATE_ACTION = 'participate'.freeze
+  COMMENT_ACTION = 'comment'.freeze
+
   def to_param
     url_token
   end
@@ -56,34 +60,28 @@ class Event < ApplicationRecord
 
   def create_notification_like!(current_user)
     like_notification = Notification.where(['visitor_id = ? and visited_id = ? and event_id = ? and action = ? ',
-                                            current_user.id, user_id, id, 'like'])
+                                            current_user.id, user_id, id, LIKE_ACTION])
 
     if like_notification.blank?
       notification = current_user.active_notifications.new(
         visited_id: user_id,
         event_id: id,
-        action: 'like'
+        action: LIKE_ACTION
       )
-      if notification.visitor_id == notification.visited_id
-        notification.checked = true
-      end
       notification.save if notification.valid?
     end
   end
 
   def create_notification_participate!(current_user)
     participant_notification = Notification.where(['visitor_id = ? and visited_id = ? and event_id = ? and action = ? ',
-                                                   current_user.id, user_id, id, 'participate'])
+                                                   current_user.id, user_id, id, PARTICIPATE_ACTION])
 
     if participant_notification.blank?
       notification = current_user.active_notifications.new(
         visited_id: user_id,
         event_id: id,
-        action: 'participate'
+        action: PARTICIPATE_ACTION
       )
-      if notification.visitor_id == notification.visited_id
-        notification.checked = true
-      end
       notification.save if notification.valid?
     end
   end
@@ -103,7 +101,7 @@ class Event < ApplicationRecord
       visited_id: visited_id,
       event_id: id,
       comment_id: comment_id,
-      action: 'comment'
+      action: COMMENT_ACTION
     )
     if notification.visitor_id == notification.visited_id
       notification.checked = true

@@ -4,7 +4,7 @@
   <div class="text-info search-title">
     イベントを探す(<%= event_count %>)
   </div>
-  <%= search_form_for @q do |f| %>
+  <%= search_form_for @q, url: search_events_path do |f| %>
     <table class="search-table">
       <tr class="search-tr">
         <td class="search-item-head">

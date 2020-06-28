@@ -1,7 +1,6 @@
 FROM ruby:2.7.0
 
-RUN apt-get update \
-  && apt-get install --yes --no-install-recommends \
+RUN apt-get update && apt-get install --yes --no-install-recommends \
   build-essential \
   libpq-dev \
   nodejs \
@@ -16,8 +15,8 @@ ENV DATABASE_HOST db
 ENV APP_ROOT /golcommu 
 WORKDIR $APP_ROOT
 
-ADD ./Gemfile $APP_ROOT/Gemfile
-ADD ./Gemfile.lock $APP_ROOT/Gemfile.lock
+COPY ./Gemfile $APP_ROOT/Gemfile
+COPY ./Gemfile.lock $APP_ROOT/Gemfile.lock
 
 RUN bundle install
-ADD . $APP_ROOT
+COPY . $APP_ROOT
