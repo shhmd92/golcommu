@@ -17,7 +17,7 @@ module CommonActions
   def common_search(search_mode)
     @q = Event.ransack(params[:q])
     @q.sorts = 'event_date desc' if @q.sorts.empty?
-    @events = @q.result(distinct: true)
+    @events = @q.result(distinct: true).includes(:user)
     # 初期表示時はシステム日付以降のイベントのみ表示する
     if search_mode == INITIAL_SEARCH
       @events = @events.where(event_date: Date.today..Float::INFINITY)
