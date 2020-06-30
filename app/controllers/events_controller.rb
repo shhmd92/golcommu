@@ -15,6 +15,7 @@ class EventsController < ApplicationController
   end
 
   def show
+    # イベントが見つからない場合は例外を発生させる
     @event = Event.find_by!(url_token: params[:url_token])
     @like = Like.new
     @comments = @event.comments.order(created_at: :desc)
