@@ -15,7 +15,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find_by!(url_token: params[:url_token])
+    @event = Event.find_by(url_token: params[:url_token])
     @like = Like.new
     @comments = @event.comments.order(created_at: :desc)
     @comment = Comment.new
