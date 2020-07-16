@@ -59,8 +59,7 @@ class Event < ApplicationRecord
   end
 
   def create_notification_like!(current_user)
-    like_notification = Notification.where(['visitor_id = ? and visited_id = ? and event_id = ? and action = ? ',
-                                            current_user.id, user_id, id, LIKE_ACTION])
+    like_notification = Notification.search_notification(current_user.id, user_id, id, LIKE_ACTION)
 
     if like_notification.blank?
       notification = current_user.active_notifications.new(
@@ -73,8 +72,7 @@ class Event < ApplicationRecord
   end
 
   def create_notification_participate!(current_user)
-    participant_notification = Notification.where(['visitor_id = ? and visited_id = ? and event_id = ? and action = ? ',
-                                                   current_user.id, user_id, id, PARTICIPATE_ACTION])
+    participant_notification = Notification.search_notification(current_user.id, user_id, id, PARTICIPATE_ACTION)
 
     if participant_notification.blank?
       notification = current_user.active_notifications.new(
