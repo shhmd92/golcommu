@@ -197,7 +197,6 @@ RSpec.describe Event, type: :model do
     end
 
     example 'イベントを削除すると関連する通知も削除されること' do
-      event.create_notification_like!(user)
       expect do
         event.destroy
       end.to change(Notification, :count).by(-1)

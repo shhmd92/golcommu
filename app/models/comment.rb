@@ -21,4 +21,12 @@ class Comment < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   validates :content, presence: true, length: { maximum: 240 }
+
+  after_create :create_notification_comment
+
+  private
+
+  def create_notification_comment
+    event.create_notification_comment!(user, id)
+  end
 end
