@@ -65,9 +65,8 @@ class User < ApplicationRecord
   before_validation :generate_url_token, on: :create
 
   validates :username, presence: true, length: { maximum: 50 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   validates :email, presence: true, uniqueness: { case_sensitive: false },
-                    length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }
+                    length: { maximum: 255 }
   validates :url_token, presence: true, uniqueness: true
   validates :introduction, length: { maximum: 240 }
 
