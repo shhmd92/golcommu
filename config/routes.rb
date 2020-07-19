@@ -5,8 +5,14 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',
-    sessions: 'users/sessions'
+    sessions: 'users/sessions',
+    confirmations: 'users/confirmations'
   }
+
+  devise_scope :user do
+    get 'send_mail' => 'devise/registrations#email_sended'
+    get 'complete_registration' => 'devise/registrations#complete'
+  end
 
   resources :users, param: :url_token do
     collection do
