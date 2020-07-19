@@ -36,7 +36,7 @@ RSpec.describe 'ユーザー登録', type: :system do
       mail = ActionMailer::Base.deliveries.last
       confirmation_url = extract_confirmation_url(mail)
       visit confirmation_url
-      expect(current_path).to eq new_user_session_path
+      expect(current_path).to eq complete_registration_path
     end
   end
 
