@@ -20,12 +20,18 @@ class EventsController < ApplicationController
     @like = Like.new
     @comments = @event.comments.order(created_at: :desc)
     @comment = Comment.new
+    @wheather_condition = []
 
     course_info = RakutenWebService::Gora::CourseDetail.search(golfCourseId: @event.course_id)
     begin
       unless course_info.nil?
         course_info_first = course_info.first
         @route_map_url = course_info_first['routeMapUrl']
+        latitude = course_info_first['latitude']
+        longitude = course_info_first['longitude']
+
+        wheatherforecast = WeatherForecast.new(latitude, longitude)
+        @wheather_condition = wheatherforecast.weather_condition(@event.event_date)
       end
     rescue StandardError => e
       # do nothing

@@ -89,6 +89,31 @@
               <% end %>
             </td>
           </tr>
+          <% if @event.event_date >= Date.today %>
+          <tr>
+            <td class="event-h-td">
+              <div class="event-item">当日の天気</div>
+            </td>
+            <td>
+              <% if @wheather_condition.size == 0 %>
+                ※5日前から表示されます
+              <% else %>
+                <table>
+                  <% @wheather_condition.each do |weather| %>
+                    <tr>
+                      <td>
+                        <%= weather[:time] %>
+                      </td>
+                      <td>
+                        <%= weather[:description] %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </table>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
           <tr valign="top">
             <td class="event-h-td">
               <div class="event-item">詳細</div>
