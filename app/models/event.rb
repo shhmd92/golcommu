@@ -54,6 +54,7 @@ class Event < ApplicationRecord
   LIKE_ACTION = 'like'.freeze
   PARTICIPATE_ACTION = 'participate'.freeze
   COMMENT_ACTION = 'comment'.freeze
+  INVITE_ACTION = 'invite'.freeze
 
   def to_param
     url_token
@@ -130,6 +131,19 @@ class Event < ApplicationRecord
       notification.checked = true
     end
     notification.save if notification.valid?
+  end
+
+  def create_notification_invite!(user_id)
+    invite_notification = Notification.search_notification(user.id, user_id, id, INVITE_ACTION)
+
+    if invite_notification.blank?
+      notification = user.active_notifications.new(
+        visited_id: user_id,
+        event_id: id,
+        action: INVITE_ACTION
+      )
+      notification.save if notification.valid?
+    end
   end
 
   private
