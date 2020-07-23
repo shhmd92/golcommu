@@ -28,6 +28,9 @@ Rails.application.routes.draw do
     collection do
       get :search, :autocomplete_search, :golf_course_info
     end
+    member do
+      patch :invite
+    end
   end
 
   resources :relationships, only: [:create, :destroy]

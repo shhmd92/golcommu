@@ -1,0 +1,8 @@
+<% if user_card.avatar?%>
+  <%= image_tag user_card.avatar.url, class: 'avatar-img-mini rounded-circle' %>
+<% else %>
+  <%= image_tag 'fallback/default_user_avatar.png', class: 'avatar-img-mini rounded-circle' %>
+<% end %>
+<span class="user-name">
+  <%= user_card.username %>
+</span>

@@ -47,6 +47,7 @@ class User < ApplicationRecord
   has_many :participants, dependent: :destroy
   has_many :participated_events, through: :participants, source: :event
   has_many :comments, dependent: :destroy
+  has_many :relationships
   has_many :active_relationships, class_name: 'Relationship',
                                   foreign_key: 'follower_id',
                                   dependent: :destroy
@@ -153,6 +154,19 @@ class User < ApplicationRecord
       end
     end
     ages_name
+  end
+
+  def invitable_users(event)
+    invitable_users =
+      User
+      .joins('INNER JOIN relationships ON users.id = relationships.followed_id')
+      .where(relationships: { follower_id: id })
+      .where.not(relationships:
+          { followed_id:
+            Notification
+              .where(event_id: event.id)
+              .where(action: Event::INVITE_ACTION)
+              .select('visited_id') })
   end
 
   private

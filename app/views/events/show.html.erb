@@ -148,6 +148,12 @@
               </div>
             <% end %>
           <% end %>
+        <% else %>
+          <div class="btn-field mb-2">
+            <button type="button" class="btn base-btn bg-info text-white" data-toggle="modal"
+              data-target="#participants-modal">ゴル友を招待</button>
+          </div>
+          <%= render 'events/participants_list_modal', { event: @event, users: @invitable_users } %>
         <% end %>
       <% end %>
     <% end %>

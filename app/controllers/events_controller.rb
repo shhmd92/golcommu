@@ -36,6 +36,11 @@ class EventsController < ApplicationController
     rescue StandardError => e
       # do nothing
     end
+
+    # 主催者の場合、イベントに参加していない招待可能なユーザーを取得。
+    if current_user.id == @event.user_id
+      @invitable_users = current_user.invitable_users(@event)
+    end
   end
 
   def create
@@ -110,6 +115,16 @@ class EventsController < ApplicationController
         end
       end
     end
+  end
+
+  def invite
+    @event = Event.find_by!(url_token: params[:url_token])
+    params[:event][:user_ids].each do |user_id|
+      @event.create_notification_invite!(user_id) if user_id.to_i >= 1
+    end
+
+    flash[:notice] = 'ゴル友を招待しました'
+    redirect_to event_path(@event)
   end
 
   private
