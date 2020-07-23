@@ -20,6 +20,7 @@ class EventsController < ApplicationController
     @like = Like.new
     @comments = @event.comments.order(created_at: :desc)
     @comment = Comment.new
+    @wheather_condition = []
 
     course_info = RakutenWebService::Gora::CourseDetail.search(golfCourseId: @event.course_id)
     begin
