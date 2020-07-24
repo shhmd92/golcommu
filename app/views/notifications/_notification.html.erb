@@ -49,6 +49,9 @@
         <% when EventInvitation::REJECTED %>
           参加を拒否しました
         <% end %>
+      <% when Event::CLOSE_ACTION %>
+        よければイベントの感想をコメントしませんか？<br>
+        <%= visitor.username %>さんのフォローはお済みですか？
       <% end %>
     </span>
   </div>

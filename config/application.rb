@@ -17,7 +17,7 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module GolfMenta
+module GolfCommu
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
@@ -27,14 +27,17 @@ module GolfMenta
     config.generators do |g|
       g.javascripts false
       g.stylesheets false
-      g.test_framework :rspec, 
-            view_specs: false, 
-            helper_specs: false, 
-            controller_specs: false, 
+      g.test_framework :rspec,
+            view_specs: false,
+            helper_specs: false,
+            controller_specs: false,
             routing_specs: false
     end
 
     # 認証トークンをremoteフォームに埋め込む
     config.action_view.embed_authenticity_token_in_remote_forms = true
+
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.enable_dependency_loading = true
   end
 end

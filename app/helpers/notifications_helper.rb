@@ -34,6 +34,8 @@ module NotificationsHelper
     when Event::INVITE_ACTION
       @event_invitation = EventInvitation.search_invitation(notification.event_id, notification.visited_id)
       "#{notificated_event}に招待されました"
+    when Event::CLOSE_ACTION
+      "#{notificated_event}はいかかでしたか？"
     end
   end
 

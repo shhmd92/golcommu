@@ -56,6 +56,7 @@ class Event < ApplicationRecord
   PARTICIPATE_ACTION = 'participate'.freeze
   COMMENT_ACTION = 'comment'.freeze
   INVITE_ACTION = 'invite'.freeze
+  CLOSE_ACTION = 'close'.freeze
 
   def to_param
     url_token
