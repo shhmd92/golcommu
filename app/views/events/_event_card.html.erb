@@ -52,8 +52,13 @@
     </div>
   </div>
 
-  <% if user_signed_in? %>
-    <div class="eventList-btn" id="eventList-btn-<%= event_card.id %>">
+  <div class="eventList-btn" id="eventList-btn-<%= event_card.id %>">
+    <% if event_card.event_date < Date.today %>
+      <div class="w-100 font-weight-bold text-center text-danger">
+        終了しました
+      </div>
+    <% end %>
+    <% if user_signed_in? %>
       <%= render 'events/like_form', object: event_card %>
       <% if current_user?(event_card.user) || current_user.admin? %>
         <% if current_user?(event_card.user) %>
@@ -70,8 +75,8 @@
           &nbsp;&nbsp;削除&nbsp;<i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
         </a>
       <% end %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
 <%= render 'layouts/modal',
   {modal_id: event_card_mode.to_s + ApplicationHelper::DELETE_EVENT_MODAL_MODE + event_card.id.to_s,
