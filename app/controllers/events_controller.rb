@@ -34,7 +34,7 @@ class EventsController < ApplicationController
         @wheather_condition = wheatherforecast.weather_condition(@event.event_date)
       end
     rescue StandardError => e
-      # do nothing
+      logger.debug(e.backtrace.join("\n"))
     end
 
     # 主催者の場合、イベントに参加していない招待可能なユーザーを取得。
