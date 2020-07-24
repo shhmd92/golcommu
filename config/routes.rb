@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   resources :likes, only: [:create, :destroy]
   resources :participants, only: [:create, :destroy]
   resources :notifications, only: :index
+  resources :event_invitations, only: :update
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

@@ -61,6 +61,9 @@ class User < ApplicationRecord
   has_many :passive_notifications, class_name: 'Notification',
                                    foreign_key: 'visited_id',
                                    dependent: :destroy
+  has_many :invited_events, class_name: 'EventInvitation',
+                            foreign_key: 'invited_user_id',
+                            dependent: :destroy
 
   before_validation :generate_url_token, on: :create
 
@@ -75,7 +78,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  scope :invitable_users, lambda { | event |
+  scope :invitable_users, lambda { |event|
     joins('INNER JOIN relationships ON users.id = relationships.followed_id')
       .where(relationships: { follower_id: event.user_id })
       .where.not(relationships:
@@ -164,19 +167,6 @@ class User < ApplicationRecord
       end
     end
     ages_name
-  end
-
-  def invitable_users(event)
-    invitable_users =
-      User
-      .joins('INNER JOIN relationships ON users.id = relationships.followed_id')
-      .where(relationships: { follower_id: id })
-      .where.not(relationships:
-          { followed_id:
-            Notification
-              .where(event_id: event.id)
-              .where(action: Event::INVITE_ACTION)
-              .select('visited_id') })
   end
 
   private

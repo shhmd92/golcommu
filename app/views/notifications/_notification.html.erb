@@ -13,9 +13,43 @@
     <% end %>
     <span class="notification-sub-text"><%= " (#{time_ago_in_words(notification.created_at)}前)" %></span>
   </div>
-  <div class="notification-of-comments">
-    <% if !@comment.nil? %>
-      <p class="notification-sub-text"><%= @comment %></p>
-    <% end %>
+  <div class="notification-content">
+    <span class="notification-sub-text">
+      <% case notification.action %>
+      <% when Event::COMMENT_ACTION %>
+        <% if !@comment.nil? %>
+          <%= @comment %>
+        <% end %>
+      <% when Event::INVITE_ACTION %>
+        <% case @event_invitation.invitation_status %>
+        <% when EventInvitation::UNCONFIRMED %>
+          <% if @event.event_date < Date.today %>
+            このイベントは終了しています。
+          <% else %>
+            <div>
+              <button type="button" class="btn base-btn bg-info text-white" data-toggle="modal"
+                data-target="#modal-<%= ApplicationHelper::PARTICIPATE_EVENT_MODAL_MODE + @event_invitation.id.to_s %>">
+                参加する
+              </button>
+              <%= render 'layouts/modal',
+                {modal_id: ApplicationHelper::PARTICIPATE_EVENT_MODAL_MODE + @event_invitation.id.to_s,
+                mode: ApplicationHelper::PARTICIPATE_EVENT_MODAL_MODE, object: @event} %>
+
+              <button type="button" class="btn base-btn bg-secondary text-white" data-toggle="modal"
+                data-target="#modal-<%= ApplicationHelper::REJECT_EVENT_INVITATION_MODAL_MODE + @event_invitation.id.to_s %>">
+                拒否する
+              </button>
+              <%= render 'layouts/modal',
+                {modal_id: ApplicationHelper::REJECT_EVENT_INVITATION_MODAL_MODE + @event_invitation.id.to_s,
+                mode: ApplicationHelper::REJECT_EVENT_INVITATION_MODAL_MODE, object: @event_invitation} %>
+            </div>
+          <% end %>
+        <% when EventInvitation::ACCEPTED %>
+          参加を承諾しました
+        <% when EventInvitation::REJECTED %>
+          参加を拒否しました
+        <% end %>
+      <% end %>
+    </span>
   </div>
 </div>
