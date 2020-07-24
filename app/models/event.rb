@@ -35,6 +35,7 @@ class Event < ApplicationRecord
   has_many :participated_users, through: :participants, source: :user
   has_many :comments, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :event_invitations, dependent: :destroy
 
   before_validation :generate_url_token, on: :create
 
@@ -142,7 +143,16 @@ class Event < ApplicationRecord
         event_id: id,
         action: INVITE_ACTION
       )
-      notification.save if notification.valid?
+      if notification.valid?
+        notification.save
+
+        event_invitation = EventInvitation.new(
+          event_id: id,
+          invited_user_id: user_id,
+          invitation_status: EventInvitation::UNCONFIRMED
+        )
+        event_invitation.save if event_invitation.valid?
+      end
     end
   end
 
