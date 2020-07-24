@@ -40,9 +40,6 @@ set :bundle_flags,      '--quiet'
 set :bundle_path,       nil
 set :bundle_without,    nil
 
-set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
-
 namespace :deploy do
   desc 'Config bundler'
   task :config_bundler do
