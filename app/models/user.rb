@@ -47,7 +47,6 @@ class User < ApplicationRecord
   has_many :participants, dependent: :destroy
   has_many :participated_events, through: :participants, source: :event
   has_many :comments, dependent: :destroy
-  has_many :relationships
   has_many :active_relationships, class_name: 'Relationship',
                                   foreign_key: 'follower_id',
                                   dependent: :destroy
@@ -75,6 +74,17 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
+
+  scope :invitable_users, lambda { | event |
+    joins('INNER JOIN relationships ON users.id = relationships.followed_id')
+      .where(relationships: { follower_id: event.user_id })
+      .where.not(relationships:
+          { followed_id:
+            Notification
+              .where(event_id: event.id)
+              .where(action: Event::INVITE_ACTION)
+              .select('visited_id') })
+  }
 
   enum sex: {
     未設定: 0, 男性: 1, 女性: 2
