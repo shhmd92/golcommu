@@ -9,5 +9,6 @@ if Rails.env.production?
       region:                ENV['AWS_S3_REGION'],
       path_style:            true
     }
+    config.asset_host = ENV['AWS_IMAGE_CDN_HOST']
   end
 end
