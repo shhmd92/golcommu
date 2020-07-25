@@ -7,6 +7,7 @@ ruby '2.7.0'
 
 gem 'active_hash'
 gem 'annotate'
+gem 'asset_sync'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap'
 gem 'bootstrap-sass'
