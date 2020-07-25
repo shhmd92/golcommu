@@ -38,8 +38,10 @@ class EventsController < ApplicationController
     end
 
     # 主催者の場合、イベントに参加していない招待可能なユーザーを取得。
-    if current_user.id == @event.user_id
-      @invitable_users = User.invitable_users(@event)
+    if user_signed_in?
+      if current_user.id == @event.user_id
+        @invitable_users = User.invitable_users(@event)
+      end
     end
   end
 
