@@ -52,6 +52,11 @@ GEM
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
     arel (9.0.0)
+    asset_sync (2.12.1)
+      activemodel (>= 4.1.0)
+      fog-core
+      mime-types (>= 2.99)
+      unf
     ast (2.4.0)
     autoprefixer-rails (9.7.6)
       execjs
@@ -360,6 +365,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.7)
     unicode-display_width (1.7.0)
     unicorn (5.4.1)
       kgio (~> 2.6)
@@ -392,6 +400,7 @@ PLATFORMS
 DEPENDENCIES
   active_hash
   annotate
+  asset_sync
   bcrypt_pbkdf
   bootsnap (>= 1.1.0)
   bootstrap
