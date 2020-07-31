@@ -95,7 +95,7 @@ class Event < ApplicationRecord
         event_id: id,
         action: LIKE_ACTION
       )
-      notification.save if notification.valid?
+      notification.save! if notification.valid?
     end
   end
 
@@ -108,7 +108,7 @@ class Event < ApplicationRecord
         event_id: id,
         action: PARTICIPATE_ACTION
       )
-      notification.save if notification.valid?
+      notification.save! if notification.valid?
     end
   end
 
@@ -132,7 +132,7 @@ class Event < ApplicationRecord
     if notification.visitor_id == notification.visited_id
       notification.checked = true
     end
-    notification.save if notification.valid?
+    notification.save! if notification.valid?
   end
 
   def create_notification_invite!(user_id)
@@ -145,14 +145,14 @@ class Event < ApplicationRecord
         action: INVITE_ACTION
       )
       if notification.valid?
-        notification.save
+        notification.save!
 
         event_invitation = EventInvitation.new(
           event_id: id,
           invited_user_id: user_id,
           invitation_status: EventInvitation::UNCONFIRMED
         )
-        event_invitation.save if event_invitation.valid?
+        event_invitation.save! if event_invitation.valid?
       end
     end
   end
