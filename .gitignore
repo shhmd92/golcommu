@@ -27,7 +27,8 @@
 /config/master.key
 
 # アップロードされたテスト画像を無視する
-/public/uploads
+/public/avatar
+/public/event-image
 
 # dotenv
 /.env
