@@ -27,9 +27,9 @@ require 'rails_helper'
 
 RSpec.describe Event, type: :model do
   let!(:user) { create(:user) }
+  let!(:other_user) { create(:user) }
   let!(:event) { create(:event, user: user) }
   let!(:other_event) { create(:event, user: user) }
-  let!(:comment) { create(:comment, event: event, user: user) }
 
   describe '検証' do
     describe '存在性の検証' do
@@ -204,6 +204,7 @@ RSpec.describe Event, type: :model do
     end
 
     example 'イベントを削除すると関連する通知も削除されること' do
+      create(:comment, event: event, user: other_user)
       expect do
         event.destroy
       end.to change(Notification, :count).by(-1)
