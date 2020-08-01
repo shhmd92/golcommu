@@ -6,7 +6,6 @@ class ParticipantsController < ApplicationController
     unless @event.already_participated?(current_user)
       @event.participate(current_user)
     end
-    @event.create_notification_participate!(current_user)
 
     update_event_invitation_status(EventInvitation::ACCEPTED)
 

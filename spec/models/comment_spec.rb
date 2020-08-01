@@ -18,8 +18,9 @@ require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
   let!(:user) { create(:user) }
+  let!(:other_user) { create(:user) }
   let!(:event) { create(:event, user: user) }
-  let!(:comment) { create(:comment, event: event, user: user) }
+  let!(:comment) { build(:comment, event: event, user: user) }
 
   describe '検証' do
     describe '存在性の検証' do
@@ -49,6 +50,20 @@ RSpec.describe Comment, type: :model do
         comment.content = 'a' * 241
         comment.valid?
         expect(comment.errors).to be_added(:content, :too_long, count: 240)
+      end
+    end
+
+    describe 'after_createの確認' do
+      example '主催者だけがイベントにコメントした際の通知が増加しないこと' do
+        expect do
+          create(:comment, event: event, user: user)
+        end.to change(Notification, :count).by(0)
+      end
+
+      example '主催者以外がイベントにコメントした際の通知が１件増加すること' do
+        expect do
+          create(:comment, event: event, user: other_user)
+        end.to change(Notification, :count).by(1)
       end
     end
   end

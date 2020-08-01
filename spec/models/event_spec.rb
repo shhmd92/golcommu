@@ -179,24 +179,6 @@ RSpec.describe Event, type: :model do
       other_event.stop_participate(user)
       expect(other_event.already_participated?(user)).to be_falsey
     end
-
-    example 'イベントにLikeした際の通知が１件増加すること' do
-      expect do
-        event.create_notification_like!(user)
-      end.to change(Notification, :count).by(1)
-    end
-
-    example 'イベントに参加した際の通知が１件増加すること' do
-      expect do
-        event.create_notification_participate!(user)
-      end.to change(Notification, :count).by(1)
-    end
-
-    example 'イベントにコメントした際の通知が１件増加すること' do
-      expect do
-        event.create_notification_comment!(user, comment.id)
-      end.to change(Notification, :count).by(1)
-    end
   end
 
   describe '関連性' do
