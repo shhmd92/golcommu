@@ -22,11 +22,25 @@ class Comment < ApplicationRecord
 
   validates :content, presence: true, length: { maximum: 240 }
 
-  after_create :create_notification_comment
+  after_create :create_notification_comment!
 
   private
 
-  def create_notification_comment
-    event.create_notification_comment!(user, id)
+  def create_notification_comment!
+    visited_ids = Comment.select(:user_id).where(event_id: event_id).where.not(user_id: user_id).distinct
+    visited_ids.each do |visited_id|
+      save_notification_comment!(visited_id['user_id'])
+    end
+    save_notification_comment!(event.user_id) unless user_id == event.user_id
+  end
+
+  def save_notification_comment!(visited_id)
+    notification = user.active_notifications.new(
+      visited_id: visited_id,
+      event_id: event_id,
+      comment_id: id,
+      action: Event::COMMENT_ACTION
+    )
+    notification.save! if notification.valid?
   end
 end

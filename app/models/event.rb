@@ -86,55 +86,6 @@ class Event < ApplicationRecord
     participated_users.include?(user)
   end
 
-  def create_notification_like!(current_user)
-    like_notification = Notification.search_notification(current_user.id, user_id, id, LIKE_ACTION)
-
-    if like_notification.blank?
-      notification = current_user.active_notifications.new(
-        visited_id: user_id,
-        event_id: id,
-        action: LIKE_ACTION
-      )
-      notification.save! if notification.valid?
-    end
-  end
-
-  def create_notification_participate!(current_user)
-    participant_notification = Notification.search_notification(current_user.id, user_id, id, PARTICIPATE_ACTION)
-
-    if participant_notification.blank?
-      notification = current_user.active_notifications.new(
-        visited_id: user_id,
-        event_id: id,
-        action: PARTICIPATE_ACTION
-      )
-      notification.save! if notification.valid?
-    end
-  end
-
-  def create_notification_comment!(current_user, comment_id)
-    visited_ids = Comment.select(:user_id).where(event_id: id).where.not(user_id: current_user.id).distinct
-    visited_ids.each do |visited_id|
-      save_notification_comment!(current_user, comment_id, visited_id['user_id'])
-    end
-    if visited_ids.blank?
-      save_notification_comment!(current_user, comment_id, user_id)
-    end
-  end
-
-  def save_notification_comment!(current_user, comment_id, visited_id)
-    notification = current_user.active_notifications.new(
-      visited_id: visited_id,
-      event_id: id,
-      comment_id: comment_id,
-      action: COMMENT_ACTION
-    )
-    if notification.visitor_id == notification.visited_id
-      notification.checked = true
-    end
-    notification.save! if notification.valid?
-  end
-
   def create_notification_invite!(user_id)
     invite_notification = Notification.search_notification(user.id, user_id, id, INVITE_ACTION)
 

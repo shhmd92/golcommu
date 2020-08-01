@@ -29,6 +29,7 @@
 # アップロードされたテスト画像を無視する
 /public/avatar
 /public/event-image
+/public/uploads
 
 # dotenv
 /.env
