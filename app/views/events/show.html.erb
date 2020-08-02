@@ -95,7 +95,7 @@
               <div class="event-item">当日の天気</div>
             </td>
             <td>
-              <% if @wheather_condition.size == 0 %>
+              <% unless @wheather_condition.present? %>
                 天気情報が取得できませんでした
               <% else %>
                 <table>
