@@ -19,28 +19,31 @@ class WeatherForecast
   end
 
   def weather_condition(date)
-    weather_info = api_request
+    # 過去日の場合は天気情報を取得しない
+    if date >= Date.today
+      weather_info = api_request
 
-    weather_condition_list = []
-    weather_info['list'].each do |weather_list|
-      jst_time = (weather_list['dt_txt'] + ' UTC').in_time_zone('Tokyo')
-      forecast_date = jst_time.to_date
+      weather_condition_list = []
+      weather_info['list'].each do |weather_list|
+        jst_time = (weather_list['dt_txt'] + ' UTC').in_time_zone('Tokyo')
+        forecast_date = jst_time.to_date
 
-      next unless date == forecast_date
+        next unless date == forecast_date
 
-      forecast_time = jst_time.strftime('%H:%M')
+        forecast_time = jst_time.strftime('%H:%M')
 
-      next unless TARGET_TIME.include?(forecast_time)
+        next unless TARGET_TIME.include?(forecast_time)
 
-      weather = weather_list['weather']
-      description = weather[0]['description']
+        weather = weather_list['weather']
+        description = weather[0]['description']
 
-      weather_condition = {
-        time: forecast_time,
-        description: description
-      }
+        weather_condition = {
+          time: forecast_time,
+          description: description
+        }
 
-      weather_condition_list << weather_condition
+        weather_condition_list << weather_condition
+      end
     end
 
     weather_condition_list
