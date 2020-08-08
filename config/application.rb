@@ -39,5 +39,7 @@ module GolCommu
 
     config.autoload_paths += %W(#{config.root}/lib)
     config.enable_dependency_loading = true
+
+    config.active_job.queue_adapter = :delayed_job
   end
 end

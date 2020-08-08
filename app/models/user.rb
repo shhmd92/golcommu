@@ -73,10 +73,9 @@ class User < ApplicationRecord
   validates :url_token, presence: true, uniqueness: true
   validates :introduction, length: { maximum: 240 }
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable
+         :recoverable, :rememberable, :validatable,
+         :confirmable, :async
 
   scope :invitable_users, lambda { |event|
     joins('INNER JOIN relationships ON users.id = relationships.followed_id')
