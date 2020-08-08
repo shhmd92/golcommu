@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'ResetPassword', type: :system do
+  # テストの際は非同期をやめる
+  Devise::Async.enabled = false
+
   before do
     ActionMailer::Base.deliveries.clear
   end
