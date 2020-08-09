@@ -294,6 +294,7 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.4)
+    rollbar (2.27.0)
     rspec-core (3.9.2)
       rspec-support (~> 3.9.3)
     rspec-expectations (3.9.2)
@@ -453,6 +454,7 @@ DEPENDENCIES
   rails-controller-testing
   rakuten_web_service
   ransack
+  rollbar
   rspec-rails (~> 4.0.0)
   rspec_junit_formatter
   rubocop
